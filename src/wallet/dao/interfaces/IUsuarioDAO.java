@@ -1,6 +1,7 @@
 package wallet.dao.interfaces;
 
 import wallet.model.entity.Usuario;
+
 /**
  * La interfaz IUsuarioDAO define los métodos necesarios para gestionar
  * los usuarios en la base de datos. Proporciona operaciones para registrar o
@@ -12,8 +13,13 @@ import wallet.model.entity.Usuario;
  */
 
 public interface IUsuarioDAO {
-    boolean verificarUsuario(String email, String contraseña);
 
-    void registrarUsuario(Usuario usuario);
+    boolean crearUsuario(Usuario usuario);
+
+    Usuario buscarUsuario(String email);
+
+    void actualizarUsuario(String email);
+
+    void borrarUsuario(Usuario usuario);
 
 }
