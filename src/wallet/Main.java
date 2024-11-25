@@ -1,7 +1,7 @@
 package wallet;
 
 import wallet.config.DataBaseConfig;
-import wallet.model.dto.LoginController;
+import wallet.controller.LoginController;
 import wallet.model.entity.Usuario;
 import wallet.view.LoginView;
 
