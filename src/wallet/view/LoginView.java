@@ -11,7 +11,13 @@ public class LoginView extends JFrame {
     private JLabel mensajeLabel;
 
     public LoginView() {
-        setTitle("Billetera Virtual - Login");
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        this.setLocation(
+                (screenSize.width - frameSize.width) / 2,
+                (screenSize.height - frameSize.height) / 2);
+        setTitle("ALFA WALLET - Login");
+        setTitle("ALFA WALLET - Login");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 2));
@@ -46,4 +52,5 @@ public class LoginView extends JFrame {
     public void addLoginListener(ActionListener listener) {
         loginButton.addActionListener(listener);
     }
+
 }

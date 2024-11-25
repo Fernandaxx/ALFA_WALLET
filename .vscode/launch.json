@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "frame",
+            "request": "launch",
+            "mainClass": "wallet.frame",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
+            "name": "Motif",
+            "request": "launch",
+            "mainClass": "wallet.Motif",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "BilleteraDesign",
+            "request": "launch",
+            "mainClass": "wallet.BilleteraDesign",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "wallet.Main",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
+            "name": "MyApp",
+            "request": "launch",
+            "mainClass": "wallet.MyApp",
+            "projectName": "ALFA_WALLET_34a61c6"
+        }
+    ]
+}
