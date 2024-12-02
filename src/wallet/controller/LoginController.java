@@ -1,22 +1,26 @@
 package wallet.controller;
 
 import wallet.dao.impl.UsuarioDAO;
-
+import wallet.model.dto.LoginModel;
 import wallet.model.entity.Usuario;
+import wallet.view.LoginView;
 
 public class LoginController {
-    private UsuarioDAO usuarioDAO;
+    private LoginModel model;
+    private LoginView view;
 
     public LoginController() {
-        this.usuarioDAO = new UsuarioDAO();
+
     }
 
-    public boolean registrarUsuario(String email, String password) {
-        Usuario nuevoUsuario = new Usuario(email, password);
-        return usuarioDAO.crearUsuario(nuevoUsuario);
-    }
-
-    public Usuario iniciarSesion(String email, String password) {
-        return usuarioDAO.autenticarUsuario(email, password);
+    public void iniciarLogin() {
+        view = new LoginView();
+        String[] datos = view.getDatos();
+        model = new LoginModel(datos[0], datos[1]);
+        if (model.permitirAcceso()) {
+            view.mostrarMensaje("Acceso permitido");
+        } else {
+            view.mostrarMensaje("Acceso denegado");
+        }
     }
 }

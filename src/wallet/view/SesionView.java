@@ -10,20 +10,20 @@ public class SesionView extends JFrame {
     private JButton buttonIng = new JButton("Ingresar");
     private JTextField result = new JTextField(20);
 
-    public SesionView(){
+    public SesionView() {
         setTitle("ALFA Wallet - Inicio Sesion");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
         setLayout(new BorderLayout());
 
-        add (new JLabel("Iniciar sesion"));
-        add (new JLabel ("email: "));
+        add(new JLabel("Iniciar sesion"));
+        add(new JLabel("email: "));
         add(mail);
-        add (new JLabel ("Contraseña: "));
+        add(new JLabel("Contraseña: "));
         add(contraseña);
         add(buttonIng);
 
-        result.setEditable(false);        
+        result.setEditable(false);
     }
 
     public String getMail() {
@@ -42,5 +42,4 @@ public class SesionView extends JFrame {
         result.setText(mensaje);
     }
 
-    
 }

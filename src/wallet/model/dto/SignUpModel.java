@@ -13,7 +13,6 @@ public class SignUpModel {
     }
 
     public SignUpModel() {
-        usuarioDAO = new UsuarioDAO();
     }
 
     public boolean permitirRegistro() {
