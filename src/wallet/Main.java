@@ -23,8 +23,8 @@ public class Main {
             public void run() {
                 Usuario model = new Usuario();
                 LoginView view = new LoginView();
-                LoginController controller = new LoginController(model, view);
-                controller.iniciarLogin();
+                // LoginController controller = new LoginController(model, view);
+                // controller.iniciarLogin();
 
             }
         });

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainSinVista",
+            "request": "launch",
+            "mainClass": "wallet.MainSinVista",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
             "name": "frame",
             "request": "launch",
             "mainClass": "wallet.frame",

@@ -10,6 +10,22 @@ public class Usuario {
         return email;
     }
 
+    public Usuario(Persona persona, String email, String password, boolean aceptaTerminos) {
+        this.persona = persona;
+        this.email = email;
+        this.password = password;
+        this.aceptaTerminos = aceptaTerminos;
+    }
+
+    public Usuario(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public Usuario() {
+        // TODO Auto-generated constructor stub
+    }
+
     public Persona getPersona() {
         return persona;
     }

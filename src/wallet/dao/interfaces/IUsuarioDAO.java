@@ -20,6 +20,6 @@ public interface IUsuarioDAO {
 
     void actualizarUsuario(String email);
 
-    void borrarUsuario(Usuario usuario);
+    void borrarUsuario(int ID);
 
 }
