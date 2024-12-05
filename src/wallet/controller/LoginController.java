@@ -1,26 +1,31 @@
 package wallet.controller;
 
-import wallet.dao.impl.UsuarioDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import wallet.model.dto.LoginModel;
-import wallet.model.entity.Usuario;
 import wallet.view.LoginView;
 
 public class LoginController {
-    private LoginModel model;
     private LoginView view;
+    private LoginModel model;
 
-    public LoginController() {
+    public LoginController(LoginView view, LoginModel model) {
+        this.view = view;
+        this.model = model;
 
-    }
+        view.addLoginListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String email = view.getEmail();
+                String password = view.getPassword();
 
-    public void iniciarLogin() {
-        view = new LoginView();
-        String[] datos = view.getDatos();
-        model = new LoginModel(datos[0], datos[1]);
-        if (model.permitirAcceso()) {
-            view.mostrarMensaje("Acceso permitido");
-        } else {
-            view.mostrarMensaje("Acceso denegado");
-        }
+                if (model.permitirAcceso(email, password)) {
+                    view.showMessage("Login Exitoso");
+                    // Aquí podrías abrir la siguiente ventana
+                } else {
+                    view.showMessage("Credenciales Inválidas");
+                }
+            }
+        });
     }
 }

@@ -15,6 +15,10 @@ public class SignUpModel {
     public SignUpModel() {
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public boolean permitirRegistro() {
         if (usuarioDAO.buscarUsuario(this.usuario.getEmail()) != null) {
             System.out.println("usuario registrado");
@@ -36,5 +40,4 @@ public class SignUpModel {
             return false;
         }
     }
-
 }

@@ -4,16 +4,13 @@ import wallet.dao.impl.UsuarioDAO;
 import wallet.model.entity.Usuario;
 
 public class LoginModel {
-    private String email;
-    private String password;
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    public LoginModel(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public LoginModel() {
+
     }
 
-    public boolean permitirAcceso() {
+    public boolean permitirAcceso(String email, String password) {
         Usuario usuario = usuarioDAO.buscarUsuario(email);
         if (usuario == null) {
             System.out.println("usuario no registrado 'mensaje para controlador'");

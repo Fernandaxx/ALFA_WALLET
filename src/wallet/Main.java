@@ -1,12 +1,5 @@
 package wallet;
 
-import wallet.controller.LoginController;
-import wallet.model.entity.Usuario;
-import wallet.view.LoginView;
-
-import javax.swing.UIManager;
-import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
-
 import wallet.config.DataBaseConfig;
 
 public class Main {
@@ -14,22 +7,29 @@ public class Main {
     public static void main(String[] args) {
         DataBaseConfig dataBase = new DataBaseConfig();
         dataBase.CreateDatabase();
-        try {
-            UIManager.setLookAndFeel(new FlatDarkPurpleIJTheme());
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Usuario model = new Usuario();
-                LoginView view = new LoginView();
-                // LoginController controller = new LoginController(model, view);
-                // controller.iniciarLogin();
+                new MainFrame().setVisible(true);
 
             }
         });
     }
-
 }
