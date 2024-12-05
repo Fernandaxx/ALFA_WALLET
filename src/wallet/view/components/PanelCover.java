@@ -1,5 +1,6 @@
 package wallet.view.components;
 
+import wallet.view.components.ButtonOutLine;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -58,7 +59,8 @@ public class PanelCover extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -69,7 +71,7 @@ public class PanelCover extends javax.swing.JPanel {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 300, Short.MAX_VALUE));
-    }// </editor-fold>
+    }// </editor-fold>//GEN-END:initComponents
 
     @Override
     protected void paintComponent(Graphics grphcs) {
@@ -116,7 +118,7 @@ public class PanelCover extends javax.swing.JPanel {
         layout.setComponentConstraints(description1, "pad 0 " + v + "% 0 " + v + "%");
     }
 
-    public void login(boolean login) {
+    private void login(boolean login) {
         if (this.isLogin != login) {
             if (login) {
                 title.setText("hello, Friend!");
@@ -133,6 +135,6 @@ public class PanelCover extends javax.swing.JPanel {
         }
     }
 
-    // Variables declaration - do not modify
-    // End of variables declaration
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
 }
