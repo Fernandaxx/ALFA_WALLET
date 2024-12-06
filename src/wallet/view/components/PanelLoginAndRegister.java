@@ -1,7 +1,10 @@
-package wallet.view;
+package wallet.view.components;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+
+import wallet.view.LoginView;
+import wallet.view.SignUpView;
 
 public class PanelLoginAndRegister extends JPanel {
 
@@ -20,9 +23,10 @@ public class PanelLoginAndRegister extends JPanel {
     public void showRegister(boolean show) {
         CardLayout layout = (CardLayout) getLayout();
         if (show) {
-            layout.show(this, "register");
-        } else {
             layout.show(this, "login");
+        } else {
+            layout.show(this, "register");
+
         }
     }
 

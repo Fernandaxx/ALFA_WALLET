@@ -1,9 +1,6 @@
 package wallet;
 
 import wallet.config.DataBaseConfig;
-import wallet.controller.SignUpController;
-import wallet.model.dto.SignUpModel;
-import wallet.view.SignUpView;
 
 public class Main {
     public static void main(String args[]) {

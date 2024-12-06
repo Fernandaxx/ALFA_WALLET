@@ -29,7 +29,7 @@ public class SignUpController {
             String email = view.getEmail();
             String password = view.getPassword();
             if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                // view.showMessage("Please fill in all fields");
+                view.showMessage("Please fill in all fields");
             } else {
                 Persona persona = new Persona(name, "Apellido");
                 Usuario usuario = new Usuario();
@@ -39,9 +39,9 @@ public class SignUpController {
                 usuario.setAceptaTerminos(true);
                 model.setUsuario(usuario);
                 if (model.registrarUsuario()) {
-                    // view.showMessage("Registration successful");
+                    view.showMessage("Registration successful");
                 } else {
-                    // view.showMessage("Registration failed");
+                    view.showMessage("Registration failed");
                 }
             }
         }

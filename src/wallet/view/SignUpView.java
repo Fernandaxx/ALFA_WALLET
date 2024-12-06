@@ -2,51 +2,57 @@ package wallet.view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
 import wallet.view.components.Button;
+import wallet.view.components.MyCheckbox;
 import wallet.view.components.MyPasswordField;
 import wallet.view.components.MyTextField;
 
 public class SignUpView extends JPanel {
 
-    private MyTextField txtUser;
+    private MyTextField txtName;
     private MyTextField txtEmail;
+    private MyTextField txtLastName;
     private MyPasswordField txtPass;
-    private ModelUser user;
     private Button cmd;
+    private MyCheckbox tyc;
 
     public SignUpView() {
-        setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
-        JLabel label = new JLabel("Create Account");
+        setLayout(new MigLayout("wrap", "push[center]push", "push[]30[]10[]10[]10[]10[]25[]push"));
+        JLabel label = new JLabel("CREAR CUENTA");
         label.setFont(new Font("sansserif", 1, 30));
-        label.setForeground(new Color(7, 164, 121));
+        label.setForeground(new Color(158, 5, 158));
         add(label);
 
-        txtUser = new MyTextField();
-        // txtUser.setPrefixIcon(new
-        // ImageIcon(getClass().getResource("/com/raven/icon/user.png")));
-        txtUser.setHint("Name");
-        add(txtUser, "w 60%");
+        txtName = new MyTextField();
+
+        txtName.setHint("Nombre");
+        add(txtName, "w 60%");
+
+        txtLastName = new MyTextField();
+        txtLastName.setHint("Apellido");
+        add(txtLastName, "w 60%");
 
         txtEmail = new MyTextField();
-        // txtEmail.setPrefixIcon(new
-        // ImageIcon(getClass().getResource("/com/raven/icon/mail.png")));
-        txtEmail.setHint("Email");
+
+        txtEmail.setHint("E-mail");
         add(txtEmail, "w 60%");
 
         txtPass = new MyPasswordField();
-        // txtPass.setPrefixIcon(new
-        // ImageIcon(getClass().getResource("/com/raven/icon/pass.png")));
-        txtPass.setHint("Password");
+
+        txtPass.setHint("Contraseña");
         add(txtPass, "w 60%");
 
+        tyc = new MyCheckbox();
+        tyc.setText("Acepto los términos y condiciones");
+        add(tyc, "gapbottom 20, wrap");
+
         cmd = new Button();
-        cmd.setBackground(new Color(7, 164, 121));
+        cmd.setBackground(new Color(158, 5, 158));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN UP");
         add(cmd, "w 40%, h 40");
@@ -58,7 +64,7 @@ public class SignUpView extends JPanel {
     }
 
     public String getUserName() {
-        return txtUser.getText().trim();
+        return txtName.getText().trim();
     }
 
     public String getEmail() {
