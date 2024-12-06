@@ -22,20 +22,27 @@ public class SignUpController {
 
     class SignUpAction implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent ae) {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("?");
             String name = view.getUserName();
+            System.out.println(name);
             String email = view.getEmail();
-            String pass = view.getPassword();
-            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-                view.showMessage("All fields are required");
+            String password = view.getPassword();
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                // view.showMessage("Please fill in all fields");
             } else {
-                Persona persona = new Persona();
-                persona.setNombre(name);
-                persona.setEmail(email);
-                Usuario user = new Usuario();
-                user.setPersona(persona);
-                user.setPassword(pass);
-                model.signUp(user);
+                Persona persona = new Persona(name, "Apellido");
+                Usuario usuario = new Usuario();
+                usuario.setPersona(persona);
+                usuario.setEmail(email);
+                usuario.setPassword(password);
+                usuario.setAceptaTerminos(true);
+                model.setUsuario(usuario);
+                if (model.registrarUsuario()) {
+                    // view.showMessage("Registration successful");
+                } else {
+                    // view.showMessage("Registration failed");
+                }
             }
         }
     }
