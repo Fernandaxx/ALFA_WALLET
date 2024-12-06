@@ -3,23 +3,24 @@ package wallet.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import wallet.view.components.Button;
+import wallet.view.components.Message;
 import wallet.view.components.MyPasswordField;
 import wallet.view.components.MyTextField;
 
 public class LoginView extends JPanel {
-
     private MyTextField txtEmail;
     private MyPasswordField txtPass;
-    private ModelLogin dataLogin;
+    private Button cmd;
+    private JButton cmdForget;
 
-    public LoginView(ActionListener eventLogin) {
+    public LoginView() {
         setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
         JLabel label = new JLabel("Sign In");
         label.setFont(new Font("sansserif", 1, 30));
@@ -38,28 +39,42 @@ public class LoginView extends JPanel {
         txtPass.setHint("Password");
         add(txtPass, "w 60%");
 
-        JButton cmdForget = new JButton("Forgot your password?");
+        cmdForget = new JButton("Forgot your password?");
         cmdForget.setForeground(new Color(100, 100, 100));
         cmdForget.setFont(new Font("sansserif", 1, 12));
         cmdForget.setContentAreaFilled(false);
         cmdForget.setCursor(new Cursor(Cursor.HAND_CURSOR));
         add(cmdForget);
 
-        Button cmd = new Button();
+        cmd = new Button();
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("SIGN IN");
         add(cmd, "w 40%, h 40");
 
-        cmd.addActionListener(eventLogin);
-        cmd.addActionListener(e -> {
-            String email = txtEmail.getText().trim();
-            String password = String.valueOf(txtPass.getPassword());
-            dataLogin = new ModelLogin(email, password);
-        });
     }
 
-    public ModelLogin getDataLogin() {
-        return dataLogin;
+    // Métodos públicos para interactuar con la vista
+    public String getEmail() {
+        return txtEmail.getText().trim();
     }
+
+    public String getPassword() {
+        return new String(txtPass.getPassword()).trim();
+    }
+
+    public Button getCmd() {
+        return cmd;
+    }
+
+    public void showMessage(Message.MessageType type, String message) {
+        JOptionPane.showMessageDialog(this, message, type.name(), type == Message.MessageType.SUCCESS
+                ? JOptionPane.INFORMATION_MESSAGE
+                : JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void dispose() {
+        setVisible(false);
+    }
+
 }

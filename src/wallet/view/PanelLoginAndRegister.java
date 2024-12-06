@@ -1,18 +1,17 @@
 package wallet.view;
 
 import java.awt.CardLayout;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 public class PanelLoginAndRegister extends JPanel {
 
-    private final LoginView loginView;
-    private final SignUpView signUpView;
+    private LoginView loginView;
+    private SignUpView signUpView;
 
-    public PanelLoginAndRegister(ActionListener eventRegister, ActionListener eventLogin) {
+    public PanelLoginAndRegister(LoginView loginView, SignUpView signUpView) {
         setLayout(new CardLayout());
-        loginView = new LoginView(eventLogin);
-        signUpView = new SignUpView(eventRegister);
+        this.loginView = loginView;
+        this.signUpView = signUpView;
         add(loginView, "login");
         add(signUpView, "register");
         showRegister(true);

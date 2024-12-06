@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import wallet.model.dto.SignUpModel;
 import wallet.model.entity.Persona;
 import wallet.model.entity.Usuario;
+import wallet.view.ModelUser;
 import wallet.view.SignUpView;
+import wallet.view.components.Button;
 
 public class SignUpController {
     private SignUpView view;
@@ -14,45 +16,28 @@ public class SignUpController {
     public SignUpController(SignUpView view, SignUpModel model) {
         this.view = view;
         this.model = model;
+        System.out.println("aqui");
+        view.getBoton().addActionListener(new SignUpAction());
+    }
 
-        view.addSignUpListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = view.getName();
-                // String surname = view.getSurname();
-                String email = view.getEmail();
-                String password = view.getPassword();
-                // boolean acceptTerms = view.isAcceptTerms();
-                // || surname.isEmpty()
-                if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    view.showMessage("Todos los campos son obligatorios.");
-                    return;
-                }
-
-                // if (!acceptTerms) {
-                // view.showMessage("Debe aceptar los términos.");
-                // return;
-                // }
-
+    class SignUpAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            String name = view.getUserName();
+            String email = view.getEmail();
+            String pass = view.getPassword();
+            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                view.showMessage("All fields are required");
+            } else {
                 Persona persona = new Persona();
                 persona.setNombre(name);
-                // persona.setApellido(surname);
-
-                Usuario usuario = new Usuario();
-                usuario.setEmail(email);
-                usuario.setPassword(password);
-                // usuario.setAceptaTerminos(acceptTerms);
-                usuario.setPersona(persona);
-
-                model.setUsuario(usuario);
-
-                if (model.registrarUsuario()) {
-                    view.showMessage("Registro exitoso.");
-                    // mainFrame.mostrarLogin();
-                } else {
-                    view.showMessage("Error en el registro.");
-                }
+                persona.setEmail(email);
+                Usuario user = new Usuario();
+                user.setPersona(persona);
+                user.setPassword(pass);
+                model.signUp(user);
             }
-        });
+        }
     }
+
 }

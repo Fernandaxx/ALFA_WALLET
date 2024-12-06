@@ -21,17 +21,18 @@ public class SignUpModel {
 
     public boolean permitirRegistro() {
         if (usuarioDAO.buscarUsuario(this.usuario.getEmail()) != null) {
-            System.out.println("usuario registrado");
+            System.out.println("Usuario ya registrado");
             return false;
         }
         if (!usuario.getAceptaTerminos()) {
-            System.out.println("usuario no acepta terminos");
+            System.out.println("El usuario no acepta los términos");
             return false;
         }
         return true;
     }
 
     public boolean registrarUsuario() {
+        System.out.println("llega");
         if (permitirRegistro()) {
             new PersonaDAO().crearPersona(usuario.getPersona());
             usuarioDAO.crearUsuario(usuario);

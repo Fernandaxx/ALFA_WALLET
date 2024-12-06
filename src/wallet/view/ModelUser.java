@@ -1,7 +1,13 @@
 package wallet.view;
 
 public class ModelUser {
+    @Override
+    public String toString() {
+        return "ModelUser{" + "userID=" + userID + ", userName=" + userName + ", email=" + email + ", password="
+                + password + ", verifyCode=" + verifyCode + '}';
+    }
 
+    // getters and settersng
     public int getUserID() {
         return userID;
     }
