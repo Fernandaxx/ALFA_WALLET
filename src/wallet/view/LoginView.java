@@ -51,5 +51,5 @@ public class LoginView extends JPanel {
     public Button getCmd() {
         return cmd;
     }
-
+    //
 }
