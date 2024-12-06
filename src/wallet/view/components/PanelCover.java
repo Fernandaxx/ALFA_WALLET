@@ -124,7 +124,7 @@ public class PanelCover extends javax.swing.JPanel {
     private void login(boolean login) {
         if (this.isLogin != login) {
             if (login) {
-                title.setText("¡Bienvenido de nuevo!");
+                title.setText("¡Bienvenido!");
                 description.setText("Accede a tu cuenta para gestionar");
                 description1.setText("tus criptomonedas de forma segura");
                 button.setText("INGRESAR");

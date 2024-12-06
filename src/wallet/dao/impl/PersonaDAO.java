@@ -72,7 +72,7 @@ public class PersonaDAO implements IPersonaDAO {
     }
 
     public Persona buscarPersonaPorId(int personaId) {
-        String sql = "SELECT NOMBRE, APELLIDO FROM PERSONA WHERE ID = ?";
+        String sql = "SELECT NOMBRES, APELLIDOS FROM PERSONA WHERE ID = ?";
         try (Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
                 PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setInt(1, personaId);
@@ -85,7 +85,7 @@ public class PersonaDAO implements IPersonaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar persona: " + e.getMessage());
+            System.out.println(": " + e.getMessage());
         }
         return null;
     }

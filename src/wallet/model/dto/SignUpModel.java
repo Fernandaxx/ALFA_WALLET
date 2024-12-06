@@ -19,26 +19,22 @@ public class SignUpModel {
         this.usuario = usuario;
     }
 
-    public boolean permitirRegistro() {
+    public boolean usuarioRegistrado() {
         if (usuarioDAO.buscarUsuario(this.usuario.getEmail()) != null) {
-            System.out.println("Usuario ya registrado");
-            return false;
+            return true;
         }
-        if (!usuario.getAceptaTerminos()) {
-            System.out.println("El usuario no acepta los términos");
-            return false;
-        }
-        return true;
+        return false;
     }
 
     public boolean registrarUsuario() {
-        System.out.println("llega");
-        if (permitirRegistro()) {
+        try {
             new PersonaDAO().crearPersona(usuario.getPersona());
             usuarioDAO.crearUsuario(usuario);
             return true;
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
+
     }
 }

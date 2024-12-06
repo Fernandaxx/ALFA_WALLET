@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import wallet.model.dto.SignUpModel;
 import wallet.model.entity.Persona;
 import wallet.model.entity.Usuario;
-import wallet.view.ModelUser;
 import wallet.view.SignUpView;
-import wallet.view.components.Button;
 
 public class SignUpController {
     private SignUpView view;
@@ -16,32 +14,42 @@ public class SignUpController {
     public SignUpController(SignUpView view, SignUpModel model) {
         this.view = view;
         this.model = model;
-        System.out.println("aqui");
-        view.getBoton().addActionListener(new SignUpAction());
+        view.getButton().addActionListener(new SignUpAction());
     }
 
     class SignUpAction implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("?");
-            String name = view.getUserName();
-            System.out.println(name);
+            String name = view.getNames();
+            String lastName = view.getLastName();
             String email = view.getEmail();
             String password = view.getPassword();
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                view.showMessage("Please fill in all fields");
+            boolean tyc = view.getTermYCond();
+
+            if (!tyc) {
+                view.showMessage("Debe aceptar los términos y condiciones");
+                return;
+            }
+            if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                view.showMessage("Verifique que todos los campos esten llenos");
+                return;
             } else {
-                Persona persona = new Persona(name, "Apellido");
+                Persona persona = new Persona(name, lastName);
                 Usuario usuario = new Usuario();
                 usuario.setPersona(persona);
                 usuario.setEmail(email);
                 usuario.setPassword(password);
-                usuario.setAceptaTerminos(true);
+                usuario.setAceptaTerminos(tyc);
                 model.setUsuario(usuario);
+                if (model.usuarioRegistrado()) {
+                    view.showMessage("Usuario ya registrado");
+                    return;
+                }
                 if (model.registrarUsuario()) {
-                    view.showMessage("Registration successful");
+                    view.showMessage("Registro exitoso");
                 } else {
-                    view.showMessage("Registration failed");
+                    view.showMessage("Error al registrar usuario");
                 }
             }
         }

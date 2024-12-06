@@ -10,17 +10,20 @@ public class LoginModel {
 
     }
 
-    public boolean permitirAcceso(String email, String password) {
+    public boolean usuarioRegistrado(String email) {
         Usuario usuario = usuarioDAO.buscarUsuario(email);
         if (usuario == null) {
-            System.out.println("usuario no registrado 'mensaje para controlador'");
-            return false;
-        }
-        if (!usuario.getPassword().equals(password)) {
-            System.out.println("contraseña incorrecta ' mensaje para controlador'");
             return false;
         }
         return true;
+    }
+
+    public boolean correctPassword(String email, String password) {
+        Usuario usuario = usuarioDAO.buscarUsuario(email);
+        if (usuario.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
     }
 
 }

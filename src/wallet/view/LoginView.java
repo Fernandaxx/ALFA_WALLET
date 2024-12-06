@@ -4,8 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
+
 import net.miginfocom.swing.MigLayout;
 import wallet.view.components.Button;
+import wallet.view.components.Message;
 import wallet.view.components.MyPasswordField;
 import wallet.view.components.MyTextField;
 
@@ -13,21 +19,21 @@ public class LoginView extends JPanel {
     private MyTextField txtEmail;
     private MyPasswordField txtPass;
     private Button cmd;
+    private MigLayout layout;
 
     public LoginView() {
-        setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
+        layout = new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push");
+        setLayout(layout);
         JLabel label = new JLabel("INICIAR SESION");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(158, 5, 158));
         add(label);
 
         txtEmail = new MyTextField();
-
         txtEmail.setHint("E-mail");
         add(txtEmail, "w 60%");
 
         txtPass = new MyPasswordField();
-
         txtPass.setHint("Contraseña");
         add(txtPass, "w 60%");
 
@@ -39,17 +45,70 @@ public class LoginView extends JPanel {
 
     }
 
-    // Métodos públicos para interactuar con la vista
     public String getEmail() {
         return txtEmail.getText().trim();
     }
 
     public String getPassword() {
-        return new String(txtPass.getPassword()).trim();
+        return String.valueOf(txtPass.getPassword());
     }
 
-    public Button getCmd() {
+    public Button getButton() {
         return cmd;
     }
-    //
+
+    public void showMessage(String message) {
+        Message msg = new Message();
+        msg.showMessage(message);
+        TimingTarget target = new TimingTargetAdapter() {
+            @Override
+            public void begin() {
+                if (!msg.isShow()) {
+                    add(msg, "pos 0.5al -30", 0); // Insert to bg fist index 0
+                    setVisible(true);
+                    repaint();
+                }
+            }
+
+            @Override
+            public void timingEvent(float fraction) {
+                float f;
+                if (msg.isShow()) {
+                    f = 40 * (1f - fraction);
+                } else {
+                    f = 40 * fraction;
+                }
+                layout.setComponentConstraints(msg, "pos 0.5al " + (int) (f - 30));
+                repaint();
+                revalidate();
+            }
+
+            @Override
+            public void end() {
+                if (msg.isShow()) {
+                    remove(msg);
+                    repaint();
+                    revalidate();
+                } else {
+                    msg.setShow(true);
+                }
+            }
+        };
+        Animator animator = new Animator(300, target);
+        animator.setResolution(0);
+        animator.setAcceleration(0.5f);
+        animator.setDeceleration(0.5f);
+        animator.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    animator.start();
+                } catch (InterruptedException e) {
+                    System.err.println(e);
+                }
+            }
+        }).start();
+    }
 }

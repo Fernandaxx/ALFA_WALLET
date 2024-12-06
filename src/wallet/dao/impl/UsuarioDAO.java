@@ -55,7 +55,7 @@ public class UsuarioDAO implements IUsuarioDAO {
             }
             c.close();
         } catch (SQLException e) {
-            System.out.println("Error al buscar persona: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
         return null;
     }

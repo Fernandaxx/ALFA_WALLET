@@ -14,7 +14,7 @@ public class LoginController {
         this.view = view;
         this.model = model;
 
-        view.getCmd().addActionListener(new LoginAction());
+        view.getButton().addActionListener(new LoginAction());
 
     }
 
@@ -23,18 +23,23 @@ public class LoginController {
         public void actionPerformed(ActionEvent e) {
             String email = view.getEmail();
             String password = view.getPassword();
-            if (email.isEmpty() || password.isEmpty()) {
-                // Message.show("Please fill in all fields", "Warning",
-                // JOptionPane.WARNING_MESSAGE);
-            } else {
-                if (model.permitirAcceso(email, password)) {
-                    view.dispose();
+            if (!(email.isEmpty() || password.isEmpty())) {
+                if (model.usuarioRegistrado(email)) {
+                    if (model.correctPassword(email, password)) {
+                        view.showMessage("Bienvenido");
+
+                    } else {
+                        view.showMessage("Contraseña incorrecta");
+                        return;
+                    }
                 } else {
-                    // Message.show("Invalid email or password", "Warning",
-                    // JOptionPane.WARNING_MESSAGE);
+                    view.showMessage("Usuario no registrado");
+                    return;
                 }
+            } else {
+                view.showMessage("Verifique que todos los campos esten llenos");
+                return;
             }
         }
     }
-
 }
