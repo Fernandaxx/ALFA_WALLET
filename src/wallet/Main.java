@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import javax.swing.JLayeredPane;
 import net.miginfocom.swing.MigLayout;
 import wallet.config.DataBaseConfig;
 import wallet.view.MainSystem;
@@ -117,33 +116,33 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void register() {
-        ModelUser user = loginAndRegister.getUser();
+        ModelUser user = loginAndRegister.getSignUpView().getUser();
         try {
             if (service.checkDuplicateUser(user.getUserName())) {
-                showMessage(Message.MessageType.ERROR, "User name already exit");
+                showMessage(Message.MessageType.ERROR, "User name already exists");
             } else if (service.checkDuplicateEmail(user.getEmail())) {
-                showMessage(Message.MessageType.ERROR, "Email already exit");
+                showMessage(Message.MessageType.ERROR, "Email already exists");
             } else {
                 service.insertUser(user);
+                showMessage(Message.MessageType.SUCCESS, "User registered successfully");
             }
         } catch (SQLException e) {
-            showMessage(Message.MessageType.ERROR, "Error Register");
+            showMessage(Message.MessageType.ERROR, "Error during registration");
         }
     }
 
     private void login() {
-        ModelLogin data = loginAndRegister.getDataLogin();
+        ModelLogin data = loginAndRegister.getLoginView().getDataLogin();
         try {
             ModelUser user = service.login(data);
             if (user != null) {
                 this.dispose();
                 MainSystem.main(user);
             } else {
-                showMessage(Message.MessageType.ERROR, "Email and Password incorrect");
+                showMessage(Message.MessageType.ERROR, "Email and Password are incorrect");
             }
-
         } catch (SQLException e) {
-            showMessage(Message.MessageType.ERROR, "Error Login");
+            showMessage(Message.MessageType.ERROR, "Error during login");
         }
     }
 
@@ -202,9 +201,6 @@ public class Main extends javax.swing.JFrame {
         }).start();
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         bg = new javax.swing.JLayeredPane();
@@ -235,7 +231,7 @@ public class Main extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

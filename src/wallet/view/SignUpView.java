@@ -3,73 +3,62 @@ package wallet.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import net.miginfocom.swing.MigLayout;
 import wallet.view.components.Button;
 import wallet.view.components.MyPasswordField;
 import wallet.view.components.MyTextField;
 
-public class SignUpView extends javax.swing.JPanel {
-    private javax.swing.JPanel register = new JPanel();
-    private MyTextField txtEmail = new MyTextField();
-    private MyTextField txtUser = new MyTextField();
-    private MyPasswordField txtPass = new MyPasswordField();
-    private Button cmd = new Button();
-    private JLabel messageLabel = new JLabel();
+public class SignUpView extends JPanel {
+
+    private MyTextField txtUser;
+    private MyTextField txtEmail;
+    private MyPasswordField txtPass;
+    private ModelUser user;
 
     public SignUpView(ActionListener eventRegister) {
-        initRegister(eventRegister);
-    }
-
-    private void initRegister(ActionListener eventRegister) {
-        register.setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
+        setLayout(new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push"));
         JLabel label = new JLabel("Create Account");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(7, 164, 121));
-        register.add(label);
+        add(label);
 
+        txtUser = new MyTextField();
         // txtUser.setPrefixIcon(new
         // ImageIcon(getClass().getResource("/com/raven/icon/user.png")));
         txtUser.setHint("Name");
-        register.add(txtUser, "w 60%");
+        add(txtUser, "w 60%");
 
+        txtEmail = new MyTextField();
         // txtEmail.setPrefixIcon(new
         // ImageIcon(getClass().getResource("/com/raven/icon/mail.png")));
         txtEmail.setHint("Email");
-        register.add(txtEmail, "w 60%");
+        add(txtEmail, "w 60%");
 
+        txtPass = new MyPasswordField();
         // txtPass.setPrefixIcon(new
         // ImageIcon(getClass().getResource("/com/raven/icon/pass.png")));
         txtPass.setHint("Password");
-        register.add(txtPass, "w 60%");
+        add(txtPass, "w 60%");
 
+        Button cmd = new Button();
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(new Color(250, 250, 250));
-        cmd.addActionListener(eventRegister);
         cmd.setText("SIGN UP");
-        register.add(cmd, "w 40%, h 40");
+        add(cmd, "w 40%, h 40");
+
+        cmd.addActionListener(eventRegister);
+        cmd.addActionListener(e -> {
+            String userName = txtUser.getText().trim();
+            String email = txtEmail.getText().trim();
+            String password = String.valueOf(txtPass.getPassword());
+            user = new ModelUser(0, userName, email, password);
+        });
     }
 
-    public String getEmail() {
-        return txtEmail.getText().trim();
-    }
-
-    public String getUserName() {
-        return txtUser.getText().trim();
-    }
-
-    public String getPassword() {
-        return String.valueOf(txtPass.getPassword());
-    }
-
-    public void showMessage(String message) {
-        messageLabel.setText(message);
-    }
-
-    public void addSignUpListener(ActionListener listener) {
-        cmd.addActionListener(listener);
+    public ModelUser getUser() {
+        return user;
     }
 }
