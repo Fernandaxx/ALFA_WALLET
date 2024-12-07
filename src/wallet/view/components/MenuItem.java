@@ -1,6 +1,5 @@
 package wallet.view.components;
 
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,11 +10,11 @@ import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
 import wallet.dao.interfaces.EventMenu;
 import wallet.dao.interfaces.EventMenuSelected;
-import wallet.model.dto.ModelMenu;
+import wallet.model.entity.Menu;
 
 public class MenuItem extends javax.swing.JPanel {
 
-    public ModelMenu getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 
@@ -43,13 +42,13 @@ public class MenuItem extends javax.swing.JPanel {
         return index;
     }
 
-     private float alpha;
-    private ModelMenu menu;
+    private float alpha;
+    private Menu menu;
     private boolean open;
     private EventMenuSelected eventSelected;
     private int index;
-    
-      public MenuItem(ModelMenu menu, EventMenu event, EventMenuSelected eventSelected, int index) {
+
+    public MenuItem(Menu menu, EventMenu event, EventMenuSelected eventSelected, int index) {
         initComponents();
         this.menu = menu;
         this.eventSelected = eventSelected;
@@ -64,27 +63,23 @@ public class MenuItem extends javax.swing.JPanel {
             }
         });
         add(firstItem);
-       
+
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 400, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-    }// </editor-fold>                        
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 300, Short.MAX_VALUE));
+    }// </editor-fold>
 
-
-
-    // Variables declaration - do not modify                     
-    // End of variables declaration                   
+    // Variables declaration - do not modify
+    // End of variables declaration
 }

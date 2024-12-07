@@ -1,14 +1,12 @@
-package wallet;
+package wallet.view;
 
 import java.awt.Color;
 
-import wallet.view.ModelUser;
+public class MainSystemborrar extends javax.swing.JFrame {
 
-public class MainSystem extends javax.swing.JFrame {
+    private final ModelUserborrar user;
 
-    private final ModelUser user;
-
-    public MainSystem(ModelUser user) {
+    public MainSystemborrar(ModelUserborrar user) {
         this.user = user;
         initComponents();
         getContentPane().setBackground(new Color(255, 255, 255));
@@ -50,10 +48,10 @@ public class MainSystem extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(ModelUser user) {
+    public static void main(ModelUserborrar user) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainSystem(user).setVisible(true);
+                new MainSystemborrar(user).setVisible(true);
             }
         });
     }

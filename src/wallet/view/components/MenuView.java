@@ -10,9 +10,9 @@ import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
 import wallet.dao.interfaces.EventMenu;
 import wallet.dao.interfaces.EventMenuSelected;
-import wallet.model.dto.ModelMenu;
+import wallet.model.entity.Menu;
 
-public class Menu extends javax.swing.JPanel {
+public class MenuView extends javax.swing.JPanel {
 
     private final MigLayout layout;
     private EventMenuSelected event;
@@ -35,7 +35,7 @@ public class Menu extends javax.swing.JPanel {
         this.showMenu = showMenu;
     }
 
-    public Menu() {
+    public MenuView() {
         initComponents();
         setOpaque(false);
         layout = new MigLayout("wrap, fillx, insets 0", "[fill]", "[]0[]");
@@ -43,15 +43,15 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/1.png")), "DEPOSITAR"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "MIS ACTIVOS"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "COTIZACIONES"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "MIS TRANSACCIONES"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/5.png")), "MIS DATOS"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/6.png")), " "));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/1.png")), "DEPOSITAR"));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "MIS ACTIVOS"));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "COTIZACIONES"));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "MIS TRANSACCIONES"));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/5.png")), "MIS DATOS"));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/6.png")), " "));
     }
 
-    private void addMenu(ModelMenu menu) {
+    private void addMenu(Menu menu) {
         panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
     }
 

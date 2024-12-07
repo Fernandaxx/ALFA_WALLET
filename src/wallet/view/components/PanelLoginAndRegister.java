@@ -3,8 +3,8 @@ package wallet.view.components;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
-import wallet.view.LoginView;
-import wallet.view.SignUpView;
+import wallet.view.vistas.LoginView;
+import wallet.view.vistas.SignUpView;
 
 public class PanelLoginAndRegister extends JPanel {
 

@@ -4,18 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import wallet.Main;
-import wallet.MainFrame;
-import wallet.MainSystem;
 import wallet.model.dto.LoginModel;
-import wallet.view.LoginView;
-import wallet.view.ModelUser;
+import wallet.view.MainSystemborrar;
+import wallet.view.ModelUserborrar;
+import wallet.view.vistas.InicialFrame;
+import wallet.view.vistas.LoginView;
 
 public class LoginController {
     private LoginView view;
     private LoginModel model;
-    private MainFrame mainFrame;
+    private InicialFrame mainFrame;
 
-    public LoginController(LoginView view, LoginModel model, MainFrame mainFrame) {
+    public LoginController(LoginView view, LoginModel model, InicialFrame mainFrame) {
         this.view = view;
         this.model = model;
         this.mainFrame = mainFrame;
@@ -34,7 +34,7 @@ public class LoginController {
                     if (model.correctPassword(email, password)) {
                         view.showMessage("Bienvenido");
                         mainFrame.dispose();
-                        MainSystem.main(new ModelUser(1, "fer", "f@gma", "123"));
+                        MainSystemborrar.main(new ModelUserborrar(1, "fer", "f@gma", "123"));
 
                     } else {
                         view.showMessage("Contraseña incorrecta");

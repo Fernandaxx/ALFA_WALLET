@@ -1,6 +1,6 @@
 package wallet.view;
 
-public class ModelUser {
+public class ModelUserborrar {
     @Override
     public String toString() {
         return "ModelUser{" + "userID=" + userID + ", userName=" + userName + ", email=" + email + ", password="
@@ -48,7 +48,7 @@ public class ModelUser {
         this.verifyCode = verifyCode;
     }
 
-    public ModelUser(int userID, String userName, String email, String password, String verifyCode) {
+    public ModelUserborrar(int userID, String userName, String email, String password, String verifyCode) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
@@ -56,14 +56,14 @@ public class ModelUser {
         this.verifyCode = verifyCode;
     }
 
-    public ModelUser(int userID, String userName, String email, String password) {
+    public ModelUserborrar(int userID, String userName, String email, String password) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
         this.password = password;
     }
 
-    public ModelUser() {
+    public ModelUserborrar() {
     }
 
     private int userID;
