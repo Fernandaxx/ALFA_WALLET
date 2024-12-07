@@ -42,7 +42,6 @@ public class LoginView extends JPanel {
         cmd.setForeground(new Color(250, 250, 250));
         cmd.setText("LOGIN");
         add(cmd, "w 40%, h 40");
-
     }
 
     public String getEmail() {

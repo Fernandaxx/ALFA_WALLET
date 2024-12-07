@@ -36,14 +36,19 @@ public class MainFrame extends javax.swing.JFrame {
         init();
     }
 
+    public void close() {
+        this.dispose();
+    }
+
     private void init() {
 
         layout = new MigLayout("fill, insets 0");
         cover = new PanelCover();
+        this.dispose();
 
         LoginView loginView = new LoginView();
         LoginModel loginModel = new LoginModel();
-        LoginController loginController = new LoginController(loginView, loginModel);
+        LoginController loginController = new LoginController(loginView, loginModel, this);
 
         SignUpView signUpView = new SignUpView();
         SignUpModel signUpModel = new SignUpModel();
@@ -94,6 +99,7 @@ public class MainFrame extends javax.swing.JFrame {
             public void end() {
                 isLogin = !isLogin;
             }
+
         };
         Animator animator = new Animator(800, target);
         animator.setAcceleration(0.5f);
