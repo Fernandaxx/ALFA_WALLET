@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import wallet.model.dto.SignUpModel;
 import wallet.model.entity.Persona;
 import wallet.model.entity.Usuario;
-import wallet.view.SignUpView;
+import wallet.view.vistas.SignUpView;
 
 public class SignUpController {
     private SignUpView view;

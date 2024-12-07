@@ -1,9 +1,7 @@
-package wallet.view;
+package wallet.view.vistas;
 
-import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,35 +12,22 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 import net.miginfocom.swing.MigLayout;
 import wallet.view.components.Button;
 import wallet.view.components.Message;
-import wallet.view.components.MyCheckbox;
 import wallet.view.components.MyPasswordField;
 import wallet.view.components.MyTextField;
 
-public class SignUpView extends JPanel {
-
-    private MyTextField txtName;
+public class LoginView extends JPanel {
     private MyTextField txtEmail;
-    private MyTextField txtLastName;
     private MyPasswordField txtPass;
     private Button cmd;
     private MigLayout layout;
-    private MyCheckbox tyc;
 
-    public SignUpView() {
-        layout = new MigLayout("wrap", "push[center]push", "push[]30[]10[]10[]10[]10[]25[]push");
+    public LoginView() {
+        layout = new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push");
         setLayout(layout);
-        JLabel label = new JLabel("CREAR CUENTA");
+        JLabel label = new JLabel("INICIAR SESION");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(158, 5, 158));
         add(label);
-
-        txtName = new MyTextField();
-        txtName.setHint("Nombre");
-        add(txtName, "w 60%");
-
-        txtLastName = new MyTextField();
-        txtLastName.setHint("Apellido");
-        add(txtLastName, "w 60%");
 
         txtEmail = new MyTextField();
         txtEmail.setHint("E-mail");
@@ -52,28 +37,11 @@ public class SignUpView extends JPanel {
         txtPass.setHint("Contraseña");
         add(txtPass, "w 60%");
 
-        tyc = new MyCheckbox();
-        tyc.setText("Acepto los términos y condiciones");
-        add(tyc, "gapbottom 20, wrap");
-
         cmd = new Button();
         cmd.setBackground(new Color(158, 5, 158));
         cmd.setForeground(new Color(250, 250, 250));
-        cmd.setText("SIGN UP");
+        cmd.setText("LOGIN");
         add(cmd, "w 40%, h 40");
-
-    }
-
-    public Button getButton() {
-        return cmd;
-    }
-
-    public String getNames() {
-        return txtName.getText().trim();
-    }
-
-    public String getLastName() {
-        return txtLastName.getText().trim();
     }
 
     public String getEmail() {
@@ -84,8 +52,8 @@ public class SignUpView extends JPanel {
         return String.valueOf(txtPass.getPassword());
     }
 
-    public boolean getTermYCond() {
-        return tyc.isSelected();
+    public Button getButton() {
+        return cmd;
     }
 
     public void showMessage(String message) {
@@ -142,5 +110,4 @@ public class SignUpView extends JPanel {
             }
         }).start();
     }
-
 }

@@ -1,24 +1,22 @@
 
-package wallet.view;
+package wallet.view.vistas;
 
-import java.awt.Component;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.view.components.Header;
 import wallet.view.components.MainForm;
-import wallet.view.components.Menu;
-import wallet.view.components.MenuItem;
+import wallet.view.components.MenuView;
 
-public class MainApp extends javax.swing.JFrame {
+public class CentralFrame extends javax.swing.JFrame {
 
     private MigLayout layout;
-    private Menu menu;
+    private MenuView menu;
     private Header header;
     private MainForm main;
     private Animator animator;
 
-    public MainApp() {
+    public CentralFrame() {
         initComponents();
         init();
     }
@@ -26,7 +24,7 @@ public class MainApp extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
-        menu = new Menu();
+        menu = new MenuView();
         header = new Header();
         main = new MainForm();
 
@@ -86,7 +84,7 @@ public class MainApp extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainApp().setVisible(true);
+                new CentralFrame().setVisible(true);
             }
         });
     }

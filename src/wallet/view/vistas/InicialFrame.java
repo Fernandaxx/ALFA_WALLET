@@ -1,4 +1,4 @@
-package wallet;
+package wallet.view.vistas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,6 @@ import wallet.controller.LoginController;
 import wallet.controller.SignUpController;
 import wallet.model.dto.LoginModel;
 import wallet.model.dto.SignUpModel;
-import wallet.view.LoginView;
-import wallet.view.SignUpView;
 import wallet.view.components.PanelCover;
 import wallet.view.components.PanelLoginAndRegister;
 
@@ -20,7 +18,7 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
-public class MainFrame extends javax.swing.JFrame {
+public class InicialFrame extends javax.swing.JFrame {
     private final DecimalFormat df = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout layout;
     private PanelCover cover;
@@ -31,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final double loginSize = 60;
     private javax.swing.JLayeredPane bg;
 
-    public MainFrame() {
+    public InicialFrame() {
         initComponents();
         init();
     }

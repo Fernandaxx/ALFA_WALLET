@@ -1,8 +1,8 @@
-package wallet.model.dto;
+package wallet.model.entity;
 
 import javax.swing.Icon;
 
-public class ModelMenu {
+public class Menu {
 
     public Icon getIcon() {
         return icon;
@@ -20,13 +20,12 @@ public class ModelMenu {
         this.menuName = menuName;
     }
 
-
-    public ModelMenu(Icon icon, String menuName) {
+    public Menu(Icon icon, String menuName) {
         this.icon = icon;
         this.menuName = menuName;
     }
 
-    public ModelMenu() {
+    public Menu() {
     }
 
     private Icon icon;
