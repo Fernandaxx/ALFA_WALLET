@@ -2,6 +2,7 @@ package wallet.dao.interfaces;
 
 import java.sql.Connection;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import wallet.model.entity.Transaccion;
 
@@ -30,4 +31,6 @@ public interface ITransaccionDAO {
      * @param fecha La fecha de la transacción que se desea eliminar.
      */
     void borrarTransaccion(LocalDateTime fecha);
+
+    public List<Transaccion> listarTransacciones(int idCuenta);
 }
