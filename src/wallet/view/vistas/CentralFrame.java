@@ -2,12 +2,9 @@
 package wallet.view.vistas;
 
 import net.miginfocom.swing.MigLayout;
-import org.jdesktop.animation.timing.Animator;
-
 import wallet.controller.CotizacionesController;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.dto.CotizacionesModel;
-import wallet.model.entity.Compra;
 import wallet.view.components.Header;
 import wallet.view.components.InicioView;
 import wallet.view.components.MainForm;
@@ -20,16 +17,16 @@ public class CentralFrame extends javax.swing.JFrame {
     private Header header;
     private MainForm main;
 
-    public CentralFrame() {
+    public CentralFrame(String user) {
         initComponents();
-        init();
+        init(user);
     }
 
-    private void init() {
+    private void init(String user) {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new MenuView(this);
-        header = new Header();
+        header = new Header(user);
         main = new MainForm();
 
         menu.addEvent(new EventMenuSelected() {
@@ -121,11 +118,11 @@ public class CentralFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
+    public static void main(String user) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CentralFrame().setVisible(true);
+                new CentralFrame(user).setVisible(true);
             }
         });
     }

@@ -3,10 +3,9 @@ package wallet.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import wallet.Main;
 import wallet.model.dto.LoginModel;
-import wallet.view.MainSystemborrar;
-import wallet.view.ModelUserborrar;
+import wallet.model.entity.Usuario;
+import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.InicialFrame;
 import wallet.view.vistas.LoginView;
 
@@ -30,11 +29,12 @@ public class LoginController {
             String email = view.getEmail();
             String password = view.getPassword();
             if (!(email.isEmpty() || password.isEmpty())) {
-                if (model.usuarioRegistrado(email)) {
+                Usuario usuario = model.usuarioRegistrado(email);
+                if (usuario != null) {
                     if (model.correctPassword(email, password)) {
                         view.showMessage("Bienvenido");
                         mainFrame.dispose();
-                        MainSystemborrar.main(new ModelUserborrar(1, "fer", "f@gma", "123"));
+                        CentralFrame.main(usuario.getPersona().getNombre());
 
                     } else {
                         view.showMessage("Contraseña incorrecta");

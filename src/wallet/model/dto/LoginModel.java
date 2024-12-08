@@ -10,12 +10,9 @@ public class LoginModel {
 
     }
 
-    public boolean usuarioRegistrado(String email) {
+    public Usuario usuarioRegistrado(String email) {
         Usuario usuario = usuarioDAO.buscarUsuario(email);
-        if (usuario == null) {
-            return false;
-        }
-        return true;
+        return usuario;
     }
 
     public boolean correctPassword(String email, String password) {

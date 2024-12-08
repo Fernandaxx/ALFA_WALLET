@@ -36,7 +36,6 @@ public class DataBaseConfig {
                 + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
                 + " ID_USUARIO INTEGER    NOT NULL, "
                 + " BALANCE  REAL    NULL, "
-                + " NOMBRE   VARCHAR(50)   NOT NULL, "
                 + " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID)"
                 + ")";
         stmt.executeUpdate(sql);
