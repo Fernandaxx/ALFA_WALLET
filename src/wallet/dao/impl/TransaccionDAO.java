@@ -2,9 +2,10 @@ package wallet.dao.impl;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-
 import wallet.dao.interfaces.ITransaccionDAO;
 import wallet.model.entity.Transaccion;
+import wallet.model.entity.Compra;
+import java.util.*;
 
 /**
  * La clase TransaccionDAO proporciona métodos para registrar y borrar
@@ -68,4 +69,27 @@ public class TransaccionDAO implements ITransaccionDAO {
         }
         System.out.println("Operation done successfully");
     }
+
+    public List<Transaccion> listarTransacciones(int idCuenta){
+        List<Transaccion> lista = new LinkedList<>();
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c.createStatement();
+            String sql = "SELECT * FROM TRANSACCION WHERE ID_CUENTA = ? ";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setInt(1, idCuenta);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                lista.add( new Compra(rs.getTimestamp("fecha").toLocalDateTime() , rs.getString("RESUMEN")));
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        return lista;
+    }
+
 }

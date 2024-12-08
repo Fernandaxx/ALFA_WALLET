@@ -35,6 +35,10 @@ public class Compra extends Transaccion {
         this.cantidad = cantidad;
     }
 
+    public Compra(LocalDateTime fecha, String resumen){
+        super(fecha, resumen);
+        
+    }
     /**
      * Constructor que inicializa una transacción de compra con todos los atributos,
      * incluyendo la cantidad de moneda fiat gastada y un resumen de la transacción.
