@@ -23,7 +23,7 @@ public interface ITransaccionDAO {
      * @param c           La conexión a la base de datos.
      * @param transaccion La transacción que se desea registrar.
      */
-    void registrarTransaccion(Connection c, Transaccion transaccion);
+    void registrarTransaccion(Connection c, Transaccion transaccion,int idCuenta);
 
     /**
      * Elimina una transacción de la base de datos en función de su fecha.

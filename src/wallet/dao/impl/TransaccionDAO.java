@@ -25,13 +25,14 @@ public class TransaccionDAO implements ITransaccionDAO {
      * @param c           La conexión a la base de datos.
      * @param transaccion La transacción a registrar.
      */
-    public void registrarTransaccion(Connection c, Transaccion transaccion) {
+    public void registrarTransaccion(Connection c, Transaccion transaccion, int idCuenta) {
         try {
-            String sql = "INSERT INTO TRANSACCION (RESUMEN, FECHA_HORA) VALUES (?, ?)";
+            String sql = "INSERT INTO TRANSACCION (RESUMEN, FECHA_HORA,ID_CUENTA) VALUES (?, ?, ?)";
 
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
                 pstmt.setString(1, transaccion.getResumen());
                 pstmt.setTimestamp(2, Timestamp.valueOf(transaccion.getFecha()));
+                pstmt.setInt(3,idCuenta);
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class TransaccionDAO implements ITransaccionDAO {
     public void borrarTransaccion(LocalDateTime fecha) {
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             System.out.println("Opened database successfully");
 
             String sql = "DELETE FROM TRANSACCION WHERE FECHA_HORA = ?";
@@ -75,14 +76,14 @@ public class TransaccionDAO implements ITransaccionDAO {
         Connection c = null;
         Statement stmt = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             c.createStatement();
             String sql = "SELECT * FROM TRANSACCION WHERE ID_CUENTA = ? ";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, idCuenta);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
-                lista.add( new Compra(rs.getTimestamp("fecha").toLocalDateTime() , rs.getString("RESUMEN")));
+                lista.add( new Compra(rs.getTimestamp("FECHA_HORA").toLocalDateTime() , rs.getString("RESUMEN")));
             }
 
         } catch (Exception e) {
