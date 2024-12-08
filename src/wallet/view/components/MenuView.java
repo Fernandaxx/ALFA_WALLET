@@ -11,12 +11,13 @@ import net.miginfocom.swing.MigLayout;
 import wallet.dao.interfaces.EventMenu;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.entity.Menu;
+import wallet.view.vistas.CentralFrame;
 
 public class MenuView extends javax.swing.JPanel {
 
     private final MigLayout layout;
     private EventMenuSelected event;
-    private boolean enableMenu = true;
+    private CentralFrame centralFrame;
     private boolean showMenu = true;
 
     public boolean isShowMenu() {
@@ -27,15 +28,12 @@ public class MenuView extends javax.swing.JPanel {
         this.event = event;
     }
 
-    public void setEnableMenu(boolean enableMenu) {
-        this.enableMenu = enableMenu;
-    }
-
     public void setShowMenu(boolean showMenu) {
         this.showMenu = showMenu;
     }
 
-    public MenuView() {
+    public MenuView(CentralFrame centralFrame) {
+        this.centralFrame = centralFrame;
         initComponents();
         setOpaque(false);
         layout = new MigLayout("wrap, fillx, insets 0", "[fill]", "[]0[]");
@@ -48,32 +46,11 @@ public class MenuView extends javax.swing.JPanel {
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "COTIZACIONES"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "MIS TRANSACCIONES"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/5.png")), "MIS DATOS"));
-        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/6.png")), " "));
+        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/6.png")), "LOGOUT"));
     }
 
     private void addMenu(Menu menu) {
-        panel.add(new MenuItem(menu, getEventMenu(), event, panel.getComponentCount()), "h 40!");
-    }
-
-    private EventMenu getEventMenu() {
-        return new EventMenu() {
-            @Override
-            public boolean menuPressed(Component com, boolean open) {
-                if (enableMenu) {
-                    if (isShowMenu()) {
-                        if (open) {
-                            new MenuAnimation(layout, com).openMenu();
-                        } else {
-                            new MenuAnimation(layout, com).closeMenu();
-                        }
-                        return true;
-                    } else {
-                        System.out.print("show menu pop out");
-                    }
-                }
-                return false;
-            }
-        };
+        panel.add(new MenuItem(menu, event, panel.getComponentCount(), centralFrame), "h 40!");
     }
 
     @SuppressWarnings("unchecked")

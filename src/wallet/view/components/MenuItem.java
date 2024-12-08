@@ -1,18 +1,14 @@
 package wallet.view.components;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import net.miginfocom.swing.MigLayout;
-import wallet.dao.interfaces.EventMenu;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.entity.Menu;
+import wallet.view.vistas.CentralFrame;
 
 public class MenuItem extends javax.swing.JPanel {
+    private CentralFrame centralFrame;
 
     public Menu getMenu() {
         return menu;
@@ -38,28 +34,24 @@ public class MenuItem extends javax.swing.JPanel {
         this.eventSelected = eventSelected;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     private float alpha;
     private Menu menu;
     private boolean open;
     private EventMenuSelected eventSelected;
-    private int index;
 
-    public MenuItem(Menu menu, EventMenu event, EventMenuSelected eventSelected, int index) {
+    public MenuItem(Menu menu, EventMenuSelected eventSelected, int index, CentralFrame centralFrame) {
         initComponents();
         this.menu = menu;
         this.eventSelected = eventSelected;
-        this.index = index;
+        this.centralFrame = centralFrame;
         setOpaque(false);
         setLayout(new MigLayout("wrap, fillx, insets 0", "[fill]", "[fill, 40!]0[fill, 35!]"));
         MenuButton firstItem = new MenuButton(menu.getIcon(), "      " + menu.getMenuName());
         firstItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.print("aqio");
+                System.out.println(menu.getMenuName());
+                centralFrame.cambiarVista(menu.getMenuName());
             }
         });
         add(firstItem);

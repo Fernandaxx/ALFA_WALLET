@@ -5,6 +5,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.view.components.Header;
+import wallet.view.components.InicioView;
 import wallet.view.components.MainForm;
 import wallet.view.components.MenuView;
 
@@ -14,7 +15,6 @@ public class CentralFrame extends javax.swing.JFrame {
     private MenuView menu;
     private Header header;
     private MainForm main;
-    private Animator animator;
 
     public CentralFrame() {
         initComponents();
@@ -24,7 +24,7 @@ public class CentralFrame extends javax.swing.JFrame {
     private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
-        menu = new MenuView();
+        menu = new MenuView(this);
         header = new Header();
         main = new MainForm();
 
@@ -32,7 +32,9 @@ public class CentralFrame extends javax.swing.JFrame {
             @Override
             public void menuSelected(int menuIndex) {
                 System.out.println("Menu Index : " + menuIndex);
-
+                if (menuIndex == 1) {
+                    main.showForm(new CotizacionesView());
+                }
             }
 
         });
@@ -40,7 +42,34 @@ public class CentralFrame extends javax.swing.JFrame {
         bg.add(menu, "w 230!, spany 2"); // Span Y 2cell
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
+        // header boton no va
+        // empieza con esta vista
+        main.showForm(new InicioView());
+    }
 
+    public void cambiarVista(String vista) {
+        switch (vista) {
+            case "COTIZACIONES":
+                main.showForm(new CotizacionesView());
+                break;
+            case "MIS ACTIVOS":
+                main.showForm(new MisActivosView());
+                break;
+            case "MIS TRANSACCIONES":
+                main.showForm(new MisTransaccionesView());
+                break;
+            case "MIS DATOS":
+                main.showForm(new MisDatosView());
+                break;
+            case "LOGOUT":
+                main.showForm(new LogoutView());
+                break;
+            case "DEPOSITAR":
+                main.showForm(new DepositarView());
+                break;
+            default:
+                break;
+        }
     }
 
     @SuppressWarnings("unchecked")
