@@ -3,54 +3,44 @@ package wallet.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import wallet.Main; //??
 import wallet.model.dto.CotizacionesModel;
-import wallet.view.ModelCotizacion;
-import wallet.view.CotizacionView;
-
-import wallet.view.MainApp; 
+import wallet.view.vistas.CentralFrame;
+import wallet.view.vistas.CotizacionesView;
 
 public class CotizacionesController {
     private CotizacionesView view;
-    private ModelCotizaciones model;
-    private MainApp main;
+    private CotizacionesModel model;
+    private CentralFrame centralFrame;
 
-
-    public CotizacionesController(CotizacionesView view, ModelCotizaciones model, Main main){
+    public CotizacionesController(CotizacionesView view, CotizacionesModel model, CentralFrame centralFrame) {
         this.view = view;
         this.model = model;
-        this.main = main;  
-       
-        view.getButton().addActionListener(new BackAction());
+        this.centralFrame = centralFrame;
 
-        view.getButtonBitcoin().addActionListener(new ComprarAction(BTC));
-        view.getButtonEthereum().addActionListener(new ComprarAction(ETH));
-        view.getButtonUsdc().addActionListener(new ComprarAction(USDC)); 
-        view.getButtonUsdt().addActionListener(new ComprarAction(USDT));
-        view.getButtonDogecoin().addActionListener(new ComprarAction(DOGE));
+        view.getBtcButton().addActionListener(new comprarAction("BTC"));
+        view.getEthButton().addActionListener(new comprarAction("ETH"));
+        view.getDogeButton().addActionListener(new comprarAction("DOGE"));
+        view.getPepeButton().addActionListener(new comprarAction("PEPE"));
+        view.getSolButton().addActionListener(new comprarAction("SOL"));
+        view.getUsdcButton().addActionListener(new comprarAction("USDC"));
+        view.getUsdtButton().addActionListener(new comprarAction("USDT"));
+
     }
 
-    class ComprarAction implements ActionListener {
+    class comprarAction implements ActionListener {
         private String nomenclatura;
 
-        public ComprarAction(String nomenclatura){
+        public comprarAction(String nomenclatura) {
             this.nomenclatura = nomenclatura;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Mostrar la vista de compra con los datos de la criptomoneda seleccionada
-            CompraView compraView = new CompraView(nomenclatura);
-            view.setVisible(false);
-            CompraView.setVisible(true);
-        }
-    }
+            System.out.println("Comprar " + nomenclatura);
+            // agregar que el modelo verifique si la nomenclatura ya esta en la BD
+            centralFrame.vistaCompra(nomenclatura);
 
-    class BackAction implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            view.setVisible(false);
-            main.setVisible(true);
         }
-    } 
+
+    }
 }

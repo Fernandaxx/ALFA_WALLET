@@ -3,7 +3,11 @@ package wallet.view.vistas;
 
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
+
+import wallet.controller.CotizacionesController;
 import wallet.dao.interfaces.EventMenuSelected;
+import wallet.model.dto.CotizacionesModel;
+import wallet.model.entity.Compra;
 import wallet.view.components.Header;
 import wallet.view.components.InicioView;
 import wallet.view.components.MainForm;
@@ -50,7 +54,11 @@ public class CentralFrame extends javax.swing.JFrame {
     public void cambiarVista(String vista) {
         switch (vista) {
             case "COTIZACIONES":
-                main.showForm(new CotizacionesView());
+                CotizacionesView cotizacionesView = new CotizacionesView();
+                main.showForm(cotizacionesView);
+                CotizacionesModel cotizacionesModel = new CotizacionesModel();
+                CotizacionesController cotizacionesController = new CotizacionesController(cotizacionesView,
+                        cotizacionesModel, this);
                 break;
             case "MIS ACTIVOS":
                 main.showForm(new MisActivosView());
@@ -70,6 +78,10 @@ public class CentralFrame extends javax.swing.JFrame {
             default:
                 break;
         }
+    }
+
+    public void vistaCompra(String nomenclatura) {
+        main.showForm(new CompraView(nomenclatura));
     }
 
     @SuppressWarnings("unchecked")
