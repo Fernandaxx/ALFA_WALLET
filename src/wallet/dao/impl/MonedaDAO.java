@@ -51,6 +51,34 @@ public class MonedaDAO implements IMonedaDAO {
         return exito;
     }
 
+    public Moneda obtenerMoneda(int id) {
+        Moneda moneda = null;
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "SELECT * FROM MONEDA WHERE ID = ?";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("TIPO").charAt(0) == 'C') {
+                    moneda = new Criptomoneda(rs.getString("TIPO").charAt(0), rs.getString("NOMBRE"),
+                            rs.getString("NOMENCLATURA"), rs.getDouble("VALOR_DOLAR"), rs.getDouble("VOLATILIDAD"),
+                            rs.getDouble("STOCK"), rs.getString("NOMBRE_ICONO"));
+                } else {
+                    moneda = new Fiat(rs.getString("TIPO").charAt(0), rs.getString("NOMBRE"),
+                            rs.getString("NOMENCLATURA"), rs.getDouble("VALOR_DOLAR"), rs.getString("NOMBRE_ICONO"));
+                }
+            }
+            rs.close();
+            pstmt.close();
+            c.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        return moneda;
+    }
+
     public String obtenerNomenclatura(int id) {
         String nomenclatura = "";
         try {

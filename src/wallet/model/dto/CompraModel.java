@@ -18,14 +18,15 @@ public class CompraModel {
     public CompraModel() {
     }
 
-    public int generarCompra(String nomenclaturaCripto,String nomenclaturaFiat,double cantidad ){
+    public int generarCompra(String nomenclaturaCripto, String nomenclaturaFiat, double cantidad) {
         int error = 1;
-        /*Criptomoneda cripto = new Criptomoneda(nomenclaturaCripto);
-        Fiat fiat = new Fiat(nomenclaturaFiat);
-        int error = gestorCompra.simularCompra(cripto, fiat, cantidad);
-        */
-        if (error == 0){
-            //comprar
+        /*
+         * Criptomoneda cripto = new Criptomoneda(nomenclaturaCripto);
+         * Fiat fiat = new Fiat(nomenclaturaFiat);
+         * int error = gestorCompra.simularCompra(cripto, fiat, cantidad);
+         */
+        if (error == 0) {
+            // comprar
         }
         return error;
     }

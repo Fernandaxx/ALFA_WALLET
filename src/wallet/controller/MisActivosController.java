@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import wallet.model.dto.MisActivosModel;
+import wallet.view.components.ModeloTabla;
 import wallet.view.vistas.MisActivosView;
 
 public class MisActivosController {
@@ -26,7 +27,11 @@ public class MisActivosController {
     }
 
     private void setTabla() {
-        view.cargarActivos(model.obtenerDatos(this.idUsuario));
+        ModeloTabla tabla = model.obtenerDatos(this.idUsuario);
+        if (tabla != null) {
+
+            view.cargarActivos(tabla);
+        }
     }
 
     class generarAction implements ActionListener {
@@ -40,14 +45,14 @@ public class MisActivosController {
         public void actionPerformed(ActionEvent e) {
             model.generarDatos(this.idUsuario);
             setTabla();
-            System.out.println("Generar");
+            view.setBalanceLabel(String.valueOf(model.getBalance(idUsuario)));
         }
     }
 
     class exportarCSVAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Exportar");
+            model.exportar(idUsuario);
         }
     }
 }

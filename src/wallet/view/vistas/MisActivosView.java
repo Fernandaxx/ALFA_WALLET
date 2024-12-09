@@ -57,7 +57,6 @@ public class MisActivosView extends javax.swing.JPanel {
 
                 jTable1.setAutoCreateRowSorter(true);
                 jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                ////////
 
                 jTable1.setRowHeight(40);
                 jTable1.setCellSelectionEnabled(true);

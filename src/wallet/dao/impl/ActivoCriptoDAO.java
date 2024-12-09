@@ -6,6 +6,7 @@ import java.util.List;
 
 import wallet.dao.interfaces.IActivoCriptoDAO;
 import wallet.model.entity.ActivoCripto;
+import wallet.model.entity.Criptomoneda;
 
 /**
  * Clase para gestionar la persistencia de activos criptomonedas en la base de
@@ -15,6 +16,7 @@ import wallet.model.entity.ActivoCripto;
  * cripto.
  */
 public class ActivoCriptoDAO implements IActivoCriptoDAO {
+    private MonedaDAO monedaDAO = new MonedaDAO();
 
     /**
      * Genera un nuevo activo cripto o actualiza uno existente en la base de
@@ -85,9 +87,9 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
+                Criptomoneda cripto = (Criptomoneda) monedaDAO.obtenerMoneda(rs.getInt("ID_MONEDA"));
 
-                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), nomenclatura);
+                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), cripto);
                 activos.add(activo);
             }
             rs.close();

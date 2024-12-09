@@ -22,7 +22,6 @@ public class CompraController {
         configurarVista(nomCripto);
         view.getComprarButton().addActionListener(new comprarAction(nomCripto,
                 view.getComboBox().getSelectedItem().toString(), Double.parseDouble(view.getGastar().getText())));
-        
 
     }
 
