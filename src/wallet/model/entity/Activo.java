@@ -14,7 +14,7 @@ public abstract class Activo {
      * @param cantidad La cantidad del activo.
      */
     public Activo(double cantidad) {
-        // Inicialización de la cantidad
+        this.cantidad = cantidad;
     }
 
     /**

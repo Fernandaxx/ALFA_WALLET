@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import wallet.ExportarCSV;
 import wallet.dao.impl.ActivoCriptoDAO;
 import wallet.dao.impl.ActivoFiatDAO;
 import wallet.dao.impl.MonedaDAO;
@@ -45,35 +46,54 @@ public class MisActivosModel {
     public ModeloTabla obtenerDatos(int idUsuario) {
         List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
         List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
+        System.out.println(activosCripto);
 
-        int totalSize = activosCripto.size() + activosFiat.size();
-        Object[][] datos = new Object[totalSize][3];
+        if (!(activosCripto.isEmpty() && activosFiat.isEmpty())) {
+            int totalSize = activosCripto.size() + activosFiat.size();
+            Object[][] datos = new Object[totalSize][3];
+            int index = 0;
 
-        int index = 0;
-        for (ActivoCripto actC : activosCripto) {
-            datos[index][0] = new ImageIcon(getClass().getResource(actC.getCripto().getIconRuta()));
-            datos[index][1] = actC.getCripto().getNombre();
-            datos[index][2] = actC.getCantidad();
-            index++;
+            for (ActivoCripto actC : activosCripto) {
+                datos[index][0] = new ImageIcon(
+                        getClass().getResource(monedaDAO.obtenerNombre(actC.getCripto().getNomenclatura())));
+                datos[index][1] = actC.getCripto().getNombre();
+                datos[index][2] = actC.getCantidad();
+                index++;
+            }
+
+            for (ActivoFiat actF : activosFiat) {
+                datos[index][0] = new ImageIcon(
+                        getClass().getResource(monedaDAO.obtenerNombre(actF.getFiat().getNomenclatura())));
+                datos[index][1] = actF.getFiat().getNombre();
+                datos[index][2] = actF.getCantidad();
+                index++;
+            }
+
+            ModeloTabla modelo = new ModeloTabla(datos, columnas);
+            return modelo;
         }
-
-        for (ActivoFiat actF : activosFiat) {
-            datos[index][0] = new ImageIcon(getClass().getResource(actF.getFiat().getIconRuta()));
-            datos[index][1] = actF.getFiat().getNombre();
-            datos[index][2] = actF.getCantidad();
-            index++;
-        }
-
-        ModeloTabla modelo = new ModeloTabla(datos, columnas);
-
-        return modelo;
+        return null;
     }
 
     public void generarDatos(int idUsuario) {
         int[] idMonedas = { monedaDAO.obtenerIdMoneda("BTC"), monedaDAO.obtenerIdMoneda("ETH"),
                 monedaDAO.obtenerIdMoneda("ARS"), monedaDAO.obtenerIdMoneda("USD") };
-        activoCriptoDAO.generarActivoCripto(new ActivoCripto(1, new Criptomoneda("BTC")), idUsuario, idMonedas[0]);
-        activoCriptoDAO.generarActivoCripto(new ActivoCripto(5, new Criptomoneda("ETH")), idUsuario, idMonedas[1]);
-        activoFiatDAO.generarActivoFiat(new ActivoFiat(10000, new Fiat("ARS")), idUsuario, idMonedas[2]);
+
+        Criptomoneda cripto = (Criptomoneda) monedaDAO.obtenerMoneda(idMonedas[0]);
+        activoCriptoDAO.generarActivoCripto(new ActivoCripto(100, cripto), idUsuario, idMonedas[0]);
+
+        cripto = (Criptomoneda) monedaDAO.obtenerMoneda(idMonedas[1]);
+        activoCriptoDAO.generarActivoCripto(new ActivoCripto(500, cripto), idUsuario, idMonedas[1]);
+
+        Fiat fiat = (Fiat) monedaDAO.obtenerMoneda(idMonedas[2]);
+        activoFiatDAO.generarActivoFiat(new ActivoFiat(100000, fiat), idUsuario, idMonedas[2]);
+    }
+
+    public void exportar(int idUsuario) {
+        List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
+        List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
+
+        ExportarCSV exportar = new ExportarCSV();
+        exportar.exportarActivos("MisActivos.csv", activosCripto, activosFiat);
     }
 }

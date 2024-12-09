@@ -79,12 +79,32 @@ public class DataBaseConfig {
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             creaciónDeTablasEnBD(c);
+            // borrarMoneda();
             c.close();
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    public void borrarMoneda() {
+        Connection c = null;
+        try {
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "DELETE FROM ACTIVO_CRIPTO ";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            int filasAfectadas = pstmt.executeUpdate();
+            if (filasAfectadas == 0) {
+                throw new RuntimeException();
+            }
+            pstmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("Operación realizada con éxito");
     }
 
     public void borrarTabla(String nombreTabla) {

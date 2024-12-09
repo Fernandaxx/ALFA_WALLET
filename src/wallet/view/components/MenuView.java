@@ -41,7 +41,6 @@ public class MenuView extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/1.png")), "DEPOSITAR"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "MIS ACTIVOS"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "COTIZACIONES"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "MIS TRANSACCIONES"));

@@ -4,19 +4,25 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import wallet.model.entity.Transaccion;
+
+import wallet.model.entity.ActivoCripto;
+import wallet.model.entity.ActivoFiat;
 
 public class ExportarCSV {
 
-    public static void exportarTransacciones(String nombreArchivo, List<Transaccion> transacciones) {
+    public void exportarActivos(String nombreArchivo, List<ActivoCripto> activosC, List<ActivoFiat> activosF) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             // Escribir encabezado del archivo
-            writer.write("Fecha,Resumen");
+            writer.write("Moneda,Monto");
             writer.newLine();
 
             // Escribir cada transacción como una línea en el CSV
-            for (Transaccion t : transacciones) {
-                writer.write(t.getFecha() + "," + t.getResumen());
+            for (ActivoCripto a : activosC) {
+                writer.write(a.getCripto().getNombre() + "," + a.getCantidad());
+                writer.newLine();
+            }
+            for (ActivoFiat a : activosF) {
+                writer.write(a.getFiat().getNombre() + "," + a.getCantidad());
                 writer.newLine();
             }
 
@@ -27,4 +33,3 @@ public class ExportarCSV {
         }
     }
 }
-

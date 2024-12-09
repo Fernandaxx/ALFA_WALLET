@@ -53,7 +53,11 @@ public class CentralFrame extends javax.swing.JFrame {
         bg.add(main, "w 100%, h 100%");
         // header boton no va
         // empieza con esta vista
-        main.showForm(new InicioView());
+        MisActivosView misActivosView = new MisActivosView();
+        main.showForm(misActivosView);
+        MisActivosModel misActivosModel = new MisActivosModel();
+        MisActivosController misActivosController = new MisActivosController(misActivosView, misActivosModel,
+                this.idUser);
     }
 
     public void cambiarVista(String vista) {

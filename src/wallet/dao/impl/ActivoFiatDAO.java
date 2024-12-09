@@ -7,9 +7,10 @@ import java.util.List;
 import wallet.dao.interfaces.IActivoFiatDAO;
 import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
+import wallet.model.entity.Fiat;
 
 public class ActivoFiatDAO implements IActivoFiatDAO {
-    private MonedaDAO m = new MonedaDAO();
+    private MonedaDAO monedadao = new MonedaDAO();
 
     @Override
     public void generarActivoFiat(ActivoFiat activoFiat, int idUsuario, int idMoneda) {
@@ -74,8 +75,8 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
-                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), nomenclatura);
+                Fiat fiat = (Fiat) monedadao.obtenerMoneda(rs.getInt("ID_MONEDA"));
+                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), fiat);
                 activos.add(activo);
             }
             rs.close();
