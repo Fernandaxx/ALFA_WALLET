@@ -6,6 +6,9 @@ import wallet.dao.impl.GestorCompra;
 import wallet.dao.impl.MonedaDAO;
 import wallet.model.entity.Compra;
 import wallet.model.entity.Stock;
+import wallet.view.vistas.CompraView;
+import wallet.model.entity.Criptomoneda;
+import wallet.model.entity.Fiat;
 
 public class CompraModel {
     private Compra compra;
@@ -15,14 +18,24 @@ public class CompraModel {
     public CompraModel() {
     }
 
+    public int generarCompra(String nomenclaturaCripto,String nomenclaturaFiat,double cantidad ){
+        int error = 1;
+        /*Criptomoneda cripto = new Criptomoneda(nomenclaturaCripto);
+        Fiat fiat = new Fiat(nomenclaturaFiat);
+        int error = gestorCompra.simularCompra(cripto, fiat, cantidad);
+        */
+        if (error == 0){
+            //comprar
+        }
+        return error;
+    }
+
     public String obtenerRuta(String nomenclatura) {
-        System.out.println("Aqui3");
         return monedaDAO.obtenerNombre(nomenclatura);
     }
 
     public String obtenerStock(String nomenclatura) {
         String nomenclaturaStock = "";
-        System.out.println("Aqui2");
         List<Stock> stocks = monedaDAO.listarStock();
         for (Stock stock : stocks) {
             if (stock.getNomenclatura().equals(nomenclatura)) {

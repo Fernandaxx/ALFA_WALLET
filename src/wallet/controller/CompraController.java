@@ -16,11 +16,11 @@ public class CompraController {
         this.frame = frame;
         this.model = model;
 
-        view.getComprarButton().addActionListener(new comprarAction());
         view.getVolver().addActionListener(new volverAction());
         view.getComboBox().addActionListener(new seleccionAction());
-        String nomenclatura = view.monedaAComprar();
-        configurarVista(nomenclatura);
+        String nomCripto = view.monedaAComprar();
+        view.getComprarButton().addActionListener(new comprarAction(nomCripto,view.getComboBox().getSelectedItem().toString(),Double.parseDouble(view.getGastar().getText())));
+        configurarVista(nomCripto);
 
     }
 
@@ -34,20 +34,44 @@ public class CompraController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String gastar = view.getGastar().getText();
+<<<<<<< HEAD
 
             double cantidad = Double.parseDouble(gastar);
             String nomenclaturaFidu = view.getComboBox().getSelectedItem().toString();
             view.setRecibir(model.obtenerEquivalente(view.monedaAComprar(), nomenclaturaFidu, cantidad));
+=======
+            if (gastar != "Gastar") {
+                double cantidad = Double.parseDouble(gastar);
+                String nomenclaturaFidu = view.getComboBox().getSelectedItem().toString();
+                view.setRecibir(model.obtenerEquivalente(view.monedaAComprar(), nomenclaturaFidu, cantidad));
+            }
+>>>>>>> 8dd462f0694abbc16e3e239513617ce6bb307607
 
         }
     }
 
     class comprarAction implements ActionListener {
+        String nomenclaturaFiat;
+        String nomenclaturaCripto;
+        double cantidad;
+        
+        public comprarAction(String nomenclaturaCripto,String nomenclaturaFiat,double cantidad){
+            this.nomenclaturaFiat= nomenclaturaFiat;
+            this.nomenclaturaCripto = nomenclaturaCripto;
+            this.cantidad = cantidad;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Comprar");
+            int error = model.generarCompra(nomenclaturaFiat,nomenclaturaCripto,cantidad);
+            if (error == 1) {
+                view.showMessage("error no hay suficiente Activo fiat");
+            }else if (error==2){
+                view.showMessage("error no hay suficiente Stock ");
+                }
+            }
         }
-    }
+    
 
     class volverAction implements ActionListener {
         @Override
