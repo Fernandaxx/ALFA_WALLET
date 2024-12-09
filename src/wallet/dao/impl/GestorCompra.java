@@ -31,26 +31,23 @@ public class GestorCompra {
      *
      * @param compra El objeto Compra que contiene la información de la transacción.
      */
-    public void generarCompra(Compra compra) {
-        Connection c = null;
-        try {
-            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+    public void generarCompra(Connection c,Compra compra, int idUser, double cantidad) {   
+        try { 
             ActivoCripto activoCripto = new ActivoCripto(compra.getCantidad(), compra.getCripto().getNomenclatura());
-            ActivoFiat activoFiat = new ActivoFiat(-compra.getCantidadFiat(), compra.getFiat().getNomenclatura());
-            if (!activoCriptoDAO.activoExiste(c, compra.getCripto().getNomenclatura())) {
-                activoCriptoDAO.generarActivoCripto(activoCripto);
+            ActivoFiat activoFiat = new ActivoFiat(-cantidad, compra.getFiat().getNomenclatura());
+            
+            int idCripto = monedaDAO.obtenerIdMoneda(compra.getCripto().getNomenclatura());
+            int idFiat = monedaDAO.obtenerIdMoneda(compra.getFiat().getNomenclatura());
+            if (!activoCriptoDAO.activoExiste(c, idUser,idCripto )) {
+                activoCriptoDAO.generarActivoCripto(c,activoCripto, idUser, idCripto);
+
             } else {
-                activoCriptoDAO.actualizarActivo(c, activoCripto);
+                activoCriptoDAO.actualizarActivo(c,idCripto,idUser,activoCripto);
             }
+            
             monedaDAO.actualizarStock(c, -compra.getCantidad(), compra.getCripto().getNomenclatura());
-            activoFiatDAO.actualizarActivo(c, activoFiat);
-            transaccionDAO.registrarTransaccion(c, compra,idUsuario); //
-            //
-            //
-            //-----------------------     ID USUARIO     ----------------------------
-            //
-            //
-            c.close();
+            activoFiatDAO.actualizarActivo(c, idFiat, idUser, activoFiat);      
+            transaccionDAO.registrarTransaccion(c, compra,idUser);          
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -67,14 +64,15 @@ public class GestorCompra {
      * @return Un objeto Compra que representa la compra simulada.
      * @throws Exception Si ocurre algún error durante la simulación.
      */
-    public int simularCompra(Criptomoneda cripto, Fiat fiat, double cantidad) {
+    public int simularCompra(Criptomoneda cripto, Fiat fiat, double cantidad, int idUser) {
         Compra compra = new Compra();
         int error = 0;
         Connection c = null;
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             // verifica si se tiene suficiente activoFiat si no devuelve el error 1
-            if (!activoFiatDAO.verificarCantidad(c, fiat.getNomenclatura(), cantidad)) {
+            if (!activoFiatDAO.verificarCantidad(c, idUser, monedaDAO.obtenerIdMoneda(fiat.getNomenclatura()), cantidad))
+            {
                 error = 1;
             }
             double equivalenteDolarCripto = monedaDAO.equivalenteDolar(cripto.getNomenclatura());
@@ -85,8 +83,10 @@ public class GestorCompra {
             if (!monedaDAO.VerificarStock(c, cripto.getNomenclatura(), equivalente)) {
                 error = 2;
             }
-            compra = new Compra(LocalDateTime.now(), fiat, cripto, equivalente);
-
+            String resumen = "Compra de "+equivalente+" "+cripto.getNomenclatura()+" con "+cantidad+" "+fiat.getNomenclatura();
+            compra = new Compra(LocalDateTime.now(), fiat, cripto, equivalente,cantidad,resumen);
+            
+            generarCompra(c,compra, idUser,cantidad); 
             c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

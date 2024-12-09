@@ -283,6 +283,7 @@ public class MonedaDAO implements IMonedaDAO {
             double equivalenteDolarFiat = equivalenteDolar(nomenclaturaFiat);
             c.close();
             return (cantidad * equivalenteDolarFiat / equivalenteDolarCripto);
+
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -352,6 +353,7 @@ public class MonedaDAO implements IMonedaDAO {
                 }
             }
             c.commit();
+            c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);
