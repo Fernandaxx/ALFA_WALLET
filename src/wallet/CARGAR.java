@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 import wallet.dao.impl.*;
-import wallet.model.entity.Moneda;
 import wallet.model.entity.*;
 
 public class CARGAR {
@@ -16,29 +15,24 @@ public class CARGAR {
         // Crear instancia del DAO
         //TransaccionDAO dao = new TransaccionDAO();
         //ActivoCriptoDAO daoCripto = new ActivoCriptoDAO();
-        ActivoFiatDAO daoFiat = new ActivoFiatDAO();
-        //ActivoCripto cripto = new ActivoCripto(1000, "BTC");
-        //daoCripto.generarActivoCripto( cripto,1, 8);
-        ActivoFiat fiat = new ActivoFiat(50000, "ARS");
-        daoFiat.generarActivoFiat(fiat, 1, 13);
+        
 
-       /* MonedaDAO dao = new MonedaDAO();
-        dao.borrarMoneda("ETH");
-        dao.borrarMoneda("DOGE");
-        dao.borrarMoneda("USDT");
-        dao.borrarMoneda("USDC");
-        dao.borrarMoneda("ARS");
-        dao.borrarMoneda("USD");
+       MonedaDAO dao = new MonedaDAO();
+                Criptomoneda cripto1 = new Criptomoneda('C', "Bitcoin", "BTC", 8888, 0.5, 100, "/resources/BTC.png");
+                Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 1000, "/resources/ETH.png");
+                Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 1000, "/resources/USDC.png");
+                Criptomoneda cripto4 = new Criptomoneda('C', "Tether", "USDT", 8888, 1.2, 1, "/resources/USDT.png");
+                Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10, "/resources/DOGE.png");
 
-       Compra compra = new Compra(LocalDateTime.now(),"Compra de ETH");
-        int idUsuario = 1;
-        // Establecer la conexión con la base de datos
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db")) {
-            // Registrar la transacción
-            dao.registrarTransaccion(connection, compra, idUsuario);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+                Fiat fiat1 = new Fiat('F', "Peso argentino", "ARS", 0.00098, "/resources/ARS.png");
+                Fiat fiat2 = new Fiat('F', "Dolar", "USD", 1, "/resources/USD.png");
+
+                dao.generarMoneda(cripto1);
+                dao.generarMoneda(cripto2);
+                dao.generarMoneda(cripto3);
+                dao.generarMoneda(cripto4);
+                dao.generarMoneda(cripto5);
+                dao.generarMoneda(fiat1);
+                dao.generarMoneda(fiat2);      
     }
 }
