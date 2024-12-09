@@ -89,7 +89,7 @@ public class CotizacionesView extends javax.swing.JPanel {
 
                 ethIcon = new javax.swing.JLabel();
                 ethIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                ethIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
+                ethIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ETH.png"))); // NOI18N
                 ethIcon.setText("Ethereum(ETH)");
 
                 btcIcon = new javax.swing.JLabel();
@@ -99,18 +99,17 @@ public class CotizacionesView extends javax.swing.JPanel {
 
                 usdtIcon = new javax.swing.JLabel();
                 usdtIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                usdtIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
+                usdtIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/USDT.png"))); // NOI18N
                 usdtIcon.setText("Tether(USDT)");
 
                 usdcIcon = new javax.swing.JLabel();
                 usdcIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                usdcIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
+                usdcIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/USDC.png"))); // NOI18N
                 usdcIcon.setText("Usdc(USDC)");
-
 
                 dogeIcon = new javax.swing.JLabel();
                 dogeIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                dogeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
+                dogeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/DOGE.png"))); // NOI18N
                 dogeIcon.setText("Dogecoin(DOGE)");
 
                 usdtLabel = new javax.swing.JLabel();
@@ -212,7 +211,7 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 70,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                
+
                                                                                                                 .addComponent(dogeButton,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 70,
@@ -228,8 +227,7 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                 .addComponent(usdcIcon,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 149,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                )
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
@@ -306,14 +304,13 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                 .addComponent(dogeButton,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                )));
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))));
 
                 layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] { btcButton, ethButton,
-                                 usdcButton, usdtButton });
+                                usdcButton, usdtButton });
 
                 layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] { btcIcon, dogeIcon,
-                                ethIcon,  usdcIcon, usdtIcon });
+                                ethIcon, usdcIcon, usdtIcon });
 
         }// </editor-fold>
 
@@ -322,7 +319,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private javax.swing.JLabel BtcLabel;
         private javax.swing.JLabel EthLabel;
         private javax.swing.JLabel dogeLabel;
-        
+
         private javax.swing.JLabel usdcLabel;
         private javax.swing.JLabel usdtLabel;
 
@@ -330,7 +327,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private wallet.view.components.Button btcButton;
         private wallet.view.components.Button dogeButton;
         private wallet.view.components.Button ethButton;
-        
+
         private wallet.view.components.Button usdcButton;
         private wallet.view.components.Button usdtButton;
 
@@ -338,7 +335,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private javax.swing.JLabel btcIcon;
         private javax.swing.JLabel dogeIcon;
         private javax.swing.JLabel ethIcon;
-        
+
         private javax.swing.JLabel usdtIcon;
         private javax.swing.JLabel usdcIcon;
 

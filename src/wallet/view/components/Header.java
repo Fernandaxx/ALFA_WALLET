@@ -33,7 +33,7 @@ public class Header extends javax.swing.JPanel {
 
                 nombreUsuario.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
                 nombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
-                nombreUsuario.setText(nombre);
+                nombreUsuario.setText(this.nombre);
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);

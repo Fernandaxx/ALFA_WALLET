@@ -41,8 +41,8 @@ public class Main {
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                                // new InicialFrame().setVisible(true);
-                                new CentralFrame(1).setVisible(true);
+                                new InicialFrame().setVisible(true);
+                                // new CentralFrame(1).setVisible(true);
                         }
                 });
 
@@ -56,7 +56,8 @@ public class Main {
                 Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 10000, "/resources/ETH.png");
                 Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 10000, "/resources/USDC.png");
                 Criptomoneda cripto4 = new Criptomoneda('C', "Tether", "USDT", 8888, 1.2, 10000, "/resources/USDT.png");
-                Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10000, "/resources/DOGE.png");
+                Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10000,
+                                "/resources/DOGE.png");
 
                 Fiat fiat1 = new Fiat('F', "Peso argentino", "ARS", 0.00098, "/resources/ARS.png");
                 Fiat fiat2 = new Fiat('F', "Dolar", "USD", 1, "/resources/USD.png");

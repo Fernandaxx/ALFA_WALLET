@@ -88,7 +88,8 @@ public class CentralFrame extends javax.swing.JFrame {
                 main.showForm(new MisDatosView());
                 break;
             case "LOGOUT":
-                main.showForm(new LogoutView());
+                this.dispose();
+                new InicialFrame().setVisible(true);
                 break;
             case "DEPOSITAR":
                 main.showForm(new DepositarView());
