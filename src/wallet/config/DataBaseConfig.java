@@ -20,23 +20,12 @@ public class DataBaseConfig {
                 + " APELLIDOS       VARCHAR(50)    NOT NULL "
                 + ")";
         stmt.executeUpdate(sql);
-        sql = "CREATE TABLE  IF NOT EXISTS USUARIO "
-                + "("
-                + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
+        sql = "CREATE TABLE  IF NOT EXISTS USUARIO " + "(" + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
                 + " ID_PERSONA       INTEGER   NOT NULL, "
                 + " EMAIL       VARCHAR(50)    NOT NULL, "
                 + " PASSWORD       VARCHAR(50)    NOT NULL, "
                 + " ACEPTA_TERMINOS       BOOLEAN    NOT NULL, "
                 + " FOREIGN KEY(ID_PERSONA) REFERENCES PERSONA(ID)"
-                + ")";
-        stmt.executeUpdate(sql);
-
-        sql = "CREATE TABLE  IF NOT EXISTS CUENTA"
-                + "("
-                + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
-                + " ID_USUARIO INTEGER    NOT NULL, "
-                + " BALANCE  REAL    NULL, "
-                + " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID)"
                 + ")";
         stmt.executeUpdate(sql);
 
@@ -55,20 +44,20 @@ public class DataBaseConfig {
         sql = "CREATE TABLE  IF NOT EXISTS ACTIVO_CRIPTO"
                 + "("
                 + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
-                + " ID_CUENTA INTEGER    NOT NULL, "
+                + " ID_USUARIO INTEGER    NOT NULL, "
                 + " ID_MONEDA INTEGER    NOT NULL, "
                 + " CANTIDAD	REAL    NOT NULL, "
-                + " FOREIGN KEY(ID_CUENTA) REFERENCES CUENTA(ID),"
+                + " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID),"
                 + " FOREIGN KEY(ID_MONEDA) REFERENCES MONEDA(ID) "
                 + ")";
         stmt.executeUpdate(sql);
         sql = "CREATE TABLE  IF NOT EXISTS ACTIVO_FIAT"
                 + "("
                 + " ID       INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
-                + " ID_CUENTA INTEGER    NOT NULL, "
+                + " ID_USUARIO INTEGER    NOT NULL, "
                 + " ID_MONEDA INTEGER    NOT NULL, "
                 + " CANTIDAD	REAL    NOT NULL, "
-                + " FOREIGN KEY(ID_CUENTA) REFERENCES CUENTA(ID),"
+                + " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID),"
                 + " FOREIGN KEY(ID_MONEDA) REFERENCES MONEDA(ID)"
                 + ")";
         stmt.executeUpdate(sql);
@@ -77,8 +66,8 @@ public class DataBaseConfig {
                 + " ID     INTEGER   PRIMARY KEY AUTOINCREMENT NOT NULL , "
                 + " RESUMEN VARCHAR(1000)   NOT NULL, "
                 + " FECHA_HORA		DATETIME  NOT NULL, "
-                + " ID_CUENTA   INTEGER    NOT NULL, "
-                + " FOREIGN KEY(ID_CUENTA) REFERENCES CUENTA(ID)"
+                + " ID_USUARIO INTEGER    NOT NULL, "
+                + " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID)"
                 + ")";
         stmt.executeUpdate(sql);
 

@@ -3,9 +3,11 @@ package wallet.view.vistas;
 
 import net.miginfocom.swing.MigLayout;
 import wallet.controller.CotizacionesController;
+import wallet.controller.MisActivosController;
 import wallet.controller.TransaccionesController;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.dto.CotizacionesModel;
+import wallet.model.dto.MisActivosModel;
 import wallet.model.dto.TransaccionesModel;
 import wallet.view.components.Header;
 import wallet.view.components.InicioView;
@@ -60,13 +62,17 @@ public class CentralFrame extends javax.swing.JFrame {
                         cotizacionesModel, this);
                 break;
             case "MIS ACTIVOS":
-                main.showForm(new MisActivosView());
+                MisActivosView misActivosView = new MisActivosView();
+                main.showForm(misActivosView);
+                MisActivosModel misActivosModel = new MisActivosModel();
+                MisActivosController misActivosController = new MisActivosController(misActivosView, misActivosModel);
                 break;
             case "MIS TRANSACCIONES":
                 MisTransaccionesView transaccionesView = new MisTransaccionesView();
                 main.showForm(transaccionesView);
                 TransaccionesModel transaccionesModel = new TransaccionesModel();
-                TransaccionesController transaccionesController = new TransaccionesController(transaccionesView, transaccionesModel, this);
+                TransaccionesController transaccionesController = new TransaccionesController(transaccionesView,
+                        transaccionesModel, this);
                 break;
             case "MIS DATOS":
                 main.showForm(new MisDatosView());
