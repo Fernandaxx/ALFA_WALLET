@@ -86,7 +86,8 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
-                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), rs.getString(nomenclatura));
+
+                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), nomenclatura);
                 activos.add(activo);
             }
             rs.close();

@@ -4,6 +4,7 @@ import wallet.config.DataBaseConfig;
 import wallet.dao.impl.MonedaDAO;
 import wallet.model.entity.Criptomoneda;
 import wallet.model.entity.Fiat;
+import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.InicialFrame;
 
 public class Main {
@@ -40,21 +41,27 @@ public class Main {
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                                new InicialFrame().setVisible(true);
+                                // new InicialFrame().setVisible(true);
+                                new CentralFrame(1).setVisible(true);
                         }
                 });
 
-                //cargarMonedas();
+                // cargarMonedas();
 
         }
 
-        private static void cargarMonedas(){
+        private static void cargarMonedas() {
                 MonedaDAO dao = new MonedaDAO();
-                Criptomoneda cripto1 = new Criptomoneda('C', "Bitcoin", "BTC", 8888, 0.5, 10000, "wallet/resources/BTC.png");
-                Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 10000, "wallet/resources/ETH.png");
-                Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 10000, "wallet/resources/USDC.png");
-                Criptomoneda cripto4 = new Criptomoneda('C', "Tether", "USDT", 8888, 1.2, 10000, "wallet/resources/USDT.png");
-                Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10000, "wallet/resources/DOGE.png");
+                Criptomoneda cripto1 = new Criptomoneda('C', "Bitcoin", "BTC", 8888, 0.5, 10000,
+                                "wallet/resources/BTC.png");
+                Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 10000,
+                                "wallet/resources/ETH.png");
+                Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 10000,
+                                "wallet/resources/USDC.png");
+                Criptomoneda cripto4 = new Criptomoneda('C', "Tether", "USDT", 8888, 1.2, 10000,
+                                "wallet/resources/USDT.png");
+                Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10000,
+                                "wallet/resources/DOGE.png");
 
                 Fiat fiat1 = new Fiat('F', "Peso argentino", "ARS", 0.00098, "wallet/resources/ARS.png");
                 Fiat fiat2 = new Fiat('F', "Dolar", "USD", 1, "wallet/resources/USD.png");

@@ -19,6 +19,7 @@ public class MisActivosController {
 
         view.getGenerarButton().addActionListener(new generarAction(idUsuario));
         view.getExportarButton().addActionListener(new exportarCSVAction());
+
         view.setBalanceLabel(String.valueOf(model.getBalance(idUsuario)));
         setTabla();
 
@@ -38,6 +39,7 @@ public class MisActivosController {
         @Override
         public void actionPerformed(ActionEvent e) {
             model.generarDatos(this.idUsuario);
+            setTabla();
             System.out.println("Generar");
         }
     }

@@ -18,6 +18,7 @@ public class MisActivosView extends javax.swing.JPanel {
 
         public MisActivosView() {
                 initComponents();
+
         }
 
         public void setBalanceLabel(String balance) {

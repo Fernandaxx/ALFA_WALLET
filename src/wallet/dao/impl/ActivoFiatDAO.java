@@ -75,7 +75,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
-                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), rs.getString(nomeclatura));
+                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), nomenclatura);
                 activos.add(activo);
             }
             rs.close();
