@@ -24,8 +24,8 @@ public class Fiat extends Moneda {
      * @param nomenclatura La nomenclatura de la moneda Fiat.
      * @param valor_dolar  El valor en dólares de la moneda Fiat.
      */
-    public Fiat(char tipo, String nombre, String nomenclatura, double valor_dolar) {
-        super(tipo, nombre, nomenclatura, valor_dolar);
+    public Fiat(char tipo, String nombre, String nomenclatura, double valor_dolar, String iconRuta) {
+        super(tipo, nombre, nomenclatura, valor_dolar, iconRuta);
     }
 
     /**

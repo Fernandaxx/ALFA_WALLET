@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CLI",
+            "request": "launch",
+            "mainClass": "wallet.config.CLI",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
+            "name": "CentralFrame",
+            "request": "launch",
+            "mainClass": "wallet.view.vistas.CentralFrame",
+            "projectName": "ALFA_WALLET_34a61c6"
+        },
+        {
+            "type": "java",
             "name": "CentralFrame",
             "request": "launch",
             "mainClass": "wallet.view.vistas.CentralFrame",

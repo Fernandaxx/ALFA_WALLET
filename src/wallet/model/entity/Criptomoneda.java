@@ -30,8 +30,8 @@ public class Criptomoneda extends Moneda {
      * @param stock        El stock de la criptomoneda.
      */
     public Criptomoneda(char tipo, String nombre, String nomenclatura, double valor_dolar, double volatilidad,
-            double stock) {
-        super(tipo, nombre, nomenclatura, valor_dolar);
+            double stock, String iconRuta) {
+        super(tipo, nombre, nomenclatura, valor_dolar, iconRuta);
         this.volatilidad = volatilidad;
         this.stock = stock;
     }
