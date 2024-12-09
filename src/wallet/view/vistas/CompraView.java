@@ -2,8 +2,13 @@
 package wallet.view.vistas;
 
 import wallet.view.components.Button;
+import wallet.view.components.Message;
 import wallet.view.components.MyTextField;
 import javax.swing.JComboBox;
+
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class CompraView extends javax.swing.JPanel {
         private String nomenclatura;
@@ -55,6 +60,61 @@ public class CompraView extends javax.swing.JPanel {
         public void setStockLabel(String stock) {
                 this.stockLabel.setText(stock);
         }
+
+        public void showMessage(String message) {
+        Message msg = new Message();
+        msg.showMessage(message);
+        TimingTarget target = new TimingTargetAdapter() {
+            @Override
+            public void begin() {
+                if (!msg.isShow()) {
+                    add(msg, "pos 0.5al -30", 0); // Insert to bg fist index 0
+                    setVisible(true);
+                    repaint();
+                }
+            }
+
+            @Override
+            public void timingEvent(float fraction) {
+                float f;
+                if (msg.isShow()) {
+                    f = 40 * (1f - fraction);
+                } else {
+                    f = 40 * fraction;
+                }
+                layout.setComponentConstraints(msg, "pos 0.5al " + (int) (f - 30));
+                repaint();
+                revalidate();
+            }
+
+            @Override
+            public void end() {
+                if (msg.isShow()) {
+                    remove(msg);
+                    repaint();
+                    revalidate();
+                } else {
+                    msg.setShow(true);
+                }
+            }
+        };
+        Animator animator = new Animator(300, target);
+        animator.setResolution(0);
+        animator.setAcceleration(0.5f);
+        animator.setDeceleration(0.5f);
+        animator.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000000000);
+                    animator.start();
+                } catch (InterruptedException e) {
+                    System.err.println(e);
+                }
+            }
+        }).start();
+    }
 
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">
