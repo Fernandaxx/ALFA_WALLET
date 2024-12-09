@@ -13,17 +13,18 @@ public abstract class Moneda {
     private String nombre;
     private String nomenclatura;
     private double valor_dolar;
+    private String IconRuta;
 
     /**
      * Constructor de la clase Moneda.
      */
 
-    public Moneda(char tipo, String nombre, String nomenclatura, double valor_dolar) {
+    public Moneda(char tipo, String nombre, String nomenclatura, double valor_dolar, String IconRuta) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.nomenclatura = nomenclatura;
         this.valor_dolar = valor_dolar;
-
+        this.IconRuta = IconRuta;
     }
 
     /**
@@ -87,6 +88,14 @@ public abstract class Moneda {
                 "\tNombre = '" + nombre + "',\n" +
                 "\tNomenclatura = '" + nomenclatura + "'\n" +
                 "\tValor en Dólares = " + valor_dolar + "\n";
+    }
+
+    public String getIconRuta() {
+        return IconRuta;
+    }
+
+    public void setIconRuta(String iconRuta) {
+        IconRuta = iconRuta;
     }
 
 }
