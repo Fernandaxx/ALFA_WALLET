@@ -63,7 +63,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
     }
 
     @Override
-    public List<ActivoFiat> listarActivosFiat(int idUsuario, String nomeclatura) {
+    public List<ActivoFiat> listarActivosFiat(int idUsuario) {
         Connection c = null;
         PreparedStatement stmt = null;
         List<ActivoFiat> activos = new LinkedList<>();
@@ -74,6 +74,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
                 ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), rs.getString(nomeclatura));
                 activos.add(activo);
             }

@@ -2,10 +2,12 @@
 package wallet.view.vistas;
 
 import net.miginfocom.swing.MigLayout;
+import wallet.controller.CompraController;
 import wallet.controller.CotizacionesController;
 import wallet.controller.MisActivosController;
 import wallet.controller.TransaccionesController;
 import wallet.dao.interfaces.EventMenuSelected;
+import wallet.model.dto.CompraModel;
 import wallet.model.dto.CotizacionesModel;
 import wallet.model.dto.MisActivosModel;
 import wallet.model.dto.TransaccionesModel;
@@ -92,7 +94,11 @@ public class CentralFrame extends javax.swing.JFrame {
     }
 
     public void vistaCompra(String nomenclatura) {
-        main.showForm(new CompraView(nomenclatura));
+        CompraView compraView = new CompraView(nomenclatura);
+        main.showForm(compraView);
+        CompraModel compraModel = new CompraModel();
+        CompraController compraController = new CompraController(compraView, compraModel, this);
+
     }
 
     @SuppressWarnings("unchecked")

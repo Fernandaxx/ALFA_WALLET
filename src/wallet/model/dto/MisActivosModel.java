@@ -12,6 +12,7 @@ import wallet.model.entity.Activo;
 import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
 import wallet.model.entity.Criptomoneda;
+import wallet.model.entity.Fiat;
 import wallet.view.components.ModeloTabla;
 
 public class MisActivosModel {
@@ -72,6 +73,7 @@ public class MisActivosModel {
                 monedaDAO.obtenerIdMoneda("ARS"), monedaDAO.obtenerIdMoneda("USD") };
         activoCriptoDAO.generarActivoCripto(new ActivoCripto(1, new Criptomoneda("BTC")), idUsuario, idMonedas[0]);
         activoCriptoDAO.generarActivoCripto(new ActivoCripto(5, new Criptomoneda("ETH")), idUsuario, idMonedas[1]);
+        activoFiatDAO.generarActivoFiat(new ActivoFiat(10000, new Fiat("ARS")), idUsuario, idMonedas[2]);
 
     }
 }

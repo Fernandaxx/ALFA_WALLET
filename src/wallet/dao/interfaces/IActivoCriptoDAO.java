@@ -23,7 +23,7 @@ public interface IActivoCriptoDAO {
      *
      * @return Una lista de activos cripto.
      */
-    List<ActivoCripto> listarActivosCripto(int idUsuario, String nomenclatura);
+    List<ActivoCripto> listarActivosCripto(int idUsuario);
 
     /**
      * Verifica si un activo cripto ya existe en la base de datos.

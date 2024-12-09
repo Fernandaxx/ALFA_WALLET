@@ -74,7 +74,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
         }
     }
 
-    public List<ActivoCripto> listarActivosCripto(int idUsuario, String nomenclatura) {
+    public List<ActivoCripto> listarActivosCripto(int idUsuario) {
         Connection c = null;
         PreparedStatement stmt = null;
         List<ActivoCripto> activos = new LinkedList<>();
@@ -85,6 +85,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                String nomenclatura = new MonedaDAO().obtenerNomenclatura(rs.getInt("ID_MONEDA"));
                 ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), rs.getString(nomenclatura));
                 activos.add(activo);
             }

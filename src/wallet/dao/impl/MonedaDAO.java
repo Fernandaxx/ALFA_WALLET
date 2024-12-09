@@ -51,6 +51,27 @@ public class MonedaDAO implements IMonedaDAO {
         return exito;
     }
 
+    public String obtenerNomenclatura(int id) {
+        String nomenclatura = "";
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "SELECT NOMENCLATURA FROM MONEDA WHERE ID_MONEDA = ?";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                nomenclatura = rs.getString("NOMENCLATURA");
+            }
+            rs.close();
+            pstmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        return nomenclatura;
+    }
+
     public int obtenerIdMoneda(String nomenclatura) {
         int id = 0;
         try {

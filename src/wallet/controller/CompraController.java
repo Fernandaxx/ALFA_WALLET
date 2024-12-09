@@ -34,12 +34,10 @@ public class CompraController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String gastar = view.getGastar().getText();
-            if (gastar != "Gastar") {
-                double cantidad = Double.parseDouble(gastar);
-                String nomenclaturaFidu = view.getComboBox().getSelectedItem().toString();
-                view.setRecibir(model.obtenerEquivalente(view.monedaAComprar(), nomenclaturaFidu, cantidad));
 
-            }
+            double cantidad = Double.parseDouble(gastar);
+            String nomenclaturaFidu = view.getComboBox().getSelectedItem().toString();
+            view.setRecibir(model.obtenerEquivalente(view.monedaAComprar(), nomenclaturaFidu, cantidad));
 
         }
     }

@@ -25,7 +25,7 @@ public interface IActivoFiatDAO {
      *
      * @return Una lista de activos fiduciarios.
      */
-    List<ActivoFiat> listarActivosFiat(int idUsuario, String nomeclatura);
+    List<ActivoFiat> listarActivosFiat(int idUsuario);
 
     /**
      * Verifica si un activo fiduciario ya existe en la base de datos.
