@@ -31,7 +31,7 @@ public class MonedaDAO implements IMonedaDAO {
     public boolean generarMoneda(Moneda moneda) {
         boolean exito = true;
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             if (moneda instanceof Criptomoneda) {
                 Criptomoneda cripto = (Criptomoneda) moneda;
                 if (monedaExiste(c, moneda.getNomenclatura()))
@@ -193,7 +193,7 @@ public class MonedaDAO implements IMonedaDAO {
     public List<Moneda> listarMonedas() {
         List<Moneda> monedas = new LinkedList<>();
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM MONEDA");
             while (rs.next()) {
@@ -228,7 +228,7 @@ public class MonedaDAO implements IMonedaDAO {
     public List<String> generarStock() {
         List<String> informe = new LinkedList<>();
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             String sql = "UPDATE MONEDA SET STOCK = ? WHERE NOMENCLATURA = ?";
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM MONEDA");
@@ -264,7 +264,7 @@ public class MonedaDAO implements IMonedaDAO {
         Statement stmt = null;
         List<Stock> stocks = new LinkedList<>();
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM MONEDA");
             while (rs.next()) {
@@ -292,7 +292,7 @@ public class MonedaDAO implements IMonedaDAO {
     public void borrarMoneda(String nomenclatura) {
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             String sql = "DELETE FROM MONEDA WHERE NOMENCLATURA = ? ";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, nomenclatura);

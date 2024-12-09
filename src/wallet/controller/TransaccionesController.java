@@ -4,31 +4,32 @@ package wallet.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import wallet.Main; //?
-import wallet.model.dto.TransaccionModel;
-import wallet.view.ModelTransaccion;
-import wallet.view.TransaccionView;
-
-import wallet.view.MainApp;
+import wallet.model.dto.TransaccionesModel;
+import wallet.view.vistas.CentralFrame;
+import wallet.view.vistas.MisTransaccionesView;
 
 public class TransaccionesController {
-    private TransaccionView view;
-    private ModelTransaccion model;
-    private MainApp main; //?
+    private MisTransaccionesView view;
+    private TransaccionesModel model;
+    private CentralFrame centralFrame;
 
-    public TransaccionesController(TransaccionesView view, ModelTransaccion model, MainApp main){
+    public TransaccionesController(MisTransaccionesView view, TransaccionesModel model, CentralFrame centralFrame ){
         this.view = view;
         this.model = model;
-        this.main = main;
+        this.centralFrame = centralFrame;
 
-        view.getButton().addActionListener(new BackAction());
+        view.getBackButton().addActionListener(new BackAction());
     }
 
     class BackAction implements ActionListener {
+        public BackAction(){
+
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             view.setVisible(false);
-            main.setVisible(true);
+            centralFrame.cambiarVista("MIS ACTIVOS");
         }
     } 
 }

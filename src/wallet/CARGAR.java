@@ -1,17 +1,22 @@
 package wallet;
 
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.time.LocalDateTime;
-import wallet.dao.impl.TransaccionDAO;
+import java.util.LinkedList;
+
+import wallet.dao.impl.*;
 import wallet.model.entity.Compra;
 
 public class CARGAR {
     public static void main(String[] args) {
         // Crear instancia del DAO
         TransaccionDAO dao = new TransaccionDAO();
-
+        MonedaDAO Monedadao = new MonedaDAO();
         // Datos de ejemplo
+
+       List<String> lista = Monedadao.generarStock();
 
        Compra compra = new Compra(LocalDateTime.now(),"Compra de DOGE");
         int idCuenta = 1;

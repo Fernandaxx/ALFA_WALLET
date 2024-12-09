@@ -6,6 +6,8 @@ package wallet.view.vistas;
  */
 import wallet.dao.impl.TransaccionDAO;
 import wallet.model.entity.Transaccion;
+import wallet.view.components.Button;
+
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +33,10 @@ public class MisTransaccionesView extends javax.swing.JPanel {
             });
         }
     }
-    
+
+    public Button getBackButton() {
+        return BackButton;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +49,7 @@ public class MisTransaccionesView extends javax.swing.JPanel {
         tituloLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        BackButton = new Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -55,17 +61,15 @@ public class MisTransaccionesView extends javax.swing.JPanel {
         jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
-                        { null, null },
-                        { null, null },
-        
-                },
+                new Object[][] {},
                 new String[] {
                         "Fecha", "Resumen"
                 }));
         jTable1.setColumnSelectionAllowed(true);
         jScrollPane2.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        BackButton.setText("Volver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,6 +95,8 @@ public class MisTransaccionesView extends javax.swing.JPanel {
                                 .addGap(72, 72, 72)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
+                                //.addGap(18,18,18)
+                                //.addComponent(BackButton)
                                 .addContainerGap(228, Short.MAX_VALUE)));
     }// </editor-fold>
 
@@ -98,5 +104,6 @@ public class MisTransaccionesView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel tituloLabel;
+    private Button BackButton;
     // End of variables declaration
 }
