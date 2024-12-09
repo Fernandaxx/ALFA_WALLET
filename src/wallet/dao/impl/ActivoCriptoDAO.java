@@ -24,11 +24,22 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @return true si la operación se realizó con éxito, false en caso contrario.
      */
 
+    public void generarActivoCripto(Connection c, ActivoCripto activo, int idUsuario, int IdMoneda) {
+        try {
+            if (activoExiste(c, idUsuario, IdMoneda)) {
+                actualizarActivo(c, IdMoneda, idUsuario, activo);
+            } else {
+                insertarActivo(c, activo, idUsuario, IdMoneda);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+    }
     public void generarActivoCripto(ActivoCripto activo, int idUsuario, int IdMoneda) {
         Connection c = null;
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-
             if (activoExiste(c, idUsuario, IdMoneda)) {
                 actualizarActivo(c, IdMoneda, idUsuario, activo);
             } else {
@@ -40,6 +51,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
             System.exit(1);
         }
     }
+
 
     public boolean activoExiste(Connection c, int idUsuario, int idMoneda) throws SQLException {
         String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE ID_MONEDA = ? AND ID_USUARIO = ?";

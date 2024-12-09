@@ -85,7 +85,7 @@ public class TransaccionDAO implements ITransaccionDAO {
             while (rs.next()){
                 lista.add( new Compra(rs.getTimestamp("FECHA_HORA").toLocalDateTime() , rs.getString("RESUMEN")));
             }
-
+            c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);

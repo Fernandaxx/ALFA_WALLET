@@ -98,7 +98,7 @@ public class CentralFrame extends javax.swing.JFrame {
         CompraView compraView = new CompraView(nomenclatura);
         main.showForm(compraView);
         CompraModel compraModel = new CompraModel();
-        CompraController compraController = new CompraController(compraView, compraModel, this);
+        CompraController compraController = new CompraController(compraView, compraModel, this, idUser);
 
     }
 

@@ -84,6 +84,7 @@ public class PersonaDAO implements IPersonaDAO {
                     return persona;
                 }
             }
+            c.close();
         } catch (SQLException e) {
             System.out.println(": " + e.getMessage());
         }

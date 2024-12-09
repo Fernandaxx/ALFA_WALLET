@@ -10,6 +10,8 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
+import net.miginfocom.swing.MigLayout;
+
 public class CompraView extends javax.swing.JPanel {
         private String nomenclatura;
         private javax.swing.JLabel Icon;
@@ -22,8 +24,11 @@ public class CompraView extends javax.swing.JPanel {
         private wallet.view.components.MyTextField recibir;
         private javax.swing.JLabel stockLabel;
         private wallet.view.components.Button volver;
+        private MigLayout layout;
 
         public CompraView(String nomenclatura) {
+                //layout = new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push");
+                //setLayout(layout);
                 this.nomenclatura = nomenclatura;
                 initComponents();
                 setOpaque(false);
@@ -61,7 +66,7 @@ public class CompraView extends javax.swing.JPanel {
                 this.stockLabel.setText(stock);
         }
 
-        public void showMessage(String message) {
+       /* public void showMessage(String message) {
         Message msg = new Message();
         msg.showMessage(message);
         TimingTarget target = new TimingTargetAdapter() {
@@ -115,7 +120,7 @@ public class CompraView extends javax.swing.JPanel {
             }
         }).start();
     }
-
+ */
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">
         private void initComponents() {
