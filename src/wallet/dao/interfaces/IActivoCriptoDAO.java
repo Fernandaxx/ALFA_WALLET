@@ -16,23 +16,14 @@ public interface IActivoCriptoDAO {
      * @param activoCripto El activo cripto a generar.
      * @return true si la operación fue exitosa; false en caso contrario.
      */
-    boolean generarActivoCripto(ActivoCripto activoCripto);
+    void generarActivoCripto(ActivoCripto activo, int idUsuario, int IdMoneda);
 
     /**
      * Lista todos los activos cripto en la base de datos por id de usuario.
      *
      * @return Una lista de activos cripto.
      */
-    List<ActivoCripto> listarActivosCripto(int idUsuario);
-
-    /**
-     * Elimina un activo cripto de la base de datos por su nomenclatura o
-     * identificador.
-     *
-     * @param dato La nomenclatura o identificador del activo cripto a
-     *             eliminar.
-     */
-    void borrarActivoCripto(String dato);
+    List<ActivoCripto> listarActivosCripto(int idUsuario, String nomenclatura);
 
     /**
      * Verifica si un activo cripto ya existe en la base de datos.
@@ -42,7 +33,7 @@ public interface IActivoCriptoDAO {
      * @return true si el activo existe; false en caso contrario.
      * @throws Exception Si ocurre un error durante la verificación.
      */
-    boolean activoExiste(Connection c, String nomenclatura) throws Exception;
+    boolean activoExiste(Connection c, int idUsuario, int idMoneda) throws Exception;
 
     /**
      * Actualiza un activo cripto existente en la base de datos.
@@ -51,7 +42,7 @@ public interface IActivoCriptoDAO {
      * @param activo El activo cripto a actualizar.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    void actualizarActivo(Connection c, ActivoCripto activo) throws SQLException;
+    void actualizarActivo(Connection c, int idMoneda, int idUsuario, ActivoCripto activo) throws SQLException;
 
     /**
      * Inserta un nuevo activo cripto en la base de datos.
@@ -60,7 +51,7 @@ public interface IActivoCriptoDAO {
      * @param activo El activo cripto a insertar.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    void insertarActivo(Connection c, ActivoCripto activo) throws SQLException;
+    void insertarActivo(Connection c, ActivoCripto activo, int idUsuario, int idMoneda) throws SQLException;
 
     /**
      * Verifica si hay suficiente cantidad de un activo cripto en la base de
@@ -72,6 +63,6 @@ public interface IActivoCriptoDAO {
      * @return true si hay suficiente cantidad; false en caso contrario.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    boolean verificarCantidad(Connection c, String nomenclatura, double cantidad) throws SQLException;
+    boolean verificarCantidad(Connection c, int idUsuario, int idMoneda, double cantidad) throws SQLException;
 
 }

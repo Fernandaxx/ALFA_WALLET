@@ -18,23 +18,14 @@ public interface IActivoFiatDAO {
      * @param activoFiat El activo fiduciario a generar.
      * @return true si la operación fue exitosa; false en caso contrario.
      */
-    boolean generarActivoFiat(ActivoFiat activoFiat);
+    void generarActivoFiat(ActivoFiat activoFiat, int idUsuario, int idMoneda);
 
     /**
      * Lista todos los activos fiduciarios en la base de datos.
      *
      * @return Una lista de activos fiduciarios.
      */
-    List<ActivoFiat> listarActivosFiat(int idUsuario);
-
-    /**
-     * Elimina un activo fiduciario de la base de datos por su nomenclatura o
-     * identificador.
-     *
-     * @param nomenclatura La nomenclatura o identificador del activo fiduciario a
-     *                     eliminar.
-     */
-    void borrarActivoFiat(String nomenclatura);
+    List<ActivoFiat> listarActivosFiat(int idUsuario, String nomeclatura);
 
     /**
      * Verifica si un activo fiduciario ya existe en la base de datos.
@@ -44,7 +35,7 @@ public interface IActivoFiatDAO {
      * @return true si el activo existe; false en caso contrario.
      * @throws SQLException Si ocurre un error durante la verificación.
      */
-    boolean activoExiste(Connection c, String nomenclatura) throws SQLException;
+    boolean activoExiste(Connection c, int idUsuario, int idMoneda) throws SQLException;
 
     /**
      * Actualiza un activo fiduciario existente en la base de datos.
@@ -53,7 +44,7 @@ public interface IActivoFiatDAO {
      * @param activo El activo fiduciario a actualizar.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    void actualizarActivo(Connection c, ActivoFiat activo) throws SQLException;
+    void actualizarActivo(Connection c, int idMoneda, int idUsuario, ActivoFiat activo) throws SQLException;
 
     /**
      * Inserta un nuevo activo fiduciario en la base de datos.
@@ -62,7 +53,7 @@ public interface IActivoFiatDAO {
      * @param activo El activo fiduciario a insertar.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    void insertarActivo(Connection c, ActivoFiat activo) throws SQLException;
+    void insertarActivo(Connection c, ActivoFiat activo, int idUsuario, int idMoneda) throws SQLException;
 
     /**
      * Verifica si hay suficiente cantidad de un activo fiduciario en la base de
@@ -74,6 +65,6 @@ public interface IActivoFiatDAO {
      * @return true si hay suficiente cantidad; false en caso contrario.
      * @throws SQLException Si ocurre un error en la consulta a la base de datos.
      */
-    boolean verificarCantidad(Connection c, String nomenclatura, double cantidad) throws SQLException;
+    boolean verificarCantidad(Connection c, int idUsuario, int idMoneda, double cantidad) throws SQLException;
 
 }

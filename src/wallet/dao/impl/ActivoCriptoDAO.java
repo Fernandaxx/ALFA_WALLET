@@ -15,7 +15,6 @@ import wallet.model.entity.ActivoCripto;
  * cripto.
  */
 public class ActivoCriptoDAO implements IActivoCriptoDAO {
-    private MonedaDAO monedaDAO = new MonedaDAO();
 
     /**
      * Genera un nuevo activo cripto o actualiza uno existente en la base de
@@ -24,94 +23,58 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @param activoCripto El activo cripto a generar o actualizar.
      * @return true si la operación se realizó con éxito, false en caso contrario.
      */
-    @Override
-    public boolean generarActivoCripto(ActivoCripto activoCripto, int idUsuario) {
-        boolean exito = false;
-        if (activoCripto == null) {
-            System.out.println("No ingreso un Activo");
-            return exito;
-        }
 
+    public void generarActivoCripto(ActivoCripto activo, int idUsuario, int IdMoneda) {
         Connection c = null;
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            if (!monedaDAO.monedaExiste(c, activoCripto.getCripto().getNomenclatura())) {
-                return exito;
-            }
-            if (activoExiste(c, activoCripto.getCripto().getNomenclatura())) {
-                actualizarActivo(c, activoCripto, int idUsuario);
-                exito = true;
+
+            if (activoExiste(c, idUsuario, IdMoneda)) {
+                actualizarActivo(c, IdMoneda, idUsuario, activo);
             } else {
-                insertarActivo(c, activoCripto, int idUsuario);
-                exito = true;
+                insertarActivo(c, activo, idUsuario, IdMoneda);
             }
             c.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);
         }
-        return exito;
     }
 
-    /**
-     * Verifica si un activo cripto ya existe en la base de datos.
-     *
-     * @param c            La conexión a la base de datos.
-     * @param nomenclatura La nomenclatura del activo a verificar.
-     * @return true si el activo existe, false en caso contrario.
-     * @throws SQLException Si ocurre un error en la consulta.
-     */
-    public boolean activoExiste(Connection c, String nomenclatura) throws SQLException {
-        String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE NOMENCLATURA = ?";
+    public boolean activoExiste(Connection c, int idUsuario, int idMoneda) throws SQLException {
+        String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE ID_MONEDA = ? AND ID_USUARIO = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, nomenclatura);
+            pstmt.setInt(1, idMoneda);
+            pstmt.setInt(2, idUsuario);
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next();
             }
         }
     }
 
-    /**
-     * Actualiza la cantidad de un activo cripto existente en la base de
-     * datos.
-     *
-     * @param c      La conexión a la base de datos.
-     * @param activo El activo cripto a actualizar.
-     * @throws SQLException Si ocurre un error en la actualización.
-     */
-    public void actualizarActivo(Connection c, ActivoCripto activo, int idUsuario) throws SQLException {
-        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = CANTIDAD + ? WHERE NOMENCLATURA = ? AND ID_USUARIO = ?";
+    public void actualizarActivo(Connection c, int idMoneda, int idUsuario, ActivoCripto activo) throws SQLException {
+        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = CANTIDAD + ? WHERE ID_MONEDA = ? AND ID_USUARIO = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setDouble(1, activo.getCantidad());
-            pstmt.setString(2, activo.getCripto().getNomenclatura());
+            pstmt.setInt(2, idMoneda);
+            pstmt.setInt(3, idUsuario);
+            pstmt.executeUpdate();
+        }
+
+    }
+
+    public void insertarActivo(Connection c, ActivoCripto activo, int idUsuario, int idMoneda) throws SQLException {
+        String sql = "INSERT INTO ACTIVO_CRIPTO (ID_MONEDA, CANTIDAD, ID_USUARIO) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setInt(1, idMoneda);
+            pstmt.setDouble(2, activo.getCantidad());
             pstmt.setInt(3, idUsuario);
             pstmt.executeUpdate();
         }
     }
 
-    /**
-     * Inserta un nuevo activo cripto en la base de datos.
-     *
-     * @param c      La conexión a la base de datos.
-     * @param activo El activo cripto a insertar.
-     * @throws SQLException Si ocurre un error en la inserción.
-     */
-    public void insertarActivo(Connection c, ActivoCripto activo, int idUsuario) throws SQLException {
-        String sql = "INSERT INTO ACTIVO_CRIPTO (NOMENCLATURA, CANTIDAD) WHERE ID_USUARIO VALUES (?, ?)";
-        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, activo.getCripto().getNomenclatura());
-            pstmt.setDouble(2, activo.getCantidad());
-            pstmt.executeUpdate();
-        }
-    }
-
-    /**
-     * Lista todos los activos criptomoneda existentes en la base de datos.
-     *
-     * @return Una lista de activos cripto.
-     */
-    @Override
-    public List<ActivoCripto> listarActivosCripto(int idUsuario) {
+    public List<ActivoCripto> listarActivosCripto(int idUsuario, String nomenclatura) {
         Connection c = null;
         PreparedStatement stmt = null;
         List<ActivoCripto> activos = new LinkedList<>();
@@ -122,7 +85,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), rs.getString("NOMENCLATURA"));
+                ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), rs.getString(nomenclatura));
                 activos.add(activo);
             }
             rs.close();
@@ -135,48 +98,12 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
         return activos;
     }
 
-    /**
-     * Elimina un activo criptográfico de la base de datos por su nomenclatura.
-     *
-     * @param nomenclatura La nomenclatura del activo a eliminar.
-     * @throws RuntimeException Si no se encuentra el activo.
-     */
-    @Override
-    public void borrarActivoCripto(String nomenclatura) {
-        Connection c = null;
-        try {
-            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "DELETE FROM ACTIVO_CRIPTO WHERE NOMENCLATURA = ?";
-            PreparedStatement pstmt = c.prepareStatement(sql);
-            pstmt.setString(1, nomenclatura);
-            int filasAfectadas = pstmt.executeUpdate();
-            if (filasAfectadas == 0) {
-                // No se encontró el activo con esa nomenclatura
-                throw new RuntimeException("No se encontró el activo cripto: " + nomenclatura);
-            }
-            pstmt.close();
-            c.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Verifica si hay suficiente cantidad de un activo cripto en la base de
-     * datos.
-     *
-     * @param c            La conexión a la base de datos.
-     * @param nomenclatura La nomenclatura del activo a verificar.
-     * @param cantidad     La cantidad a verificar.
-     * @return true si hay suficiente cantidad, false en caso contrario.
-     * @throws SQLException Si ocurre un error en la consulta.
-     */
-    public boolean verificarCantidad(Connection c, String nomenclatura, double cantidad) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM ACTIVO_CRIPTO WHERE NOMENCLATURA = ? AND CANTIDAD >= ?";
+    public boolean verificarCantidad(Connection c, int idUsuario, int idMoneda, double cantidad) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM ACTIVO_CRIPTO WHERE ID_MONEDA = ? AND ID_USUARIO = ? AND CANTIDAD >= ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, nomenclatura);
-            pstmt.setDouble(2, cantidad);
+            pstmt.setInt(1, idMoneda);
+            pstmt.setInt(2, idUsuario);
+            pstmt.setDouble(3, cantidad);
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next() && rs.getInt(1) > 0;
             }

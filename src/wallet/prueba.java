@@ -13,19 +13,17 @@ public class prueba {
         Timer timer;
         timer = new Timer();
         TimerTask task = new MyTimerTask();
-        
+
         timer.schedule(task, 10, 10000);
     }
 }
-public class MyTimerTask extends TimerTask {       
-        ConsultarPrecioCripto consultar = new ConsultarPrecioCripto();
-        double precio = 0;
-        @Override
+
+public class MyTimerTask extends TimerTask {
+    ConsultarPrecioCripto consultar = new ConsultarPrecioCripto();
+    double precio = 0;
+
+    @Override
         public void run(){
             precio = consultar.getPrecioCripto("BTC");
             System.out.println(precio);
         }
-    
-
-
-

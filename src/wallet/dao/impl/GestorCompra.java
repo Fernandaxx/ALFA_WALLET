@@ -77,8 +77,8 @@ public class GestorCompra {
             if (!activoFiatDAO.verificarCantidad(c, fiat.getNomenclatura(), cantidad)) {
                 throw new Exception("Saldo insuficiente");
             }
-            double equivalenteDolarCripto = monedaDAO.equivalenteDolar(c, cripto.getNomenclatura());
-            double equivalenteDolarFiat = monedaDAO.equivalenteDolar(c, fiat.getNomenclatura());
+            double equivalenteDolarCripto = monedaDAO.equivalenteDolar(cripto.getNomenclatura());
+            double equivalenteDolarFiat = monedaDAO.equivalenteDolar(fiat.getNomenclatura());
 
             // verifica si hay suficiente stock en la billetera
             double equivalente = (cantidad * equivalenteDolarFiat / equivalenteDolarCripto);

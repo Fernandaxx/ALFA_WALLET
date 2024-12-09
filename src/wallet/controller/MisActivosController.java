@@ -17,7 +17,7 @@ public class MisActivosController {
         this.model = model;
         this.idUsuario = idUsuario;
 
-        view.getGenerarButton().addActionListener(new generarAction());
+        view.getGenerarButton().addActionListener(new generarAction(idUsuario));
         view.getExportarButton().addActionListener(new exportarCSVAction());
         view.setBalanceLabel(String.valueOf(model.getBalance(idUsuario)));
         setTabla();
@@ -29,9 +29,15 @@ public class MisActivosController {
     }
 
     class generarAction implements ActionListener {
+        private int idUsuario;
+
+        generarAction(int idUsuario) {
+            this.idUsuario = idUsuario;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            model.generarDatos(int idUsuario);
+            model.generarDatos(this.idUsuario);
             System.out.println("Generar");
         }
     }

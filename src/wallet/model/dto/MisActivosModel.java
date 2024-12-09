@@ -11,6 +11,7 @@ import wallet.dao.impl.MonedaDAO;
 import wallet.model.entity.Activo;
 import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
+import wallet.model.entity.Criptomoneda;
 import wallet.view.components.ModeloTabla;
 
 public class MisActivosModel {
@@ -67,7 +68,10 @@ public class MisActivosModel {
     }
 
     public void generarDatos(int idUsuario) {
-        activoCriptoDAO.generarActivoCripto(null)
+        int[] idMonedas = { monedaDAO.obtenerIdMoneda("BTC"), monedaDAO.obtenerIdMoneda("ETH"),
+                monedaDAO.obtenerIdMoneda("ARS"), monedaDAO.obtenerIdMoneda("USD") };
+        activoCriptoDAO.generarActivoCripto(new ActivoCripto(1, new Criptomoneda("BTC")), idUsuario, idMonedas[0]);
+        activoCriptoDAO.generarActivoCripto(new ActivoCripto(5, new Criptomoneda("ETH")), idUsuario, idMonedas[1]);
 
     }
 }

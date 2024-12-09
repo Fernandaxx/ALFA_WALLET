@@ -5,111 +5,65 @@ import java.util.LinkedList;
 import java.util.List;
 
 import wallet.dao.interfaces.IActivoFiatDAO;
+import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
 
-/**
- * Clase que gestiona la persistencia de activos fiduciarios en una base de
- * datos.
- * Implementa la interfaz {@link IActivoFiatDAO} y proporciona métodos para
- * crear, leer, actualizar y eliminar activos fiduciarios en la base de datos.
- */
 public class ActivoFiatDAO implements IActivoFiatDAO {
     private MonedaDAO m = new MonedaDAO();
 
-    /**
-     * Genera un nuevo activo fiduciario en la base de datos.
-     * Si el activo ya existe, se actualiza la cantidad.
-     *
-     * @param activoFiat El activo fiduciario a generar.
-     * @return true si la operación fue exitosa; false en caso contrario.
-     */
     @Override
-    public boolean generarActivoFiat(ActivoFiat activoFiat) {
-        boolean exito = false;
-        if (activoFiat == null) {
-            System.out.println("No ingreso un Activo");
-            return exito;
-        }
+    public void generarActivoFiat(ActivoFiat activoFiat, int idUsuario, int idMoneda) {
         Connection c = null;
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
 
-            if (!m.monedaExiste(c, activoFiat.getFiat().getNomenclatura())) {
-                return exito;
-            }
-
-            if (activoExiste(c, activoFiat.getFiat().getNomenclatura())) {
-                actualizarActivo(c, activoFiat);
-                exito = true;
+            if (activoExiste(c, idUsuario, idMoneda)) {
+                actualizarActivo(c, idMoneda, idUsuario, activoFiat);
             } else {
-                insertarActivo(c, activoFiat);
-                exito = true;
+                insertarActivo(c, activoFiat, idUsuario, idMoneda);
             }
             c.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);
         }
-        return exito;
     }
 
-    /**
-     * Verifica si un activo fiduciario ya existe en la base de datos.
-     *
-     * @param c            La conexión a la base de datos.
-     * @param nomenclatura La nomenclatura del activo fiduciario a verificar.
-     * @return true si el activo existe; false en caso contrario.
-     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
-     */
-    public boolean activoExiste(Connection c, String nomenclatura) throws SQLException {
-        String sql = "SELECT CANTIDAD FROM ACTIVO_FIAT WHERE NOMENCLATURA = ?";
+    public boolean activoExiste(Connection c, int idUsuario, int idMoneda) throws SQLException {
+        String sql = "SELECT CANTIDAD FROM ACTIVO_FIAT WHERE ID_MONEDA = ? AND ID_USUARIO = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, nomenclatura);
+            pstmt.setInt(1, idMoneda);
+            pstmt.setInt(2, idUsuario);
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next();
             }
         }
     }
 
-    /**
-     * Actualiza la cantidad de un activo fiduciario existente en la base de datos.
-     *
-     * @param c      La conexión a la base de datos.
-     * @param activo El activo fiduciario a actualizar.
-     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
-     */
-    public void actualizarActivo(Connection c, ActivoFiat activo) throws SQLException {
-        String sql = "UPDATE ACTIVO_FIAT SET CANTIDAD = CANTIDAD + ? WHERE NOMENCLATURA = ?";
+    public void actualizarActivo(Connection c, int idMoneda, int idUsuario, ActivoFiat activo) throws SQLException {
+        String sql = "UPDATE ACTIVO_FIAT SET CANTIDAD = CANTIDAD + ? WHERE ID_MONEDA = ? AND ID_USUARIO = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setDouble(1, activo.getCantidad());
-            pstmt.setString(2, activo.getFiat().getNomenclatura());
+            pstmt.setInt(2, idMoneda);
+            pstmt.setInt(3, idUsuario);
             pstmt.executeUpdate();
         }
+
     }
 
-    /**
-     * Inserta un nuevo activo fiduciario en la base de datos.
-     *
-     * @param c      La conexión a la base de datos.
-     * @param activo El activo fiduciario a insertar.
-     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
-     */
-    public void insertarActivo(Connection c, ActivoFiat activo) throws SQLException {
-        String sql = "INSERT INTO ACTIVO_FIAT (NOMENCLATURA, CANTIDAD) VALUES (?, ?)";
+    public void insertarActivo(Connection c, ActivoFiat activo, int idUsuario, int idMoneda) throws SQLException {
+        String sql = "INSERT INTO ACTIVO_FIAT (ID_MONEDA, CANTIDAD, ID_USUARIO) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, activo.getFiat().getNomenclatura());
+            pstmt.setInt(1, idMoneda);
             pstmt.setDouble(2, activo.getCantidad());
+            pstmt.setInt(3, idUsuario);
             pstmt.executeUpdate();
         }
     }
 
-    /**
-     * Lista todos los activos fiduciarios en la base de datos.
-     *
-     * @return Una lista de activos fiduciarios.
-     */
     @Override
-    public List<ActivoFiat> listarActivosFiat(int idUsuario) {
+    public List<ActivoFiat> listarActivosFiat(int idUsuario, String nomeclatura) {
         Connection c = null;
         PreparedStatement stmt = null;
         List<ActivoFiat> activos = new LinkedList<>();
@@ -120,7 +74,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
             stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), rs.getString("NOMENCLATURA"));
+                ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), rs.getString(nomeclatura));
                 activos.add(activo);
             }
             rs.close();
@@ -133,48 +87,12 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
         return activos;
     }
 
-    /**
-     * Elimina un activo fiduciario de la base de datos por su nomenclatura.
-     *
-     * @param nomenclatura La nomenclatura del activo fiduciario a eliminar.
-     * @throws RuntimeException Si no se encuentra el activo a eliminar.
-     */
-    @Override
-    public void borrarActivoFiat(String nomenclatura) {
-        Connection c = null;
-        try {
-            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "DELETE FROM ACTIVO_FIAT WHERE NOMENCLATURA = ?";
-            PreparedStatement pstmt = c.prepareStatement(sql);
-            pstmt.setString(1, nomenclatura);
-            int filasAfectadas = pstmt.executeUpdate();
-            if (filasAfectadas == 0) {
-                // No se encontró el activo con esa nomenclatura
-                throw new RuntimeException("No se encontró el activo fiat: " + nomenclatura);
-            }
-            pstmt.close();
-            c.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Verifica si hay suficiente cantidad de un activo fiduciario en la base de
-     * datos.
-     *
-     * @param c            La conexión a la base de datos.
-     * @param nomenclatura La nomenclatura del activo fiduciario.
-     * @param cantidad     La cantidad a verificar.
-     * @return true si hay suficiente cantidad; false en caso contrario.
-     * @throws SQLException Si ocurre un error en la consulta a la base de datos.
-     */
-    public boolean verificarCantidad(Connection c, String nomenclatura, double cantidad) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM ACTIVO_FIAT WHERE NOMENCLATURA = ? AND CANTIDAD >= ?";
+    public boolean verificarCantidad(Connection c, int idUsuario, int idMoneda, double cantidad) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM ACTIVO_FIAT WHERE ID_MONEDA = ? AND ID_USUARIO = ? AND CANTIDAD >= ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setString(1, nomenclatura);
-            pstmt.setDouble(2, cantidad);
+            pstmt.setInt(1, idMoneda);
+            pstmt.setInt(2, idUsuario);
+            pstmt.setDouble(3, cantidad);
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next() && rs.getInt(1) > 0;
             }

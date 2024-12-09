@@ -51,6 +51,27 @@ public class MonedaDAO implements IMonedaDAO {
         return exito;
     }
 
+    public int obtenerIdMoneda(String nomenclatura) {
+        int id = 0;
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "SELECT ID_MONEDA FROM MONEDA WHERE NOMENCLATURA = ?";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setString(1, nomenclatura);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("ID_MONEDA");
+            }
+            rs.close();
+            pstmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        return id;
+    }
+
     /**
      * Verifica si una moneda existe en la base de datos.
      *
@@ -94,19 +115,19 @@ public class MonedaDAO implements IMonedaDAO {
     }
 
     public void actualizarValorDolar(double valorDolar, String nomenclatura) {
-        if (valorDolar != -1){
-        try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
-            PreparedStatement pstmt = c.prepareStatement(sql);
-            pstmt.setDouble(1, valorDolar);
-            pstmt.setString(2, nomenclatura);
-            pstmt.executeUpdate();
-            c.close();
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(1);
-        }
+        if (valorDolar != -1) {
+            try {
+                Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+                String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
+                PreparedStatement pstmt = c.prepareStatement(sql);
+                pstmt.setDouble(1, valorDolar);
+                pstmt.setString(2, nomenclatura);
+                pstmt.executeUpdate();
+                c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(1);
+            }
         }
     }
 
