@@ -1,6 +1,7 @@
 package wallet.view.vistas;
 
 import wallet.view.components.Button;
+import wallet.ConsultarPrecioCripto;
 
 public class CotizacionesView extends javax.swing.JPanel {
 
@@ -25,14 +26,6 @@ public class CotizacionesView extends javax.swing.JPanel {
                 return usdtButton;
         }
 
-        public Button getSolButton() {
-                return solButton;
-        }
-
-        public Button getPepeButton() {
-                return pepeButton;
-        }
-
         public Button getDogeButton() {
                 return dogeButton;
         }
@@ -51,14 +44,6 @@ public class CotizacionesView extends javax.swing.JPanel {
 
         public void setUsdtLabel(String usdtLabel) {
                 this.usdtLabel.setText(usdtLabel);
-        }
-
-        public void setSolLabel(String solLabel) {
-                this.solLabel.setText(solLabel);
-        }
-
-        public void setPepeLabel(String pepeLabel) {
-                this.pepeLabel.setText(pepeLabel);
         }
 
         public void setDogeLabel(String dogeLabel) {
@@ -89,12 +74,6 @@ public class CotizacionesView extends javax.swing.JPanel {
 
                 dogeButton = new wallet.view.components.Button();
                 dogeButton.setText("COMPRAR");
-
-                solButton = new wallet.view.components.Button();
-                solButton.setText("COMPRAR");
-
-                pepeButton = new wallet.view.components.Button();
-                pepeButton.setText("COMPRAR");
 
                 precioLabel = new javax.swing.JLabel();
                 precioLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -128,15 +107,6 @@ public class CotizacionesView extends javax.swing.JPanel {
                 usdcIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
                 usdcIcon.setText("Usdc(USDC)");
 
-                pepeIcon = new javax.swing.JLabel();
-                pepeIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                pepeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
-                pepeIcon.setText("Pepe(PEPE)");
-
-                solIcon = new javax.swing.JLabel();
-                solIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-                solIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
-                solIcon.setText("Solana(SOL)");
 
                 dogeIcon = new javax.swing.JLabel();
                 dogeIcon.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -145,7 +115,7 @@ public class CotizacionesView extends javax.swing.JPanel {
 
                 usdtLabel = new javax.swing.JLabel();
                 usdtLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                usdtLabel.setText("100.000");
+                usdtLabel.setText("");
 
                 EthLabel = new javax.swing.JLabel();
                 EthLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
@@ -162,14 +132,6 @@ public class CotizacionesView extends javax.swing.JPanel {
                 dogeLabel = new javax.swing.JLabel();
                 dogeLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
                 dogeLabel.setText("100.000");
-
-                pepeLabel = new javax.swing.JLabel();
-                pepeLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                pepeLabel.setText("100.000");
-
-                solLabel = new javax.swing.JLabel();
-                solLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                solLabel.setText("100.000");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -223,14 +185,6 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 94,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(solLabel,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                94,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(pepeLabel,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                94,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                                                 .addComponent(precioLabel,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 99,
@@ -258,14 +212,7 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 70,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(solButton,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                70,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(pepeButton,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                70,
-                                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                                
                                                                                                                 .addComponent(dogeButton,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                                                 70,
@@ -282,14 +229,7 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 149,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(pepeIcon,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                149,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(solIcon,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                149,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                )
                                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
@@ -301,7 +241,7 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                 .addGap(313, 313, 313)));
 
                 layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] { btcIcon, dogeIcon,
-                                ethIcon, pepeIcon, solIcon, usdcIcon, usdtIcon });
+                                ethIcon, usdcIcon, usdtIcon });
 
                 layout.setVerticalGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,32 +306,14 @@ public class CotizacionesView extends javax.swing.JPanel {
                                                                                 .addComponent(dogeButton,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(18, 18, 18)
-                                                                .addGroup(layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.CENTER)
-                                                                                .addComponent(solIcon)
-                                                                                .addComponent(solLabel)
-                                                                                .addComponent(solButton,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(18, 18, 18)
-                                                                .addGroup(layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.CENTER)
-                                                                                .addComponent(pepeIcon)
-                                                                                .addComponent(pepeLabel)
-                                                                                .addComponent(pepeButton,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addContainerGap(17, Short.MAX_VALUE)));
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                )));
 
                 layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] { btcButton, ethButton,
-                                pepeButton, solButton, usdcButton, usdtButton });
+                                 usdcButton, usdtButton });
 
                 layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] { btcIcon, dogeIcon,
-                                ethIcon, pepeIcon, solIcon, usdcIcon, usdtIcon });
+                                ethIcon,  usdcIcon, usdtIcon });
 
         }// </editor-fold>
 
@@ -400,8 +322,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private javax.swing.JLabel BtcLabel;
         private javax.swing.JLabel EthLabel;
         private javax.swing.JLabel dogeLabel;
-        private javax.swing.JLabel solLabel;
-        private javax.swing.JLabel pepeLabel;
+        
         private javax.swing.JLabel usdcLabel;
         private javax.swing.JLabel usdtLabel;
 
@@ -409,8 +330,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private wallet.view.components.Button btcButton;
         private wallet.view.components.Button dogeButton;
         private wallet.view.components.Button ethButton;
-        private wallet.view.components.Button pepeButton;
-        private wallet.view.components.Button solButton;
+        
         private wallet.view.components.Button usdcButton;
         private wallet.view.components.Button usdtButton;
 
@@ -418,8 +338,7 @@ public class CotizacionesView extends javax.swing.JPanel {
         private javax.swing.JLabel btcIcon;
         private javax.swing.JLabel dogeIcon;
         private javax.swing.JLabel ethIcon;
-        private javax.swing.JLabel solIcon;
-        private javax.swing.JLabel pepeIcon;
+        
         private javax.swing.JLabel usdtIcon;
         private javax.swing.JLabel usdcIcon;
 

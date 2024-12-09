@@ -2,7 +2,10 @@ package wallet.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
+import wallet.ConsultarPrecioCripto;
+import wallet.MyTimerTask;
 import wallet.model.dto.CotizacionesModel;
 import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.CotizacionesView;
@@ -12,6 +15,7 @@ public class CotizacionesController {
     private CotizacionesModel model;
     private CentralFrame centralFrame;
 
+
     public CotizacionesController(CotizacionesView view, CotizacionesModel model, CentralFrame centralFrame) {
         this.view = view;
         this.model = model;
@@ -20,11 +24,10 @@ public class CotizacionesController {
         view.getBtcButton().addActionListener(new comprarAction("BTC"));
         view.getEthButton().addActionListener(new comprarAction("ETH"));
         view.getDogeButton().addActionListener(new comprarAction("DOGE"));
-        view.getPepeButton().addActionListener(new comprarAction("PEPE"));
-        view.getSolButton().addActionListener(new comprarAction("SOL"));
         view.getUsdcButton().addActionListener(new comprarAction("USDC"));
         view.getUsdtButton().addActionListener(new comprarAction("USDT"));
 
+        precio(view);
     }
 
     class comprarAction implements ActionListener {
@@ -41,6 +44,38 @@ public class CotizacionesController {
             centralFrame.vistaCompra(nomenclatura);
 
         }
-
     }
+
+    private void precio (CotizacionesView view){
+        Timer timer = new Timer();
+        TimerTask task = new MyTimerTask(view);
+        timer.schedule(task, 10, 60000);
+    }
+
+    class MyTimerTask extends TimerTask {
+        private CotizacionesView view;
+        private ConsultarPrecioCripto consultar;
+
+        public MyTimerTask(CotizacionesView view) {
+            this.view = view;
+            this.consultar = new ConsultarPrecioCripto();
+        }
+        @Override
+        public void run() {
+            // Obtener precios de criptomonedas
+            double btcPrecio = consultar.getPrecioCripto("BTC");
+            double ethPrecio = consultar.getPrecioCripto("ETH");
+            double dogePrecio = consultar.getPrecioCripto("DOGE");
+            double usdcPrecio = consultar.getPrecioCripto("USDC");
+            double usdtPrecio = consultar.getPrecioCripto("USDT");
+
+            view.setBtcLabel(String.valueOf(btcPrecio));
+            view.setEthLabel(String.valueOf(ethPrecio));
+            view.setDogeLabel(String.valueOf(dogePrecio));
+            view.setUsdcLabel(String.valueOf(usdcPrecio));
+            view.setUsdtLabel(String.valueOf(usdtPrecio));
+            
+        }
+    }
+ 
 }

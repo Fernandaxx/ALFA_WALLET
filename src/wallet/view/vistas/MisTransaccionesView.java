@@ -61,7 +61,8 @@ public class MisTransaccionesView extends javax.swing.JPanel {
         jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {},
+                new Object[][] {}
+                                        ,
                 new String[] {
                         "Fecha", "Resumen"
                 }));

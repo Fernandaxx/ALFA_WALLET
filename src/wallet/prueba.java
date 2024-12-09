@@ -1,20 +1,31 @@
 package wallet;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 import wallet.model.entity.*;
 import wallet.dao.impl.*;
+import wallet.ConsultarPrecioCripto;
+import java.util.*;
+import wallet.MyTimerTask;
 
 public class prueba {
     public static void main(String[] args) {
-        // Lista de transacciones de ejemplo
-        TransaccionDAO dao = new TransaccionDAO();
-        List<Transaccion> transacciones = dao.listarTransacciones(1);
+        Timer timer;
+        timer = new Timer();
+        TimerTask task = new MyTimerTask();
         
-        // Exportar a CSV
-        ExportarCSV.exportarTransacciones("transacciones.csv", transacciones);
+        timer.schedule(task, 10, 10000);
     }
 }
+public class MyTimerTask extends TimerTask {       
+        ConsultarPrecioCripto consultar = new ConsultarPrecioCripto();
+        double precio = 0;
+        @Override
+        public void run(){
+            precio = consultar.getPrecioCripto("BTC");
+            System.out.println(precio);
+        }
+    
+
 
 
