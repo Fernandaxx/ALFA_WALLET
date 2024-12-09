@@ -1,12 +1,14 @@
 
 package wallet.view.components;
 
-public class Header extends javax.swing.JPanel {
-        private String user;
+import wallet.dao.impl.UsuarioDAO;
 
-        public Header(String user) {
-                this.user = user;
+public class Header extends javax.swing.JPanel {
+        private String nombre;
+
+        public Header(int idUser) {
                 initComponents();
+                this.nombre = new UsuarioDAO().buscarUsuarioPorId(idUser).getPersona().getNombre();
         }
 
         @SuppressWarnings("unchecked")
@@ -31,7 +33,7 @@ public class Header extends javax.swing.JPanel {
 
                 nombreUsuario.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
                 nombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
-                nombreUsuario.setText(this.user);
+                nombreUsuario.setText(nombre);
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);

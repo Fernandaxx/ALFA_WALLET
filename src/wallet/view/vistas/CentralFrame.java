@@ -20,17 +20,19 @@ public class CentralFrame extends javax.swing.JFrame {
     private MenuView menu;
     private Header header;
     private MainForm main;
+    private int idUser;
 
-    public CentralFrame(String user) {
+    public CentralFrame(int idUser) {
+        this.idUser = idUser;
         initComponents();
-        init(user);
+        init();
     }
 
-    private void init(String user) {
+    private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new MenuView(this);
-        header = new Header(user);
+        header = new Header(idUser);
         main = new MainForm();
 
         menu.addEvent(new EventMenuSelected() {
@@ -65,7 +67,8 @@ public class CentralFrame extends javax.swing.JFrame {
                 MisActivosView misActivosView = new MisActivosView();
                 main.showForm(misActivosView);
                 MisActivosModel misActivosModel = new MisActivosModel();
-                MisActivosController misActivosController = new MisActivosController(misActivosView, misActivosModel);
+                MisActivosController misActivosController = new MisActivosController(misActivosView, misActivosModel,
+                        this.idUser);
                 break;
             case "MIS TRANSACCIONES":
                 MisTransaccionesView transaccionesView = new MisTransaccionesView();
@@ -129,11 +132,11 @@ public class CentralFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String user) {
+    public static void main(int idUser) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CentralFrame(user).setVisible(true);
+                new CentralFrame(idUser).setVisible(true);
             }
         });
     }

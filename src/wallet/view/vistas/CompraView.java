@@ -137,14 +137,14 @@ public class CompraView extends javax.swing.JPanel {
                 jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null,
                                 new java.awt.Color(51, 51, 51), null, null));
 
-                gastar.setText("Gastar");
+                gastar.setHint("GASTAR");
                 gastar.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 gastarActionPerformed(evt);
                         }
                 });
 
-                recibir.setText("Recibir");
+                recibir.setHint("RECIBIR");
                 recibir.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 recibirActionPerformed(evt);

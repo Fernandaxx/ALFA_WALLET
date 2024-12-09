@@ -51,6 +51,27 @@ public class MonedaDAO implements IMonedaDAO {
         return exito;
     }
 
+    public int obtenerIdMoneda(String nomenclatura) {
+        int id = 0;
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "SELECT ID_MONEDA FROM MONEDA WHERE NOMENCLATURA = ?";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setString(1, nomenclatura);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("ID_MONEDA");
+            }
+            rs.close();
+            pstmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
+        return id;
+    }
+
     /**
      * Verifica si una moneda existe en la base de datos.
      *
@@ -94,19 +115,19 @@ public class MonedaDAO implements IMonedaDAO {
     }
 
     public void actualizarValorDolar(double valorDolar, String nomenclatura) {
-        if (valorDolar != -1){
-        try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
-            PreparedStatement pstmt = c.prepareStatement(sql);
-            pstmt.setDouble(1, valorDolar);
-            pstmt.setString(2, nomenclatura);
-            pstmt.executeUpdate();
-            c.close();
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(1);
-        }
+        if (valorDolar != -1) {
+            try {
+                Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+                String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
+                PreparedStatement pstmt = c.prepareStatement(sql);
+                pstmt.setDouble(1, valorDolar);
+                pstmt.setString(2, nomenclatura);
+                pstmt.executeUpdate();
+                c.close();
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(1);
+            }
         }
     }
 
@@ -186,16 +207,18 @@ public class MonedaDAO implements IMonedaDAO {
      * @return El valor en dólares de la moneda, o -1 si no se encuentra.
      */
     @Override
-    public double equivalenteDolar(Connection c, String nomenclatura) {
+    public double equivalenteDolar(String nomenclatura) {
         double valor = -1;
         String sql = "SELECT VALOR_DOLAR FROM MONEDA WHERE NOMENCLATURA = ?";
         try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, nomenclatura);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 valor = rs.getDouble("VALOR_DOLAR");
             }
+            c.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);
@@ -207,8 +230,9 @@ public class MonedaDAO implements IMonedaDAO {
         double eq = 0;
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            double equivalenteDolarCripto = equivalenteDolar(c, nomenclaturaCripto);
-            double equivalenteDolarFiat = equivalenteDolar(c, nomenclaturaFiat);
+            double equivalenteDolarCripto = equivalenteDolar(nomenclaturaCripto);
+            double equivalenteDolarFiat = equivalenteDolar(nomenclaturaFiat);
+            c.close();
             return (cantidad * equivalenteDolarFiat / equivalenteDolarCripto);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
