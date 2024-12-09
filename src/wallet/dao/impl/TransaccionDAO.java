@@ -25,14 +25,14 @@ public class TransaccionDAO implements ITransaccionDAO {
      * @param c           La conexión a la base de datos.
      * @param transaccion La transacción a registrar.
      */
-    public void registrarTransaccion(Connection c, Transaccion transaccion, int idCuenta) {
+    public void registrarTransaccion(Connection c, Transaccion transaccion, int idUsuario) {
         try {
-            String sql = "INSERT INTO TRANSACCION (RESUMEN, FECHA_HORA,ID_CUENTA) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO TRANSACCION (RESUMEN, FECHA_HORA,ID_USUARIO) VALUES (?, ?, ?)";
 
             try (PreparedStatement pstmt = c.prepareStatement(sql)) {
                 pstmt.setString(1, transaccion.getResumen());
                 pstmt.setTimestamp(2, Timestamp.valueOf(transaccion.getFecha()));
-                pstmt.setInt(3,idCuenta);
+                pstmt.setInt(3,idUsuario);
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
@@ -71,16 +71,16 @@ public class TransaccionDAO implements ITransaccionDAO {
         System.out.println("Operation done successfully");
     }
 
-    public List<Transaccion> listarTransacciones(int idCuenta){
+    public List<Transaccion> listarTransacciones(int idUsuario){
         List<Transaccion> lista = new LinkedList<>();
         Connection c = null;
         Statement stmt = null;
         try {
             c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             c.createStatement();
-            String sql = "SELECT * FROM TRANSACCION WHERE ID_CUENTA = ? ";
+            String sql = "SELECT * FROM TRANSACCION WHERE ID_USUARIO = ? ";
             PreparedStatement pstmt = c.prepareStatement(sql);
-            pstmt.setInt(1, idCuenta);
+            pstmt.setInt(1, idUsuario);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 lista.add( new Compra(rs.getTimestamp("FECHA_HORA").toLocalDateTime() , rs.getString("RESUMEN")));

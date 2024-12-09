@@ -35,7 +35,7 @@ public class MonedaDAO implements IMonedaDAO {
             if (moneda instanceof Criptomoneda) {
                 Criptomoneda cripto = (Criptomoneda) moneda;
                 if (monedaExiste(c, moneda.getNomenclatura()))
-                    actualizarMoneda(c, cripto.getStock(), cripto.getNomenclatura());
+                    actualizarStock(c, cripto.getStock(), cripto.getNomenclatura());
                 else
                     insertarCripto(c, cripto);
             } else if (!monedaExiste(c, moneda.getNomenclatura())) {
@@ -80,7 +80,7 @@ public class MonedaDAO implements IMonedaDAO {
      * @param stock        La cantidad de stock a agregar.
      * @param nomenclatura La nomenclatura de la moneda a actualizar.
      */
-    public void actualizarMoneda(Connection c, double stock, String nomenclatura) {
+    public void actualizarStock(Connection c, double stock, String nomenclatura) {
         try {
             String sql = "UPDATE MONEDA SET STOCK = STOCK + ? WHERE NOMENCLATURA = ?";
             PreparedStatement pstmt = c.prepareStatement(sql);
@@ -90,6 +90,23 @@ public class MonedaDAO implements IMonedaDAO {
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(1);
+        }
+    }
+
+    public void actualizarValorDolar(double valorDolar, String nomenclatura) {
+        if (valorDolar != -1){
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
+            PreparedStatement pstmt = c.prepareStatement(sql);
+            pstmt.setDouble(1, valorDolar);
+            pstmt.setString(2, nomenclatura);
+            pstmt.executeUpdate();
+            c.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(1);
+        }
         }
     }
 
