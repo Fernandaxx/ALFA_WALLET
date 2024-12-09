@@ -91,5 +91,5 @@ public interface IMonedaDAO {
      * @param stock        La cantidad de stock a agregar.
      * @param nomenclatura La nomenclatura de la moneda a actualizar.
      */
-    void actualizarMoneda(Connection c, double stock, String nomenclatura);
+    void actualizarStock(Connection c, double stock, String nomenclatura);
 }

@@ -27,7 +27,7 @@ public class CotizacionesController {
         view.getUsdcButton().addActionListener(new comprarAction("USDC"));
         view.getUsdtButton().addActionListener(new comprarAction("USDT"));
 
-        precio(view);
+        precio(view,model);
     }
 
     class comprarAction implements ActionListener {
@@ -46,9 +46,9 @@ public class CotizacionesController {
         }
     }
 
-    private void precio (CotizacionesView view){
+    private void precio (CotizacionesView view, CotizacionesModel model){
         Timer timer = new Timer();
-        TimerTask task = new MyTimerTask(view);
+        TimerTask task = new MyTimerTask(view,model);
         timer.schedule(task, 10, 60000);
     }
 
@@ -56,7 +56,7 @@ public class CotizacionesController {
         private CotizacionesView view;
         private ConsultarPrecioCripto consultar;
 
-        public MyTimerTask(CotizacionesView view) {
+        public MyTimerTask(CotizacionesView view, CotizacionesModel model) {
             this.view = view;
             this.consultar = new ConsultarPrecioCripto();
         }
@@ -75,6 +75,7 @@ public class CotizacionesController {
             view.setUsdcLabel(String.valueOf(usdcPrecio));
             view.setUsdtLabel(String.valueOf(usdtPrecio));
             
+            model.actualizarPrecios(btcPrecio,ethPrecio,dogePrecio,usdcPrecio,usdtPrecio);
         }
     }
  
