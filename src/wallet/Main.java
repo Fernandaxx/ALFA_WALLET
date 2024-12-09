@@ -41,8 +41,8 @@ public class Main {
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                                // new InicialFrame().setVisible(true);
-                                new CentralFrame(1).setVisible(true);
+                                new InicialFrame().setVisible(true);
+                                // new CentralFrame(1).setVisible(true);
                         }
                 });
 

@@ -30,15 +30,17 @@ public class MisActivosModel {
         double eq;
         List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
         List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
+        if (!(activosCripto.isEmpty() || activosFiat.isEmpty())) {
 
-        for (ActivoFiat activoFiat : activosFiat) {
-            eq = monedaDAO.equivalenteDolar(activoFiat.getFiat().getNomenclatura());
-            balance += eq * activoFiat.getCantidad();
-        }
-        for (ActivoCripto activoCripto : activosCripto) {
-            eq = monedaDAO.equivalenteDolar(activoCripto.getCripto().getNomenclatura());
-            balance += eq * activoCripto.getCantidad();
+            for (ActivoFiat activoFiat : activosFiat) {
+                eq = monedaDAO.equivalenteDolar(activoFiat.getFiat().getNomenclatura());
+                balance += eq * activoFiat.getCantidad();
+            }
+            for (ActivoCripto activoCripto : activosCripto) {
+                eq = monedaDAO.equivalenteDolar(activoCripto.getCripto().getNomenclatura());
+                balance += eq * activoCripto.getCantidad();
 
+            }
         }
         return balance;
     }
