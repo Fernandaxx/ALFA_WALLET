@@ -102,7 +102,7 @@ public class LoginView extends JPanel {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(2000000000);
                     animator.start();
                 } catch (InterruptedException e) {
                     System.err.println(e);

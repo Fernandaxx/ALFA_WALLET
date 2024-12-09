@@ -1,100 +1,149 @@
+
 package wallet.view.vistas;
 
+import javax.swing.ImageIcon;
+
+import wallet.view.components.Button;
+import wallet.view.components.ModeloTabla;
+
 public class MisActivosView extends javax.swing.JPanel {
+
+        private javax.swing.JLabel balanceLabel;
+        private wallet.view.components.Button exportarButton;
+        private wallet.view.components.Button generarButton;
+        private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JTable jTable1;
 
         public MisActivosView() {
                 initComponents();
         }
 
+        public void setBalanceLabel(String balance) {
+                this.balanceLabel.setText(balance);
+        }
+
+        public Button getExportarButton() {
+                return exportarButton;
+        }
+
+        public Button getGenerarButton() {
+                return generarButton;
+        }
+
+        private Object[][] datos = { { new ImageIcon(getClass().getResource("/resources/BTC.png")), "BTC", "10" },
+                        { new ImageIcon(getClass().getResource("/resources/BTC.png")), "ETH", "15" } };
+        private String[] columnas = { "", "Moneda", "Monto" };
+
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">
         private void initComponents() {
 
-                tituloLabel = new javax.swing.JLabel();
-                jScrollPane2 = new javax.swing.JScrollPane();
+                jLabel1 = new javax.swing.JLabel();
+                jScrollPane1 = new javax.swing.JScrollPane();
                 jTable1 = new javax.swing.JTable();
+                jLabel2 = new javax.swing.JLabel();
+                balanceLabel = new javax.swing.JLabel();
+                exportarButton = new wallet.view.components.Button();
+                generarButton = new wallet.view.components.Button();
 
-                setBackground(new java.awt.Color(255, 255, 255));
+                setOpaque(false);
 
-                tituloLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-                tituloLabel.setForeground(new java.awt.Color(182, 183, 192));
-                tituloLabel.setText("Mis Activos");
+                jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+                jLabel1.setForeground(new java.awt.Color(182, 183, 192));
+                jLabel1.setText("Mis Activos");
 
                 jTable1.setAutoCreateRowSorter(true);
                 jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-                jTable1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-                jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null },
-                                                { null, null, null }
-                                },
-                                new String[] {
-                                                "", "Moneda", "Monto"
-                                }));
-                jTable1.setColumnSelectionAllowed(true);
-                jScrollPane2.setViewportView(jTable1);
-                jTable1.getColumnModel().getSelectionModel()
-                                .setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+                ////////
+                jTable1.setModel(new ModeloTabla(datos, columnas));
+                jTable1.setRowHeight(40);
+                jTable1.setCellSelectionEnabled(true);
+                jScrollPane1.setViewportView(jTable1);
+
+                jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+                jLabel2.setText("BALANCE: ");
+
+                balanceLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+                balanceLabel.setText(".");
+
+                exportarButton.setText("EXPORTAR CSV");
+
+                generarButton.setText("GENERAR ACTIVOS");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
-                                                                .addContainerGap(103, Short.MAX_VALUE)
+                                                                .addGap(215, 215, 215)
                                                                 .addGroup(layout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(layout.createSequentialGroup()
+                                                                                                .addComponent(jLabel2)
+                                                                                                .addPreferredGap(
+                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                .addComponent(balanceLabel,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                                113,
+                                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addComponent(jScrollPane1,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                530,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                layout
-                                                                                                                .createSequentialGroup()
-                                                                                                                .addComponent(tituloLabel,
+                                                                                                layout.createSequentialGroup()
+                                                                                                                .addComponent(generarButton,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                142,
+                                                                                                                                120,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(347, 347,
-                                                                                                                                347))
-                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                layout
-                                                                                                                .createSequentialGroup()
-                                                                                                                .addComponent(jScrollPane2,
+                                                                                                                .addGap(47, 47, 47)
+                                                                                                                .addComponent(exportarButton,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                                                                693,
+                                                                                                                                120,
                                                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addGap(97, 97, 97)))));
+                                                                                                                .addGap(95, 95, 95)))
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                                .createSequentialGroup()
+                                                                .addGap(421, 421, 421)
+                                                                .addComponent(jLabel1,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                                Short.MAX_VALUE)
+                                                                .addGap(215, 215, 215)));
                 layout.setVerticalGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(tituloLabel)
-                                                                .addGap(72, 72, 72)
-                                                                .addComponent(jScrollPane2,
+                                                                .addGap(16, 16, 16)
+                                                                .addComponent(jLabel1,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                184,
+                                                                                45,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap(228, Short.MAX_VALUE)));
-        }// </editor-fold>
+                                                                .addGap(57, 57, 57)
+                                                                .addGroup(layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                                .addComponent(jLabel2)
+                                                                                .addComponent(balanceLabel))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jScrollPane1,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                162,
+                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.CENTER)
+                                                                                .addComponent(exportarButton,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                32,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(generarButton,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                                                32,
+                                                                                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addContainerGap(126, Short.MAX_VALUE)));
+        }
 
-        // Variables declaration - do not modify
-        private javax.swing.JScrollPane jScrollPane2;
-        private javax.swing.JTable jTable1;
-        private javax.swing.JLabel tituloLabel;
-        // End of variables declaration
 }
