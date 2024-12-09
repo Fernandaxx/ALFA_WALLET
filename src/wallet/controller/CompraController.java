@@ -56,6 +56,6 @@ public class CompraController {
         public void actionPerformed(ActionEvent e) {
             frame.cambiarVista("COTIZACIONES");
         }
-    }
+    }//
 
 }
