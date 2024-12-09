@@ -19,9 +19,10 @@ public class CompraController {
         view.getVolver().addActionListener(new volverAction());
         view.getComboBox().addActionListener(new seleccionAction());
         String nomCripto = view.monedaAComprar();
+        configurarVista(nomCripto);
         view.getComprarButton().addActionListener(new comprarAction(nomCripto,
                 view.getComboBox().getSelectedItem().toString(), Double.parseDouble(view.getGastar().getText())));
-        configurarVista(nomCripto);
+        
 
     }
 
