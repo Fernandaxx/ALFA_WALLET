@@ -32,7 +32,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
         }
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
 
             if (!m.monedaExiste(c, activoFiat.getFiat().getNomenclatura())) {
                 return exito;
@@ -109,14 +109,16 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
      * @return Una lista de activos fiduciarios.
      */
     @Override
-    public List<ActivoFiat> listarActivosFiat() {
+    public List<ActivoFiat> listarActivosFiat(int idUsuario) {
         Connection c = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         List<ActivoFiat> activos = new LinkedList<>();
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ACTIVO_FIAT");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String query = "SELECT * FROM ACTIVO_FIAT WHERE ID_USUARIO = ?";
+            stmt = c.prepareStatement(query);
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ActivoFiat activo = new ActivoFiat(rs.getDouble("CANTIDAD"), rs.getString("NOMENCLATURA"));
                 activos.add(activo);
@@ -141,7 +143,7 @@ public class ActivoFiatDAO implements IActivoFiatDAO {
     public void borrarActivoFiat(String nomenclatura) {
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             String sql = "DELETE FROM ACTIVO_FIAT WHERE NOMENCLATURA = ?";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, nomenclatura);

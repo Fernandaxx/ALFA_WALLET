@@ -23,4 +23,8 @@ public class LoginModel {
         return false;
     }
 
+    public int obtenerIdUSer(String email) {
+        return usuarioDAO.getId(email);
+    }
+
 }

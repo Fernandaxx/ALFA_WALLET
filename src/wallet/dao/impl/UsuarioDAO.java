@@ -60,6 +60,47 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
+    public Usuario buscarUsuarioPorId(int id) {
+        String sql = "SELECT ID_PERSONA, EMAIL, PASSWORD, ACEPTA_TERMINOS FROM USUARIO WHERE ID = ?";
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+                PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setEmail(rs.getString("EMAIL"));
+                    usuario.setPassword(rs.getString("PASSWORD"));
+                    usuario.setAceptaTerminos(rs.getBoolean("ACEPTA_TERMINOS"));
+                    int personaId = rs.getInt("ID_PERSONA");
+                    Persona persona = new PersonaDAO().buscarPersonaPorId(personaId);
+                    usuario.setPersona(persona);
+                    return usuario;
+                }
+            }
+            c.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public int getId(String email) {
+        String sql = "SELECT ID FROM USUARIO WHERE EMAIL = ?";
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+                PreparedStatement pstmt = c.prepareStatement(sql)) {
+            pstmt.setString(1, email);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("ID");
+                }
+            }
+            c.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return 0;
+    }
+
     @Override
     public void actualizarUsuario(String email) {
         // TODO Auto-generated method stub

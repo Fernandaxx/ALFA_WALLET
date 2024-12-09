@@ -25,7 +25,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @return true si la operación se realizó con éxito, false en caso contrario.
      */
     @Override
-    public boolean generarActivoCripto(ActivoCripto activoCripto) {
+    public boolean generarActivoCripto(ActivoCripto activoCripto, int idUsuario) {
         boolean exito = false;
         if (activoCripto == null) {
             System.out.println("No ingreso un Activo");
@@ -34,15 +34,15 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
 
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             if (!monedaDAO.monedaExiste(c, activoCripto.getCripto().getNomenclatura())) {
                 return exito;
             }
             if (activoExiste(c, activoCripto.getCripto().getNomenclatura())) {
-                actualizarActivo(c, activoCripto);
+                actualizarActivo(c, activoCripto, int idUsuario);
                 exito = true;
             } else {
-                insertarActivo(c, activoCripto);
+                insertarActivo(c, activoCripto, int idUsuario);
                 exito = true;
             }
             c.close();
@@ -79,11 +79,12 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @param activo El activo cripto a actualizar.
      * @throws SQLException Si ocurre un error en la actualización.
      */
-    public void actualizarActivo(Connection c, ActivoCripto activo) throws SQLException {
-        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = CANTIDAD + ? WHERE NOMENCLATURA = ?";
+    public void actualizarActivo(Connection c, ActivoCripto activo, int idUsuario) throws SQLException {
+        String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = CANTIDAD + ? WHERE NOMENCLATURA = ? AND ID_USUARIO = ?";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setDouble(1, activo.getCantidad());
             pstmt.setString(2, activo.getCripto().getNomenclatura());
+            pstmt.setInt(3, idUsuario);
             pstmt.executeUpdate();
         }
     }
@@ -95,8 +96,8 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @param activo El activo cripto a insertar.
      * @throws SQLException Si ocurre un error en la inserción.
      */
-    public void insertarActivo(Connection c, ActivoCripto activo) throws SQLException {
-        String sql = "INSERT INTO ACTIVO_CRIPTO (NOMENCLATURA, CANTIDAD) VALUES (?, ?)";
+    public void insertarActivo(Connection c, ActivoCripto activo, int idUsuario) throws SQLException {
+        String sql = "INSERT INTO ACTIVO_CRIPTO (NOMENCLATURA, CANTIDAD) WHERE ID_USUARIO VALUES (?, ?)";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
             pstmt.setString(1, activo.getCripto().getNomenclatura());
             pstmt.setDouble(2, activo.getCantidad());
@@ -110,14 +111,16 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
      * @return Una lista de activos cripto.
      */
     @Override
-    public List<ActivoCripto> listarActivosCripto() {
+    public List<ActivoCripto> listarActivosCripto(int idUsuario) {
         Connection c = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         List<ActivoCripto> activos = new LinkedList<>();
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ACTIVO_CRIPTO");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
+            String query = "SELECT * FROM ACTIVO_CRIPTO WHERE ID_USUARIO = ?";
+            stmt = c.prepareStatement(query);
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ActivoCripto activo = new ActivoCripto(rs.getDouble("CANTIDAD"), rs.getString("NOMENCLATURA"));
                 activos.add(activo);
@@ -142,7 +145,7 @@ public class ActivoCriptoDAO implements IActivoCriptoDAO {
     public void borrarActivoCripto(String nomenclatura) {
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:BilleteraVirtual.db");
+            c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
             String sql = "DELETE FROM ACTIVO_CRIPTO WHERE NOMENCLATURA = ?";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, nomenclatura);

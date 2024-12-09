@@ -25,7 +25,7 @@ public interface IActivoFiatDAO {
      *
      * @return Una lista de activos fiduciarios.
      */
-    List<ActivoFiat> listarActivosFiat();
+    List<ActivoFiat> listarActivosFiat(int idUsuario);
 
     /**
      * Elimina un activo fiduciario de la base de datos por su nomenclatura o

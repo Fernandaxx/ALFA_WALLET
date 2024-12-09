@@ -34,7 +34,7 @@ public class LoginController {
                     if (model.correctPassword(email, password)) {
                         view.showMessage("Bienvenido");
                         mainFrame.dispose();
-                        CentralFrame.main(usuario.getPersona().getNombre());
+                        CentralFrame.main(model.obtenerIdUSer(email));
 
                     } else {
                         view.showMessage("Contraseña incorrecta");

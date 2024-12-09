@@ -73,7 +73,7 @@ public interface IMonedaDAO {
      * @param nomenclatura La nomenclatura de la moneda.
      * @return El valor en dólares de la moneda, o -1 si no se encuentra.
      */
-    double equivalenteDolar(Connection c, String nomenclatura);
+    double equivalenteDolar(String nomenclatura);
 
     /**
      * Verifica si una moneda existe en la base de datos.

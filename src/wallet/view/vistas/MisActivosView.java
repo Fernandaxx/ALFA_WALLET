@@ -32,9 +32,9 @@ public class MisActivosView extends javax.swing.JPanel {
                 return generarButton;
         }
 
-        private Object[][] datos = { { new ImageIcon(getClass().getResource("/resources/BTC.png")), "BTC", "10" },
-                        { new ImageIcon(getClass().getResource("/resources/BTC.png")), "ETH", "15" } };
-        private String[] columnas = { "", "Moneda", "Monto" };
+        public void cargarActivos(ModeloTabla modelo) {
+                jTable1.setModel(modelo);
+        }
 
         @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -57,7 +57,7 @@ public class MisActivosView extends javax.swing.JPanel {
                 jTable1.setAutoCreateRowSorter(true);
                 jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
                 ////////
-                jTable1.setModel(new ModeloTabla(datos, columnas));
+
                 jTable1.setRowHeight(40);
                 jTable1.setCellSelectionEnabled(true);
                 jScrollPane1.setViewportView(jTable1);

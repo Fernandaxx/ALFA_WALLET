@@ -19,11 +19,11 @@ public interface IActivoCriptoDAO {
     boolean generarActivoCripto(ActivoCripto activoCripto);
 
     /**
-     * Lista todos los activos cripto en la base de datos.
+     * Lista todos los activos cripto en la base de datos por id de usuario.
      *
      * @return Una lista de activos cripto.
      */
-    List<ActivoCripto> listarActivosCripto();
+    List<ActivoCripto> listarActivosCripto(int idUsuario);
 
     /**
      * Elimina un activo cripto de la base de datos por su nomenclatura o
