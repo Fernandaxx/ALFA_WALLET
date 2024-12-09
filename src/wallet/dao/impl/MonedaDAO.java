@@ -55,7 +55,7 @@ public class MonedaDAO implements IMonedaDAO {
         String nomenclatura = "";
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "SELECT NOMENCLATURA FROM MONEDA WHERE ID_MONEDA = ?";
+            String sql = "SELECT NOMENCLATURA FROM MONEDA WHERE ID = ?";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -76,12 +76,12 @@ public class MonedaDAO implements IMonedaDAO {
         int id = 0;
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
-            String sql = "SELECT ID_MONEDA FROM MONEDA WHERE NOMENCLATURA = ?";
+            String sql = "SELECT ID FROM MONEDA WHERE NOMENCLATURA = ?";
             PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setString(1, nomenclatura);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                id = rs.getInt("ID_MONEDA");
+                id = rs.getInt("ID");
             }
             rs.close();
             pstmt.close();

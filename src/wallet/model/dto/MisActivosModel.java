@@ -29,6 +29,7 @@ public class MisActivosModel {
         double eq;
         List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
         List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
+
         for (ActivoFiat activoFiat : activosFiat) {
             eq = monedaDAO.equivalenteDolar(activoFiat.getFiat().getNomenclatura());
             balance += eq * activoFiat.getCantidad();
@@ -74,6 +75,5 @@ public class MisActivosModel {
         activoCriptoDAO.generarActivoCripto(new ActivoCripto(1, new Criptomoneda("BTC")), idUsuario, idMonedas[0]);
         activoCriptoDAO.generarActivoCripto(new ActivoCripto(5, new Criptomoneda("ETH")), idUsuario, idMonedas[1]);
         activoFiatDAO.generarActivoFiat(new ActivoFiat(10000, new Fiat("ARS")), idUsuario, idMonedas[2]);
-
     }
 }

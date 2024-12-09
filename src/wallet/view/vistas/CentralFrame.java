@@ -66,6 +66,7 @@ public class CentralFrame extends javax.swing.JFrame {
                         cotizacionesModel, this);
                 break;
             case "MIS ACTIVOS":
+
                 MisActivosView misActivosView = new MisActivosView();
                 main.showForm(misActivosView);
                 MisActivosModel misActivosModel = new MisActivosModel();

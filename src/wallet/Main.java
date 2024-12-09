@@ -4,6 +4,7 @@ import wallet.config.DataBaseConfig;
 import wallet.dao.impl.MonedaDAO;
 import wallet.model.entity.Criptomoneda;
 import wallet.model.entity.Fiat;
+import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.InicialFrame;
 
 public class Main {
@@ -40,15 +41,16 @@ public class Main {
 
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                                new InicialFrame().setVisible(true);
+                                // new InicialFrame().setVisible(true);
+                                new CentralFrame(1).setVisible(true);
                         }
                 });
 
-                cargarMonedas();
+                // cargarMonedas();
 
         }
 
-        private static void cargarMonedas(){
+        private static void cargarMonedas() {
                 MonedaDAO dao = new MonedaDAO();
                 Criptomoneda cripto1 = new Criptomoneda('C', "Bitcoin", "BTC", 8888, 0.5, 10000, "/resources/BTC.png");
                 Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 10000, "/resources/ETH.png");
