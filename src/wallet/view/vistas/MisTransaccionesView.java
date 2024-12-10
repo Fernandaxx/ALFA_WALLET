@@ -15,15 +15,18 @@ import javax.swing.table.DefaultTableModel;
 public class MisTransaccionesView extends javax.swing.JPanel {
 
     private TransaccionDAO dao;
+    private int idUser;
 
-    public MisTransaccionesView() {
+    public MisTransaccionesView(int idUser) {
+        this.idUser = idUser;
         initComponents();
         dao = new TransaccionDAO();
         cargarTransacciones();
 
+
     }
     private void cargarTransacciones() {
-        List<Transaccion> transacciones = dao.listarTransacciones(1); // Obtén las transacciones del usuario con ID 1
+        List<Transaccion> transacciones = dao.listarTransacciones(idUser); // Obtén las transacciones del usuario con ID 1
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0); // Limpia la tabla
 

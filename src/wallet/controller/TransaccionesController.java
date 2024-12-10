@@ -12,11 +12,13 @@ public class TransaccionesController {
     private MisTransaccionesView view;
     private TransaccionesModel model;
     private CentralFrame centralFrame;
+    
 
     public TransaccionesController(MisTransaccionesView view, TransaccionesModel model, CentralFrame centralFrame ){
         this.view = view;
         this.model = model;
         this.centralFrame = centralFrame;
+
 
         view.getBackButton().addActionListener(new BackAction());
     }

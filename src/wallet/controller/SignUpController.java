@@ -6,6 +6,7 @@ import wallet.model.dto.SignUpModel;
 import wallet.model.entity.Persona;
 import wallet.model.entity.Usuario;
 import wallet.view.vistas.SignUpView;
+import wallet.exception.UsuarioRegistradoException;
 
 public class SignUpController {
     private SignUpView view;
@@ -42,9 +43,8 @@ public class SignUpController {
                 usuario.setPassword(password);
                 usuario.setAceptaTerminos(tyc);
                 model.setUsuario(usuario);
-                if (model.usuarioRegistrado()) {
-                    view.showMessage("Usuario ya registrado");
-                    return;
+                 if (model.usuarioRegistrado()) {
+                    throw new UsuarioRegistradoException("Usuario ya registrado con el correo: " + email);
                 }
                 if (model.registrarUsuario()) {
                     view.showMessage("Registro exitoso");
