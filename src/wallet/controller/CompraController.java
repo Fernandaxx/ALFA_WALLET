@@ -16,18 +16,19 @@ public class CompraController {
         this.view = view;
         this.frame = frame;
         this.model = model;
-        this.idUser=idUser;
+        this.idUser = idUser;
 
         view.getVolver().addActionListener(new volverAction());
         view.getComboBox().addActionListener(new seleccionAction());
         String nomCripto = view.monedaAComprar();
         configurarVista(nomCripto);
         view.getComprarButton().addActionListener(new comprarAction());
-        /*String gastar = view.getGastar().getText();
-        double cantidad = Double.parseDouble(gastar);
-        view.getComprarButton().addActionListener(new comprarAction(nomCripto,
-                view.getComboBox().getSelectedItem().toString(), cantidad));*/
-        
+        /*
+         * String gastar = view.getGastar().getText();
+         * double cantidad = Double.parseDouble(gastar);
+         * view.getComprarButton().addActionListener(new comprarAction(nomCripto,
+         * view.getComboBox().getSelectedItem().toString(), cantidad));
+         */
 
     }
 
@@ -57,7 +58,7 @@ public class CompraController {
         String nomenclaturaCripto;
         double cantidad;
 
-        public comprarAction(){
+        public comprarAction() {
 
         }
 

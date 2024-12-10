@@ -7,8 +7,8 @@ public class Header extends javax.swing.JPanel {
         private String nombre;
 
         public Header(int idUser) {
-                initComponents();
                 this.nombre = new UsuarioDAO().buscarUsuarioPorId(idUser).getPersona().getNombre();
+                initComponents();
         }
 
         @SuppressWarnings("unchecked")
@@ -33,7 +33,8 @@ public class Header extends javax.swing.JPanel {
 
                 nombreUsuario.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
                 nombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
-                nombreUsuario.setText(this.nombre);
+                nombreUsuario.setText(nombre);
+                nombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
