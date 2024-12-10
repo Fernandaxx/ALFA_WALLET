@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import wallet.ConsultarPrecioCripto;
-import wallet.MyTimerTask;
 import wallet.model.dto.CotizacionesModel;
 import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.CotizacionesView;
@@ -14,7 +13,6 @@ public class CotizacionesController {
     private CotizacionesView view;
     private CotizacionesModel model;
     private CentralFrame centralFrame;
-
 
     public CotizacionesController(CotizacionesView view, CotizacionesModel model, CentralFrame centralFrame) {
         this.view = view;
@@ -27,7 +25,7 @@ public class CotizacionesController {
         view.getUsdcButton().addActionListener(new comprarAction("USDC"));
         view.getUsdtButton().addActionListener(new comprarAction("USDT"));
 
-        precio(view,model);
+        precio(view, model);
     }
 
     class comprarAction implements ActionListener {
@@ -46,9 +44,9 @@ public class CotizacionesController {
         }
     }
 
-    private void precio (CotizacionesView view, CotizacionesModel model){
+    private void precio(CotizacionesView view, CotizacionesModel model) {
         Timer timer = new Timer();
-        TimerTask task = new MyTimerTask(view,model);
+        TimerTask task = new MyTimerTask(view, model);
         timer.schedule(task, 10, 60000);
     }
 
@@ -60,6 +58,7 @@ public class CotizacionesController {
             this.view = view;
             this.consultar = new ConsultarPrecioCripto();
         }
+
         @Override
         public void run() {
             // Obtener precios de criptomonedas
@@ -74,9 +73,9 @@ public class CotizacionesController {
             view.setDogeLabel(String.valueOf(dogePrecio));
             view.setUsdcLabel(String.valueOf(usdcPrecio));
             view.setUsdtLabel(String.valueOf(usdtPrecio));
-            
-            model.actualizarPrecios(btcPrecio,ethPrecio,dogePrecio,usdcPrecio,usdtPrecio);
+
+            model.actualizarPrecios(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
         }
     }
- 
+
 }
