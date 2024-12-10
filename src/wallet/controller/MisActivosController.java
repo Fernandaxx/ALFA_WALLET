@@ -4,6 +4,7 @@ package wallet.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import wallet.exception.ExportacionException;
 import wallet.model.dto.MisActivosModel;
 import wallet.view.components.ModeloTabla;
 import wallet.view.vistas.MisActivosView;
@@ -51,8 +52,9 @@ public class MisActivosController {
 
     class exportarCSVAction implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {     
             model.exportar(idUsuario);
+        
         }
     }
 }

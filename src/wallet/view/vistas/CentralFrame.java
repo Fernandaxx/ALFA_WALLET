@@ -78,7 +78,7 @@ public class CentralFrame extends javax.swing.JFrame {
                         this.idUser);
                 break;
             case "MIS TRANSACCIONES":
-                MisTransaccionesView transaccionesView = new MisTransaccionesView();
+                MisTransaccionesView transaccionesView = new MisTransaccionesView(idUser);
                 main.showForm(transaccionesView);
                 TransaccionesModel transaccionesModel = new TransaccionesModel();
                 TransaccionesController transaccionesController = new TransaccionesController(transaccionesView,

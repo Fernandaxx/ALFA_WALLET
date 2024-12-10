@@ -4,6 +4,7 @@ import java.util.List;
 
 import wallet.dao.impl.GestorCompra;
 import wallet.dao.impl.MonedaDAO;
+import wallet.exception.CompraFallidaException;
 import wallet.model.entity.Compra;
 import wallet.model.entity.Stock;
 import wallet.view.vistas.CompraView;
@@ -22,8 +23,8 @@ public class CompraModel {
         Criptomoneda cripto = new Criptomoneda(nomenclaturaCripto);
         Fiat fiat = new Fiat(nomenclaturaFiat);
         int error = gestorCompra.simularCompra(cripto, fiat, cantidad, idUser);
-        if (error == 0){
-            System.out.println("COMPREEEEEEEEEEEEEEEEEEEE");
+        if (error != 0) {
+            throw new CompraFallidaException("Error al realizar la compra de " + nomenclaturaCripto + " con " + nomenclaturaFiat);
         }
         return error;
     }
