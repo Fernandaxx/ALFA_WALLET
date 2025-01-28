@@ -6,7 +6,10 @@ import wallet.model.dto.SignUpModel;
 import wallet.model.entity.Persona;
 import wallet.model.entity.Usuario;
 import wallet.view.vistas.SignUpView;
-import wallet.exception.UsuarioRegistradoException;
+import wallet.exception.CamposIncException;
+import wallet.exception.TyCException;
+import wallet.exception.UsuarioRegException;
+
 
 public class SignUpController {
     private SignUpView view;
@@ -28,31 +31,44 @@ public class SignUpController {
             String password = view.getPassword();
             boolean tyc = view.getTermYCond();
 
+            try{
             if (!tyc) {
-                view.showMessage("Debe aceptar los términos y condiciones");
-                return;
+                throw new TyCException();
             }
             if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                view.showMessage("Verifique que todos los campos esten llenos");
-                return;
+                throw new CamposIncException();
             } else {
-                Persona persona = new Persona(name, lastName);
-                Usuario usuario = new Usuario();
-                usuario.setPersona(persona);
-                usuario.setEmail(email);
-                usuario.setPassword(password);
-                usuario.setAceptaTerminos(tyc);
-                model.setUsuario(usuario);
-                 if (model.usuarioRegistrado()) {
-                    throw new UsuarioRegistradoException("Usuario ya registrado con el correo: " + email);
+                Registrar(name,lastName,email,password,tyc);
+                if (model.usuarioRegistrado()) {
+                    throw new UsuarioRegException(email);
                 }
-                if (model.registrarUsuario()) {
-                    view.showMessage("Registro exitoso");
-                } else {
-                    view.showMessage("Error al registrar usuario");
+                else {
+                    if (model.registrarUsuario()) {
+                        view.showMessage("Registro exitoso");
+                    } else {
+                        view.showMessage("Error al registrar usuario");
+                    }
                 }
+                
             }
+        }catch(TyCException ex ){
+            view.showMessage(ex.getMessage());
+        }catch(CamposIncException ex){
+        view.showMessage(ex.getMessage());
+        }catch(UsuarioRegException ex){
+            view.showMessage(ex.getMessage());
         }
     }
 
+    private void Registrar(String name,String lastName,String email,String password,boolean tyc){
+        Persona persona = new Persona(name, lastName);
+        Usuario usuario = new Usuario();
+        usuario.setPersona(persona);
+        usuario.setEmail(email);
+        usuario.setPassword(password);
+        usuario.setAceptaTerminos(tyc);
+        model.setUsuario(usuario);
+    }
 }
+}
+
