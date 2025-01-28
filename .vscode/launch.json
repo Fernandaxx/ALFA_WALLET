@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "wallet.Main",
+            "projectName": "ALFA_WALLET_8f356a37"
+        },
+        {
+            "type": "java",
             "name": "ImageTableExample",
             "request": "launch",
             "mainClass": "wallet.ImageTableExample",
