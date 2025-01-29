@@ -3,6 +3,9 @@ package wallet.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import wallet.exception.CamposIncException;
+import wallet.exception.PassIncorrectaException;
+import wallet.exception.UsuarioNoRegException;
 import wallet.model.dto.LoginModel;
 import wallet.model.entity.Usuario;
 import wallet.view.vistas.CentralFrame;
@@ -28,6 +31,19 @@ public class LoginController {
         public void actionPerformed(ActionEvent e) {
             String email = view.getEmail();
             String password = view.getPassword();
+            try{
+            Login(email,password);
+             }catch (PassIncorrectaException ex){
+            view.showMessage(ex.getMessage());
+            }catch (UsuarioNoRegException ex){
+                view.showMessage(ex.getMessage());
+            }catch (CamposIncException ex){
+                view.showMessage(ex.getMessage());
+            }
+        }
+    }
+
+    private void Login (String email, String password) throws PassIncorrectaException,UsuarioNoRegException,CamposIncException{  
             if (!(email.isEmpty() || password.isEmpty())) {
                 Usuario usuario = model.usuarioRegistrado(email);
                 if (usuario != null) {
@@ -37,17 +53,13 @@ public class LoginController {
                         CentralFrame.main(model.obtenerIdUSer(email));
 
                     } else {
-                        view.showMessage("Contraseña incorrecta");
-                        return;
+                        throw new PassIncorrectaException();
                     }
                 } else {
-                    view.showMessage("Usuario no registrado");
-                    return;
+                    throw new UsuarioNoRegException();
                 }
             } else {
-                view.showMessage("Verifique que todos los campos esten llenos");
-                return;
+                throw new CamposIncException();
             }
         }
     }
-}
