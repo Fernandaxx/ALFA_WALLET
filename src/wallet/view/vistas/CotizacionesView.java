@@ -114,23 +114,23 @@ public class CotizacionesView extends javax.swing.JPanel {
 
                 usdtLabel = new javax.swing.JLabel();
                 usdtLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                usdtLabel.setText("");
+                usdtLabel.setText("-");
 
                 EthLabel = new javax.swing.JLabel();
                 EthLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                EthLabel.setText("100.000");
+                EthLabel.setText("-");
 
                 usdcLabel = new javax.swing.JLabel();
                 usdcLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                usdcLabel.setText("100.000");
+                usdcLabel.setText("-");
 
                 BtcLabel = new javax.swing.JLabel();
                 BtcLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                BtcLabel.setText("100.000");
+                BtcLabel.setText("-");
 
                 dogeLabel = new javax.swing.JLabel();
                 dogeLabel.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-                dogeLabel.setText("100.000");
+                dogeLabel.setText("-");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);

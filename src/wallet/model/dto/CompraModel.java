@@ -1,10 +1,10 @@
 package wallet.model.dto;
 
 import java.util.List;
-
+import wallet.exception.FiatInsuficienteException;
+import wallet.exception.StockInsuficienteException;
 import wallet.dao.impl.GestorCompra;
 import wallet.dao.impl.MonedaDAO;
-import wallet.exception.CompraFallidaException;
 import wallet.model.entity.Compra;
 import wallet.model.entity.Stock;
 import wallet.view.vistas.CompraView;
@@ -19,14 +19,17 @@ public class CompraModel {
     public CompraModel() {
     }
 
-    public int generarCompra(String nomenclaturaCripto,String nomenclaturaFiat,double cantidad,int idUser ){
+    public void generarCompra(String nomenclaturaCripto,String nomenclaturaFiat,double cantidad,int idUser ) throws StockInsuficienteException,FiatInsuficienteException{
         Criptomoneda cripto = new Criptomoneda(nomenclaturaCripto);
         Fiat fiat = new Fiat(nomenclaturaFiat);
         int error = gestorCompra.simularCompra(cripto, fiat, cantidad, idUser);
-        if (error != 0) {
-            throw new CompraFallidaException("Error al realizar la compra de " + nomenclaturaCripto + " con " + nomenclaturaFiat);
+        if (error == 1) {
+            throw new FiatInsuficienteException();
         }
-        return error;
+        if (error == 2){
+            throw new StockInsuficienteException();
+        }
+        
     }
 
     public String obtenerRuta(String nomenclatura) {
@@ -45,7 +48,6 @@ public class CompraModel {
     }
 
     public String obtenerEquivalente(String nomenclaturaCrip, String nomenclaturaFiat, double cantidad) {
-        System.out.println("Aqui1");
         double e = monedaDAO.equivalente(nomenclaturaCrip, nomenclaturaFiat, cantidad);
         return String.valueOf(e);
 

@@ -1,9 +1,14 @@
 package wallet.controller;
 
+import wallet.exception.FiatInsuficienteException;
+import wallet.exception.StockInsuficienteException;
 import wallet.model.dto.CompraModel;
 import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.CompraView;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionEvent;
 
 public class CompraController {
@@ -34,6 +39,8 @@ public class CompraController {
 
     public void configurarVista(String nomenclatura) {
         view.setIcon(model.obtenerRuta(nomenclatura));
+        view.setIcon(model.obtenerRuta(nomenclatura));
+        
         view.setStockLabel(model.obtenerStock(nomenclatura) + nomenclatura);
 
     }
@@ -43,7 +50,9 @@ public class CompraController {
         public void actionPerformed(ActionEvent e) {
             String gastar = view.getGastar().getText();
             if (gastar.isEmpty()) {
-                System.out.println("Por favor, ingresa un valor para gastar.");
+                //view.showMessage("Funciono?");
+               // JOptionPane.showMessageDialog(view, "Por favor, ingrese un valor para gastar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+               // System.out.println("Por favor, ingresa un valor para gastar.");
                 return;
             }
             double cantidad = Double.parseDouble(gastar);
@@ -72,20 +81,23 @@ public class CompraController {
         public void actionPerformed(ActionEvent e) {
             String gastar = view.getGastar().getText();
             if (gastar.isEmpty()) {
-                System.out.println("Por favor, ingresa un valor para gastar.");
+                view.mostrarMensajeAdv("Por favor, ingrese un valor para gastar");
                 return;
             }
             double cantidad = Double.parseDouble(gastar);
             String nomenclaturaFiat = view.getComboBox().getSelectedItem().toString();
             String nomenclaturaCripto = view.monedaAComprar();
-            int error = model.generarCompra(nomenclaturaCripto, nomenclaturaFiat, cantidad, idUser);
-            if (error == 1) {
-                System.out.println("error no hay suficiente Activo fiat");
-            } else if (error == 2) {
-                System.out.println("error no hay suficiente Stock ");
+            try{
+                model.generarCompra(nomenclaturaCripto, nomenclaturaFiat, cantidad, idUser);
+                view.mostrarMensajeInfo("Realizo una compra de "+nomenclaturaCripto);
+            }catch (FiatInsuficienteException ex){
+                view.mostrarMensajeError(ex.getMessage());
+            }catch (StockInsuficienteException ex){
+                view.mostrarMensajeError(ex.getMessage());
             }
+            }
+           
         }
-    }
 
     class volverAction implements ActionListener {
         @Override
