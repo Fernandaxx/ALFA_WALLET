@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import org.json.JSONObject; // Necesita agregar la librería org.json para trabajar con JSON
+import org.json.JSONObject; 
 
 public class ConsultarPrecioCripto {
 
@@ -23,7 +23,7 @@ public class ConsultarPrecioCripto {
            if (respuesta.statusCode() == 200) {
                precio = parsear(respuesta.body(), nomenclatura);
            } else {
-               System.out.println("Error: " + respuesta.statusCode());
+               //System.out.println("Error: " + respuesta.statusCode());
            }
        } catch (IOException | InterruptedException e) {
            e.printStackTrace();
@@ -50,7 +50,7 @@ public class ConsultarPrecioCripto {
             precio = json.getJSONObject("dogecoin").getDouble("usd");
             break;
             default:
-                break;
+            break;
         }
         return precio;
     }

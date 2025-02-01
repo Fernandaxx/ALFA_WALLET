@@ -67,14 +67,32 @@ public class CotizacionesController {
             double dogePrecio = consultar.getPrecioCripto("DOGE");
             double usdcPrecio = consultar.getPrecioCripto("USDC");
             double usdtPrecio = consultar.getPrecioCripto("USDT");
+  
+            if (btcPrecio == -1){
+                btcPrecio = model.precioCorrecto(btcPrecio, "BTC");
+            }
+            if (ethPrecio == -1){
+                ethPrecio = model.precioCorrecto(ethPrecio, "ETH");
+            }
+            if (dogePrecio == -1){
+                dogePrecio = model.precioCorrecto(dogePrecio, "DOGE");
+            }
+            if (usdcPrecio == -1){
+                usdcPrecio = model.precioCorrecto(usdcPrecio, "USDC");
+            }
+            if (usdtPrecio == -1){
+                usdtPrecio = model.precioCorrecto(usdtPrecio, "USDT");
+            }
+            actualizarPreciosVista(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
+            model.actualizarPrecios(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
+        }
 
+        private void actualizarPreciosVista(double btcPrecio,double ethPrecio,double dogePrecio,double usdcPrecio,double usdtPrecio){
             view.setBtcLabel(String.valueOf(btcPrecio));
             view.setEthLabel(String.valueOf(ethPrecio));
             view.setDogeLabel(String.valueOf(dogePrecio));
             view.setUsdcLabel(String.valueOf(usdcPrecio));
             view.setUsdtLabel(String.valueOf(usdtPrecio));
-
-            model.actualizarPrecios(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
         }
     }
 

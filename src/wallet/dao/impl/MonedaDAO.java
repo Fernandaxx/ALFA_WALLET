@@ -164,7 +164,6 @@ public class MonedaDAO implements IMonedaDAO {
     }
 
     public void actualizarValorDolar(double valorDolar, String nomenclatura) {
-        if (valorDolar != -1) {
             try {
                 Connection c = DriverManager.getConnection("jdbc:sqlite:ALFA_WALLET.db");
                 String sql = "UPDATE MONEDA SET VALOR_DOLAR = ? WHERE NOMENCLATURA = ?";
@@ -177,7 +176,6 @@ public class MonedaDAO implements IMonedaDAO {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 System.exit(1);
             }
-        }
     }
 
     /**

@@ -1,8 +1,7 @@
 package wallet.model.dto;
-import java.util.TimerTask;
 
 import wallet.ConsultarPrecioCripto;
-import wallet.MyTimerTask;
+
 import wallet.dao.impl.MonedaDAO;
 import wallet.view.vistas.CotizacionesView;
 
@@ -19,6 +18,13 @@ public class CotizacionesModel {
         moneda.actualizarValorDolar(dogePrecio, "DOGE");
         moneda.actualizarValorDolar(usdcPrecio, "USDC");
         moneda.actualizarValorDolar(usdtPrecio, "USDT");
-
     }
+
+    public Double precioCorrecto(double precio, String nomenclatura){
+        if (precio == -1){
+           precio = moneda.equivalenteDolar(nomenclatura);
+        }
+        return precio;
+    }
+    
 }
