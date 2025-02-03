@@ -23,7 +23,15 @@ public class LoginController {
         this.mainFrame = mainFrame;
 
         view.getButton().addActionListener(new LoginAction());
+        view.getCloseButton().addActionListener(new CloseAction());
 
+    }
+
+    class CloseAction implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            System.exit(0);
+        }
     }
 
     class LoginAction implements ActionListener {

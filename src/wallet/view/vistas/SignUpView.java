@@ -27,10 +27,19 @@ public class SignUpView extends JPanel {
     private Button cmd;
     private MigLayout layout;
     private MyCheckbox tyc;
+    private Button close;
 
     public SignUpView() {
         layout = new MigLayout("wrap", "push[center]push", "push[]30[]10[]10[]10[]10[]25[]push");
         setLayout(layout);
+
+        close = new Button();
+        close.setText("    X    ");
+     //   close.setBorder( new LineBorder((new Color(158, 5, 158))));
+        close.setBackground(new Color(158, 5, 158));
+        close.setForeground(new Color(250, 250, 250));
+        add(close,"pos 100%-30 0");
+
         JLabel label = new JLabel("CREAR CUENTA");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(158, 5, 158));
@@ -66,6 +75,10 @@ public class SignUpView extends JPanel {
 
     public Button getButton() {
         return cmd;
+    }
+
+    public Button getCloseButton() {
+        return close;
     }
 
     public String getNames() {

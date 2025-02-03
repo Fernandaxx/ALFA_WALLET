@@ -41,10 +41,17 @@ public class SignUpController {
         this.view = view;
         this.model = model;
         view.getButton().addActionListener(new SignUpAction());
+        view.getCloseButton().addActionListener(new CloseAction());
+    }
+
+    class CloseAction implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            System.exit(0);
+        }
     }
 
     class SignUpAction implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = view.getNames();

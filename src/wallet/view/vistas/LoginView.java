@@ -1,9 +1,14 @@
 package wallet.view.vistas;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+
+import javax.swing.ButtonModel;
+import javax.swing.DefaultButtonModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -19,11 +24,21 @@ public class LoginView extends JPanel {
     private MyTextField txtEmail;
     private MyPasswordField txtPass;
     private Button cmd;
+    private Button close;
     private MigLayout layout;
 
     public LoginView() {
         layout = new MigLayout("wrap", "push[center]push", "push[]25[]10[]10[]25[]push");
         setLayout(layout);
+
+        close = new Button();
+        close.setText("    X    ");
+     //   close.setBorder( new LineBorder((new Color(158, 5, 158))));
+        close.setBackground(new Color(158, 5, 158));
+        close.setForeground(new Color(250, 250, 250));
+        add(close,"pos 100%-30 0");
+        
+
         JLabel label = new JLabel("INICIAR SESION");
         label.setFont(new Font("sansserif", 1, 30));
         label.setForeground(new Color(158, 5, 158));
@@ -54,6 +69,10 @@ public class LoginView extends JPanel {
 
     public Button getButton() {
         return cmd;
+    }
+
+    public Button getCloseButton(){
+        return close;
     }
 
     public void showMessage(String message) {
