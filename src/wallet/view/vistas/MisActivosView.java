@@ -2,6 +2,7 @@
 package wallet.view.vistas;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import wallet.view.components.Button;
 import wallet.view.components.ModeloTabla;
@@ -35,6 +36,16 @@ public class MisActivosView extends javax.swing.JPanel {
 
         public void cargarActivos(ModeloTabla modelo) {
                 jTable1.setModel(modelo);
+        }
+
+        public void mostrarMensajeError(String msg){
+                JOptionPane.showMessageDialog (this,msg, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        public void mostrarMensajeAdv(String msg){
+                JOptionPane.showMessageDialog(this, msg, "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        public void mostrarMensajeInfo(String msg){
+                JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
 
         @SuppressWarnings("unchecked")
@@ -71,6 +82,8 @@ public class MisActivosView extends javax.swing.JPanel {
                 exportarButton.setText("EXPORTAR CSV");
 
                 generarButton.setText("GENERAR ACTIVOS");
+
+                
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);

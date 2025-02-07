@@ -10,7 +10,8 @@ import wallet.model.entity.ActivoFiat;
 
 public class ExportarCSV {
 
-    public void exportarActivos(String nombreArchivo, List<ActivoCripto> activosC, List<ActivoFiat> activosF) {
+    public int exportarActivos(String nombreArchivo, List<ActivoCripto> activosC, List<ActivoFiat> activosF) {
+        int res = 0;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             // Escribir encabezado del archivo
             writer.write("Moneda,Monto");
@@ -25,11 +26,12 @@ public class ExportarCSV {
                 writer.write(a.getFiat().getNombre() + "," + a.getCantidad());
                 writer.newLine();
             }
-
-            System.out.println("Archivo CSV exportado correctamente: " + nombreArchivo);
+            return res;
 
         } catch (IOException e) {
+            res = -1;
             System.err.println("Error al exportar el archivo CSV: " + e.getMessage());
         }
+        return res;
     }
 }

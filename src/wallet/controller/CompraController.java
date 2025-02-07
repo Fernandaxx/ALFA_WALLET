@@ -1,11 +1,17 @@
 package wallet.controller;
 
+import wallet.ConsultarPrecioCripto;
 import wallet.exception.FiatInsuficienteException;
 import wallet.exception.StockInsuficienteException;
 import wallet.model.dto.CompraModel;
+import wallet.model.dto.CotizacionesModel;
 import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.CompraView;
+import wallet.view.vistas.CotizacionesView;
+
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
@@ -28,12 +34,11 @@ public class CompraController {
         String nomCripto = view.monedaAComprar();
         configurarVista(nomCripto);
         view.getComprarButton().addActionListener(new comprarAction());
-        /*
-         * String gastar = view.getGastar().getText();
-         * double cantidad = Double.parseDouble(gastar);
-         * view.getComprarButton().addActionListener(new comprarAction(nomCripto,
-         * view.getComboBox().getSelectedItem().toString(), cantidad));
-         */
+
+        Timer timer; 
+       timer = new Timer();
+       TimerTask task = new MiTimerTask();
+       timer.schedule(task, 100,100);
 
     }
 
@@ -44,15 +49,25 @@ public class CompraController {
         view.setStockLabel(model.obtenerStock(nomenclatura) + nomenclatura);
 
     }
+       public class MiTimerTask extends TimerTask {
+            @Override
+            public void run() {
+                String gastar = view.getGastar().getText();
+                if (!gastar.isEmpty()){
+                    double cantidad = Double.parseDouble(gastar);
+                    String nomenclaturaFidu = view.getComboBox().getSelectedItem().toString();
+                    view.setRecibir(model.obtenerEquivalente(view.monedaAComprar(), nomenclaturaFidu, cantidad));
+                }
+                        
+            }
+        }
+       
 
     class seleccionAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String gastar = view.getGastar().getText();
             if (gastar.isEmpty()) {
-                //view.showMessage("Funciono?");
-               // JOptionPane.showMessageDialog(view, "Por favor, ingrese un valor para gastar", "Advertencia", JOptionPane.WARNING_MESSAGE);
-               // System.out.println("Por favor, ingresa un valor para gastar.");
                 return;
             }
             double cantidad = Double.parseDouble(gastar);
@@ -90,13 +105,14 @@ public class CompraController {
             try{
                 model.generarCompra(nomenclaturaCripto, nomenclaturaFiat, cantidad, idUser);
                 view.mostrarMensajeInfo("Realizo una compra de "+nomenclaturaCripto);
+                view.setStockLabel(model.obtenerStock(nomenclaturaCripto) + nomenclaturaCripto);
             }catch (FiatInsuficienteException ex){
                 view.mostrarMensajeError(ex.getMessage());
             }catch (StockInsuficienteException ex){
                 view.mostrarMensajeError(ex.getMessage());
             }
             }
-           
+
         }
 
     class volverAction implements ActionListener {

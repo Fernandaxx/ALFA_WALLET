@@ -51,8 +51,8 @@ public class Main {
         private static void cargarMonedas() {
                 MonedaDAO dao = new MonedaDAO();
                 Criptomoneda cripto1 = new Criptomoneda('C', "Bitcoin", "BTC", 8888, 0.5, 100, "/resources/BTC.png");
-                Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 1000, "/resources/ETH.png");
-                Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 1000, "/resources/USDC.png");
+                Criptomoneda cripto2 = new Criptomoneda('C', "Ethereum", "ETH", 8888, 0.6, 10, "/resources/ETH.png");
+                Criptomoneda cripto3 = new Criptomoneda('C', "Usdc", "USDC", 8888, 0.1, 10, "/resources/USDC.png");
                 Criptomoneda cripto4 = new Criptomoneda('C', "Tether", "USDT", 8888, 1.2, 1, "/resources/USDT.png");
                 Criptomoneda cripto5 = new Criptomoneda('C', "Dogecoin", "DOGE", 8888, 0.7, 10, "/resources/DOGE.png");
 

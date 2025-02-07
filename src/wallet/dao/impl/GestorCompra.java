@@ -73,7 +73,7 @@ public class GestorCompra {
             // verifica si se tiene suficiente activoFiat si no devuelve el error 1
             if (!activoFiatDAO.verificarCantidad(c, idUser, monedaDAO.obtenerIdMoneda(fiat.getNomenclatura()), cantidad))
             {
-                return 1;
+                error = 1;
             }
             double equivalenteDolarCripto = monedaDAO.equivalenteDolar(cripto.getNomenclatura());
             double equivalenteDolarFiat = monedaDAO.equivalenteDolar(fiat.getNomenclatura());
@@ -81,12 +81,14 @@ public class GestorCompra {
             // verifica si hay suficiente stock en la billetera si no devuelve el error 2
             double equivalente = (cantidad * equivalenteDolarFiat / equivalenteDolarCripto);
             if (!monedaDAO.VerificarStock(c, cripto.getNomenclatura(), equivalente)) {
-                return 2;
+                error = 2;
             }
-            String resumen = "Compra de "+equivalente+" "+cripto.getNomenclatura()+" con "+cantidad+" "+fiat.getNomenclatura();
-            compra = new Compra(LocalDateTime.now(), fiat, cripto, equivalente,cantidad,resumen);
-            
-            generarCompra(c,compra, idUser,cantidad); 
+            if (error == 0){
+                String resumen = "Compra de "+equivalente+" "+cripto.getNomenclatura()+" con "+cantidad+" "+fiat.getNomenclatura();
+                compra = new Compra(LocalDateTime.now(), fiat, cripto, equivalente,cantidad,resumen);
+                generarCompra(c,compra, idUser,cantidad);
+            }
+             
             c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());

@@ -9,7 +9,6 @@ import wallet.ExportarCSV;
 import wallet.dao.impl.ActivoCriptoDAO;
 import wallet.dao.impl.ActivoFiatDAO;
 import wallet.dao.impl.MonedaDAO;
-import wallet.exception.ExportacionException;
 import wallet.model.entity.Activo;
 import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
@@ -92,19 +91,17 @@ public class MisActivosModel {
         activoFiatDAO.generarActivoFiat(new ActivoFiat(100000, fiat), idUsuario, idMonedas[2]);
     }
 
-    public void exportar(int idUsuario) {
+    public int exportar(int idUsuario) {
+        int res = -1;
         List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
         List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
 
         if (activosCripto.isEmpty() && activosFiat.isEmpty()) {
-            throw new ExportacionException("No hay activos para exportar para el usuario con ID: " + idUsuario);
+            return 1;
         }
-         try {
-            ExportarCSV exportar = new ExportarCSV();
-            exportar.exportarActivos("MisActivos.csv", activosCripto, activosFiat);
-        } catch (Exception e) {
-            // Lanza la excepción personalizada si ocurre un error en el proceso de exportación
-            throw new ExportacionException("Error al exportar los activos del usuario con ID: " + idUsuario + ". Detalles: " + e.getMessage());
-        }
+        ExportarCSV exportar = new ExportarCSV();
+        res = exportar.exportarActivos("MisActivos.csv", activosCripto, activosFiat);
+
+        return res;
     }
 }

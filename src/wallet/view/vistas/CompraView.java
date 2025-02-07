@@ -111,7 +111,7 @@ public class CompraView extends javax.swing.JPanel {
                 jComboBox1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
                 jComboBox1.setForeground(new java.awt.Color(130, 130, 130));
                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(
-                                new String[] { "---", "ARS", "USD" }));
+                                new String[] { "ARS", "USD" }));
                 jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 jComboBox1.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {

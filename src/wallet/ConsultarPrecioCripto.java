@@ -23,8 +23,8 @@ public class ConsultarPrecioCripto {
            if (respuesta.statusCode() == 200) {
                precio = parsear(respuesta.body(), nomenclatura);
            } else {
-               //System.out.println("Error: " + respuesta.statusCode());
-           }
+            //System.err.println("Error " + respuesta.statusCode());  la API no puede procesar todas las solicitudes y lanza error
+        }
        } catch (IOException | InterruptedException e) {
            e.printStackTrace();
        }

@@ -3,8 +3,6 @@ package wallet.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import wallet.exception.ExportacionException;
 import wallet.model.dto.MisActivosModel;
 import wallet.view.components.ModeloTabla;
 import wallet.view.vistas.MisActivosView;
@@ -52,9 +50,15 @@ public class MisActivosController {
 
     class exportarCSVAction implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {     
-            model.exportar(idUsuario);
-        
+        public void actionPerformed(ActionEvent e) {  
+            int resExp = model.exportar(idUsuario);
+            if (resExp == 0){
+                view.mostrarMensajeInfo("Archivo CSV exportado correctamente ") ;
+            }
+            else if ( resExp == 1){
+                view.mostrarMensajeAdv("No hay activos para exportar");
+            }
+
         }
     }
 }
