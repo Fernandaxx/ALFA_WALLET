@@ -4,7 +4,6 @@ import wallet.config.DataBaseConfig;
 import wallet.dao.impl.MonedaDAO;
 import wallet.model.entity.Criptomoneda;
 import wallet.model.entity.Fiat;
-import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.InicialFrame;
 
 public class Main {

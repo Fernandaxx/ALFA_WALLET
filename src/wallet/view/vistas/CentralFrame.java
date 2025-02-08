@@ -6,13 +6,11 @@ import wallet.controller.CompraController;
 import wallet.controller.CotizacionesController;
 import wallet.controller.MisActivosController;
 import wallet.controller.TransaccionesController;
-import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.dto.CompraModel;
 import wallet.model.dto.CotizacionesModel;
 import wallet.model.dto.MisActivosModel;
 import wallet.model.dto.TransaccionesModel;
 import wallet.view.components.Header;
-import wallet.view.components.InicioView;
 import wallet.view.components.MainForm;
 import wallet.view.components.MenuView;
 
@@ -37,22 +35,10 @@ public class CentralFrame extends javax.swing.JFrame {
         header = new Header(idUser);
         main = new MainForm();
 
-        menu.addEvent(new EventMenuSelected() {
-            @Override
-            public void menuSelected(int menuIndex) {
-                System.out.println("Menu Index : " + menuIndex);
-                if (menuIndex == 1) {
-                    main.showForm(new CotizacionesView());
-                }
-            }
-
-        });
         menu.initMenuItem();
-        bg.add(menu, "w 230!, spany 2"); // Span Y 2cell
+        bg.add(menu, "w 230!, h 1000! , spany 2"); // Span Y 2cell
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
-        // header boton no va
-        // empieza con esta vista
         MisActivosView misActivosView = new MisActivosView();
         main.showForm(misActivosView);
         MisActivosModel misActivosModel = new MisActivosModel();
@@ -84,15 +70,9 @@ public class CentralFrame extends javax.swing.JFrame {
                 TransaccionesController transaccionesController = new TransaccionesController(transaccionesView,
                         transaccionesModel, this);
                 break;
-            case "MIS DATOS":
-                main.showForm(new MisDatosView());
-                break;
             case "LOGOUT":
                 this.dispose();
                 new InicialFrame().setVisible(true);
-                break;
-            case "DEPOSITAR":
-                main.showForm(new DepositarView());
                 break;
             default:
                 break;

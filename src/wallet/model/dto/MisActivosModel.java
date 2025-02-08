@@ -1,15 +1,13 @@
 package wallet.model.dto;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import wallet.ExportarCSV;
 import wallet.dao.impl.ActivoCriptoDAO;
 import wallet.dao.impl.ActivoFiatDAO;
 import wallet.dao.impl.MonedaDAO;
-import wallet.model.entity.Activo;
+import wallet.model.ExportarCSV;
 import wallet.model.entity.ActivoCripto;
 import wallet.model.entity.ActivoFiat;
 import wallet.model.entity.Criptomoneda;
@@ -48,7 +46,6 @@ public class MisActivosModel {
     public ModeloTabla obtenerDatos(int idUsuario) {
         List<ActivoCripto> activosCripto = activoCriptoDAO.listarActivosCripto(idUsuario);
         List<ActivoFiat> activosFiat = activoFiatDAO.listarActivosFiat(idUsuario);
-        System.out.println(activosCripto);
 
         if (!(activosCripto.isEmpty() && activosFiat.isEmpty())) {
             int totalSize = activosCripto.size() + activosFiat.size();

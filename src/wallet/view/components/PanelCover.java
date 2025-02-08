@@ -23,6 +23,7 @@ public class PanelCover extends javax.swing.JPanel {
     private JLabel description;
     private JLabel description1;
     private ButtonOutLine button;
+    private Button close;
 
     private boolean isLogin;
 
@@ -31,6 +32,18 @@ public class PanelCover extends javax.swing.JPanel {
         setOpaque(false);
         layout = new MigLayout("wrap, fill", "[center]", "push[]25[]10[]25[]push");
         setLayout(layout);
+        close = new Button();
+
+        close.setText("   X   ");
+        close.setBackground(new Color(204, 192, 204));
+        close.setForeground(new Color(158, 5, 158));
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        add(close, "pos 100%-35 6");
         init();
 
     }
@@ -40,7 +53,7 @@ public class PanelCover extends javax.swing.JPanel {
         title.setFont(new Font("sansserif", 1, 20));
         title.setForeground(new Color(245, 245, 245));
         add(title);
-
+        close.setVisible(false);
         description = new JLabel("Gestiona tus criptomonedas de forma segura y rápida.");
         description.setForeground(new Color(245, 245, 245));
         add(description);
@@ -128,8 +141,10 @@ public class PanelCover extends javax.swing.JPanel {
                 description.setText("Accede a tu cuenta para gestionar");
                 description1.setText("tus criptomonedas de forma segura");
                 button.setText("INGRESAR");
+                close.setVisible(true);
 
             } else {
+                close.setVisible(false);
                 title.setText("¡Únete a ALFA WALLET!");
                 description.setText("Crea tu cuenta para comenzar a");
                 description1.setText("disfrutar de una nueva experiencia financiera");

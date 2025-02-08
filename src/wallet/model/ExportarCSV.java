@@ -1,4 +1,4 @@
-package wallet;
+package wallet.model;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

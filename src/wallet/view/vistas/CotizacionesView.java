@@ -1,7 +1,6 @@
 package wallet.view.vistas;
 
 import wallet.view.components.Button;
-import wallet.ConsultarPrecioCripto;
 
 public class CotizacionesView extends javax.swing.JPanel {
 

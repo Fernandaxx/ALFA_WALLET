@@ -13,7 +13,7 @@ public class MyCheckbox extends JCheckBox {
         setFont(new Font("sansserif", 1, 10));
         ImageIcon icon = new ImageIcon("src/resources/N-Check.png");
         setIcon(icon); // Ícono cuando no está seleccionado
-        setSelectedIcon(new ImageIcon("src/resources/Check.png")); // Ícono cuando está seleccionado
+        setSelectedIcon(new ImageIcon("src/resources/Check.png"));
 
     }
 

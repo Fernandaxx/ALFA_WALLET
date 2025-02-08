@@ -9,6 +9,13 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "wallet.Main",
+            "projectName": "ALFA_WALLET_final_b23a99bd"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "wallet.Main",
             "projectName": "ALFA_WALLET_8f356a37"
         },
         {

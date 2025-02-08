@@ -1,14 +1,12 @@
 package wallet.view.components;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.ImageIcon;
 import net.miginfocom.swing.MigLayout;
-import wallet.dao.interfaces.EventMenu;
 import wallet.dao.interfaces.EventMenuSelected;
 import wallet.model.entity.Menu;
 import wallet.view.vistas.CentralFrame;
@@ -44,7 +42,6 @@ public class MenuView extends javax.swing.JPanel {
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "MIS ACTIVOS"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/3.png")), "COTIZACIONES"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/4.png")), "MIS TRANSACCIONES"));
-        addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/5.png")), "MIS DATOS"));
         addMenu(new Menu(new ImageIcon(getClass().getResource("/com/raven/icon/6.png")), "LOGOUT"));
     }
 

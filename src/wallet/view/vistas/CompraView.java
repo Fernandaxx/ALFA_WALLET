@@ -4,6 +4,7 @@ package wallet.view.vistas;
 import wallet.view.components.Button;
 import wallet.view.components.MyTextField;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import net.miginfocom.swing.MigLayout;
@@ -62,18 +63,27 @@ public class CompraView extends javax.swing.JPanel {
                 this.stockLabel.setText(stock);
         }
 
-        public void mostrarMensajeError(String msg){
-                JOptionPane.showMessageDialog (this,msg, "Error", JOptionPane.ERROR_MESSAGE);
+        public void mostrarMensajeError(String msg) {
+                JDialog dialog = new JOptionPane(msg, JOptionPane.ERROR_MESSAGE).createDialog(this, "Error");
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
         }
-        public void mostrarMensajeAdv(String msg){
-                JOptionPane.showMessageDialog(this, msg, "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+        public void mostrarMensajeAdv(String msg) {
+                JDialog dialog = new JOptionPane(msg, JOptionPane.WARNING_MESSAGE).createDialog(this, "Advertencia");
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
         }
-        public void mostrarMensajeInfo(String msg){
-                JOptionPane.showMessageDialog(this, msg, "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
+        public void mostrarMensajeInfo(String msg) {
+                JDialog dialog = new JOptionPane(msg, JOptionPane.INFORMATION_MESSAGE).createDialog(this,
+                                "Informacion");
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
         }
-           
+
         @SuppressWarnings("unchecked")
-        
+
         private void initComponents() {
 
                 jPanel1 = new javax.swing.JPanel();
@@ -94,18 +104,7 @@ public class CompraView extends javax.swing.JPanel {
                                 new java.awt.Color(51, 51, 51), null, null));
 
                 gastar.setHint("GASTAR");
-                gastar.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                gastarActionPerformed(evt);
-                        }
-                });
-
                 recibir.setHint("RECIBIR");
-                recibir.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                recibirActionPerformed(evt);
-                        }
-                });
 
                 jComboBox1.setEditable(true);
                 jComboBox1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -113,11 +112,6 @@ public class CompraView extends javax.swing.JPanel {
                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(
                                 new String[] { "ARS", "USD" }));
                 jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-                jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jComboBox1ActionPerformed(evt);
-                        }
-                });
 
                 jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
                 jLabel1.setText("Stock disponible:");
@@ -127,19 +121,9 @@ public class CompraView extends javax.swing.JPanel {
 
                 volver.setBackground(new java.awt.Color(150, 150, 150));
                 volver.setText("Cancelar");
-                volver.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                volverActionPerformed(evt);
-                        }
-                });
 
                 comprar.setBackground(new java.awt.Color(156, 156, 156));
                 comprar.setText("Comprar");
-                comprar.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                comprarActionPerformed(evt);
-                        }
-                });
 
                 Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/BTC.png"))); // NOI18N
 
@@ -289,25 +273,5 @@ public class CompraView extends javax.swing.JPanel {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addContainerGap(77, Short.MAX_VALUE)));
         }// </editor-fold>
-
-        private void gastarActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
-
-        private void recibirActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
-
-        private void volverActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
-
-        private void comprarActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
-
-        private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
 
 }

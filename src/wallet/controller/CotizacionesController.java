@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-import wallet.ConsultarPrecioCripto;
+import wallet.model.ConsultarPrecioCripto;
 import wallet.model.dto.CotizacionesModel;
 import wallet.view.vistas.CentralFrame;
 import wallet.view.vistas.CotizacionesView;
@@ -32,19 +32,24 @@ public class CotizacionesController {
 
     private void cargarPreciosIniciales() {
         ConsultarPrecioCripto consultar = new ConsultarPrecioCripto();
-    
+
         double btcPrecio = consultar.getPrecioCripto("BTC");
         double ethPrecio = consultar.getPrecioCripto("ETH");
         double dogePrecio = consultar.getPrecioCripto("DOGE");
         double usdcPrecio = consultar.getPrecioCripto("USDC");
         double usdtPrecio = consultar.getPrecioCripto("USDT");
-    
-        if (btcPrecio == -1) btcPrecio = model.precioCorrecto(btcPrecio, "BTC");
-        if (ethPrecio == -1) ethPrecio = model.precioCorrecto(ethPrecio, "ETH");
-        if (dogePrecio == -1) dogePrecio = model.precioCorrecto(dogePrecio, "DOGE");
-        if (usdcPrecio == -1) usdcPrecio = model.precioCorrecto(usdcPrecio, "USDC");
-        if (usdtPrecio == -1) usdtPrecio = model.precioCorrecto(usdtPrecio, "USDT");
-    
+
+        if (btcPrecio == -1)
+            btcPrecio = model.precioCorrecto(btcPrecio, "BTC");
+        if (ethPrecio == -1)
+            ethPrecio = model.precioCorrecto(ethPrecio, "ETH");
+        if (dogePrecio == -1)
+            dogePrecio = model.precioCorrecto(dogePrecio, "DOGE");
+        if (usdcPrecio == -1)
+            usdcPrecio = model.precioCorrecto(usdcPrecio, "USDC");
+        if (usdtPrecio == -1)
+            usdtPrecio = model.precioCorrecto(usdtPrecio, "USDT");
+
         actualizarPreciosVista(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
         model.actualizarPrecios(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
     }
@@ -58,8 +63,6 @@ public class CotizacionesController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Comprar " + nomenclatura);
-            // agregar que el modelo verifique si la nomenclatura ya esta en la BD
             centralFrame.vistaCompra(nomenclatura);
 
         }
@@ -88,20 +91,20 @@ public class CotizacionesController {
             double dogePrecio = consultar.getPrecioCripto("DOGE");
             double usdcPrecio = consultar.getPrecioCripto("USDC");
             double usdtPrecio = consultar.getPrecioCripto("USDT");
-  
-            if (btcPrecio == -1){
+
+            if (btcPrecio == -1) {
                 btcPrecio = model.precioCorrecto(btcPrecio, "BTC");
             }
-            if (ethPrecio == -1){
+            if (ethPrecio == -1) {
                 ethPrecio = model.precioCorrecto(ethPrecio, "ETH");
             }
-            if (dogePrecio == -1){
+            if (dogePrecio == -1) {
                 dogePrecio = model.precioCorrecto(dogePrecio, "DOGE");
             }
-            if (usdcPrecio == -1){
+            if (usdcPrecio == -1) {
                 usdcPrecio = model.precioCorrecto(usdcPrecio, "USDC");
             }
-            if (usdtPrecio == -1){
+            if (usdtPrecio == -1) {
                 usdtPrecio = model.precioCorrecto(usdtPrecio, "USDT");
             }
             actualizarPreciosVista(btcPrecio, ethPrecio, dogePrecio, usdcPrecio, usdtPrecio);
@@ -109,7 +112,9 @@ public class CotizacionesController {
         }
 
     }
-    private void actualizarPreciosVista(double btcPrecio,double ethPrecio,double dogePrecio,double usdcPrecio,double usdtPrecio){
+
+    private void actualizarPreciosVista(double btcPrecio, double ethPrecio, double dogePrecio, double usdcPrecio,
+            double usdtPrecio) {
         view.setBtcLabel(String.valueOf(btcPrecio));
         view.setEthLabel(String.valueOf(ethPrecio));
         view.setDogeLabel(String.valueOf(dogePrecio));

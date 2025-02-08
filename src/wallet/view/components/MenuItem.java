@@ -50,7 +50,6 @@ public class MenuItem extends javax.swing.JPanel {
         firstItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println(menu.getMenuName());
                 centralFrame.cambiarVista(menu.getMenuName());
             }
         });

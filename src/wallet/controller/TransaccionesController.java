@@ -1,6 +1,5 @@
 package wallet.controller;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,19 +11,16 @@ public class TransaccionesController {
     private MisTransaccionesView view;
     private TransaccionesModel model;
     private CentralFrame centralFrame;
-    
 
-    public TransaccionesController(MisTransaccionesView view, TransaccionesModel model, CentralFrame centralFrame ){
+    public TransaccionesController(MisTransaccionesView view, TransaccionesModel model, CentralFrame centralFrame) {
         this.view = view;
         this.model = model;
         this.centralFrame = centralFrame;
 
-
-        view.getBackButton().addActionListener(new BackAction());
     }
 
     class BackAction implements ActionListener {
-        public BackAction(){
+        public BackAction() {
 
         }
 
@@ -33,5 +29,5 @@ public class TransaccionesController {
             view.setVisible(false);
             centralFrame.cambiarVista("MIS ACTIVOS");
         }
-    } 
+    }
 }
